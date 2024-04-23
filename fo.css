@@ -1,0 +1,111 @@
+* {
+    color: white;
+}
+
+.layout {
+    border: 9px solid pink;
+    width: 90%;
+    height: 600px;
+  
+    display: grid;
+    grid:
+      "name1 name1 name1" 1fr
+      "name2 name3 name3" 1fr
+      "name2 name3 name3" 1fr
+      / 1fr 1fr 1fr;
+    gap: 0px;
+  }
+  
+  .name1 { grid-area: name1; }
+  .name2 { grid-area: name2; }
+  .name3 { grid-area: name3; }
+
+  body {
+
+    border: 5px solid lime;
+    height: 700px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: #111927;
+    background-image: 
+        radial-gradient(at 47% 33%, hsl(241.13, 77%, 40%) 0, transparent 59%), 
+        radial-gradient(at 82% 65%, hsl(218.00, 39%, 11%) 0, transparent 55%);
+}
+
+.name1 {
+    border: 5px solid blue;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+}
+
+.name2 {
+    border: 5px solid rgb(133, 133, 208);
+    height: 510px;
+    width: 210px;
+}
+
+.name3 {
+    width: 1130px;
+    height: 510px;
+    border: 5px solid rgb(248, 248, 252);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+
+nav ul{
+    list-style-type: none; /* Remove os marcadores padrão da lista */
+    padding: 0; /* Remove o espaçamento interno padrão da lista */
+    margin: 0; /* Remove o espaçamento externo padrão da lista */
+}
+
+.name1 nav ul li {
+    display: inline-block; /* Define os itens da lista para serem exibidos lado a lado */
+    margin: 150px;
+}
+
+form {
+    border: 2px solid yellow;
+}
+
+.subdiv1, .subdiv2, .subdiv3, .subdiv4, .subdiv5, .subdiv6 {
+    height: 80px;
+    width: 1120px;
+    border: 2px solid red;
+}
+
+.subdiv1, .subdiv2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.subdiv3, .subdiv4, .subdiv5, .subdiv6 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    gap: 10px;
+}
+
+input {
+    width: 150px;
+}
+
+select {
+    width: 150px;
+}
+
+textarea {
+    width: 300px;
+    height: 50px;
+}
