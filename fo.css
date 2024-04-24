@@ -36,48 +36,6 @@
         radial-gradient(at 82% 65%, hsl(218.24, 73%, 25%) 0, transparent 55%);
 }
 
-.name1 {
-    height: 60px;
-    width: 99%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-direction: row;
-    backdrop-filter: blur(0px) saturate(44%);
-    -webkit-backdrop-filter: blur(0px) saturate(44%);
-    background-color: rgb(0, 0, 0);
-    border-radius: 12px;
-    border: 1px solid rgba(0, 4, 255, 0.97);
-    color: blue;
-    font-size: 20px;
-    font-family: 'Roboto Mono', monospace;
-    font-weight: bold;
-    margin-top: 15px;
-    margin-left: 5px;
-}
-
-.name1 h2 {
-    margin: 100px;
-}
-
-.name1:hover h2:hover {
-    margin: 120px;
-    color: rgb(76, 237, 221);
-    background-color: #111927;
-    border-radius: 20px;
-}
-
-
-
-.name1 h2 a {
-    text-decoration: none; 
-    color: inherit;
-}
-
-a:hover {
-    color:rgba(255, 255, 255, 0.759)
-}
-
 .name2 {
     height: 600px;
     width: 210px;
@@ -255,10 +213,11 @@ textarea {
 #listar_fo {
     margin-top: 20px;
     width: 160px;
+    height: 35px;
 }
 
 #bt_tipo, #bt_marca, #bt_modelo, #bt_catalogo {
-    margin-top: 8px;
+    margin-top: 10px;
 }
 
 button {
@@ -322,11 +281,17 @@ form {
     font-weight: bold;
 }
 
-#form_subdiv1, #form_subdiv2 {
+#form_subdiv1, #form_subdiv2, #form_subdiv5 {
     background-color: black;
     padding: 5px;
     border: 1px solid blue;
-    border-radius: 0px;
+    border-radius: 5px;
+    width: 1000px;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
 }
 
 #input_save {
@@ -360,3 +325,8 @@ label {
 h2 {
     color: rgb(151, 179, 236);
 }
+
+#bt_cliente, #bt_fo {
+    margin-top: 10px;
+}
+
