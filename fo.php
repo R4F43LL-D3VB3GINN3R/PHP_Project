@@ -9,88 +9,115 @@
 </head>
 <body>
 <section class="layout">
-<div class="name1">
-    <nav>
-        <ul> 
-            <li>Dashboard</li> 
-            <li>Clientes</li> 
-            <li>Folhas de Obras</li> 
-        </ul>
-    </nav>
+
+<div class="name2">
+    <form action="" id="form_name2">
+        <h2>Procurar</h2>
+        <input type="text" name="procura_fo" value="Nº FO">
+        <input type="submit" value="Procurar" id="submit">
+        <button id="listar_fo">Listar</button>
+        <h2>Menu</h2>
+        <button id="bt_tipo">Dashboard</button>
+        <button id="bt_marca">Cliente</button>
+        <button id="bt_modelo">Folha de Obra</button>
+        <h2>Equipamento</h2>
+        <button id="bt_tipo">Tipo</button>
+        <button id="bt_marca">Marca</button>
+        <button id="bt_modelo">Modelo</button>
+        <button id="bt_catalogo">Catálogo</button>
+    </form>
 </div>
 
-  <div class="name2">
-  </div>
-    <form action=""></form>
-        <div class="name3">
+<div class="name3">
+    <div class="subdiv1">
+        <form action="fo2.php" method="post" id="form_subdiv1">
+            <label for="txt_cliente">Cliente: </label>
+            <input type="text" name="txt_cliente">
+            <label for="dd_tecnico">Atribuir: </label>
+            <select name="dd_tecnico" id="dd_tecnico">
+                <option value="tecnico">Tecnico</option>
+            </select>
+            <label for="txt_requerimento">Requerimento Nº:</label>
+            <input type="text" name="txt_requerimento">
+            <label for="txt_ticket">Ticket Nº:</label>
+            <input type="text" name="txt_ticket">
+        </form>
+    </div>   
+       
+    <div class="subdiv2">
+        <form action="fo2.php" method="post" id="form_subdiv2">
+            <label for="dd_equipamento">Tipo Equip:</label>
+            <select name="dd_equipamento" id="dd_equipamento">
+                <option value="equipamento">Equipamento</option>
+            </select>
+            <label for="dd_marca">Marca Equip:</label>
+            <select name="dd_marca" id="dd_marca">
+                <option value="marca">Marca</option>
+            </select>
+            <label for="dd_modelo">Mod Equip:</label>
+            <select name="dd_modelo" id="dd_modelo">
+                <option value="modelo">Modelo</option>
+            </select>
+            <label for="txt_numero_serie">Nº Série:</label>
+            <input type="text" name="txt_numero_serie">
+            <button id="bt_gen">Gerar</button>
+        </form>
+    </div>
+          
+    <div class="subdiv3">
+        <form action="fo2.php" method="post" id="form_subdiv3">
+            <label for="area_avaria_servicos" id="label_avaria">Avaria/Serviços:</label>
+            <textarea name="area_avaria_servicos" id="area_avaria_servicos" cols="30" rows="5"></textarea>
+            <label for="area_acessorios" id="label_acessorios">Acessórios Usados:</label>
+            <textarea name="area_acessorios" id="area_acessorios" cols="30" rows="5"></textarea>
+        </form>
+    </div>
+         
+    <div class="subdiv4">
+        <form action="fo2.php" method="post" id="form_subdiv4">
+            <label for="area_observacoes" id="label_observacoes">Observações:</label>
+            <textarea name="area_observacoes" id="area_observacoes" cols="30" rows="5"></textarea>
+            <label for="area_estado" id="label_estado">Avaliação Equip:</label>
+            <textarea name="area_estado" id="area_estado" cols="30" rows="5"></textarea>
+        </form>
+    </div>
+            
+    <div class="subdiv5">
+        <form action="fo2.php" method="post" id="form_subdiv5">
+            <label for="dd_orcamento">Orçamento:</label>
+            <select name="dd_orcamento" id="dd_orcamento">
+                <option value="orcamento">Orcamento</option>
+            </select>    
+        </form>
+    </div> 
 
-            <form action="">
-                <div class="subdiv1">
-                    <label for="txt_cliente">Cliente: </label>
-                    <input type="text" name="txt_cliente">
-                    <label for="dd_tecnico">Atribuir: </label>
-                    <select name="dd_tecnico" id="dd_tecnico">
-                        <option value="tecnico">Tecnico</option>
-                    </select>
-                    <label for="txt_requerimento">Requerimento Nº:</label>
-                    <input type="text" name="txt_requerimento">
-                    <label for="txt_ticket">Ticket Nº:</label>
-                    <input type="text" name="txt_ticket">
-                </div>
-            </form>
+    <div class="subdiv5">
+        <button id="enviarTodos">Salvar</button>       
+    </div> 
 
-            <form action="">
-                <div class="subdiv2">
-                    <label for="dd_equipamento">Tipo Equip:</label>
-                    <select name="dd_equipamento" id="dd_equipamento">
-                        <option value="equipamento">Equipamento</option>
-                    </select>
-                    <label for="dd_marca">Marca Equip:</label>
-                    <select name="dd_marca" id="dd_marca">
-                        <option value="marca">Marca</option>
-                    </select>
-                    <label for="dd_modelo">Mod Equip:</label>
-                    <select name="dd_modelo" id="dd_modelo">
-                        <option value="modelo">Modelo</option>
-                    </select>
-                    <label for="txt_numero_serie">Nº Série:</label>
-                    <input type="text" name="txt_numero_serie">
-                    <button>Gerar</button>
-                </div>
-            </form>
-
-            <form action="">
-                <div class="subdiv3">
-                    <label for="area_avaria_servicos">Avaria/Serviços:</label>
-                    <textarea name="area_avaria_servicos" id="area_avaria_servicos" cols="30" rows="5"></textarea>
-                    <label for="area_acessorios">Acessórios:</label>
-                    <textarea name="area_acessorios" id="area_acessorios" cols="30" rows="5"></textarea>
-                </div>
-            </form>
-
-            <form action="">
-                <div class="subdiv4">
-                    <label for="area_observacoes">Observações:</label>
-                    <textarea name="area_observacoes" id="area_observacoes" cols="30" rows="5"></textarea>
-                    <label for="area_estado">Estado/Avaliação Equip:</label>
-                    <textarea name="area_estado" id="area_estado" cols="30" rows="5"></textarea>
-                </div>
-            </form>
-
-            <form action="">
-                <div class="subdiv5">
-                   
-                </div>
-            </form>
-
-            <form action="">
-                <div class="subdiv6">
-                   
-                </div>
-            </form>
-
-        </div>
-    </form>
+</div>
 </section>
+
+<script>
+    // Adiciona um evento de clique para o botão "Enviar Todos"
+    document.getElementById("enviarTodos").addEventListener("click", function() {
+        var forms = document.querySelectorAll("form"); // Seleciona todos os formulários na página
+        var formData = new FormData(); // Cria um objeto FormData para armazenar os dados
+
+        // Loop através de todos os formulários
+        forms.forEach(function(form) {
+            var inputs = form.querySelectorAll("input, select, textarea"); // Seleciona todos os campos de entrada no formulário
+
+            // Loop através de todos os campos de entrada no formulário atual
+            inputs.forEach(function(input) {
+                formData.append(input.name, input.value); // Adiciona o nome e o valor de cada campo de entrada ao objeto FormData
+            });
+        });
+
+        // Redireciona para a página fo2.php com os dados passados via URL
+        window.location.href = "fo2.php?" + new URLSearchParams(formData).toString();
+    });
+</script>
+
 </body>
 </html>
