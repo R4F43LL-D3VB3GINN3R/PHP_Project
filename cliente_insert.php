@@ -101,10 +101,7 @@
                 
             } else {
 
-                echo "<div>
-                        <h2>[Erro 401] na Transmissão de Informações</h2>
-                        <button type='button' onclick='redirect()'>Ok</button>
-                    </div>";
+                throw new Exception("[Erro 400] na Transmissão de Informações Web ");
 
             }
 
