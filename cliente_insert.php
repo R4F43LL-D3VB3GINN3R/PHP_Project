@@ -31,21 +31,21 @@
                 $obsCli = $_GET['area_observacoes'];
 
                 $sql = "SELECT ID FROM TAB_LOCALIDADE WHERE NOME = '$localCli'";
-                    $result = $conn->query($sql);
+                $result = $conn->query($sql);
 
-                    if ($result->num_rows > 0) {
+                if ($result->num_rows > 0) {
 
-                        while($row = $result->fetch_assoc()) {
+                    while($row = $result->fetch_assoc()) {
 
-                            $localCli = $row['ID'];
-
-                        }
-
-                    } else {
-
-                        throw new Exception("[Erro 401] ao Buscar Informações de Localidade");
+                        $localCli = $row['ID'];
 
                     }
+
+                } else {
+
+                    throw new Exception("[Erro 401] ao Buscar Informações de Localidade");
+
+                }
 
                 if ($contratoCli == "Sim") {
 
