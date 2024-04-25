@@ -126,5 +126,6 @@
         window.location.href = 'fo.php';
     }
 </script>
+
 </body>
 </html>
