@@ -13,8 +13,8 @@
 <div class="name2">
     <form action="" id="form_name2">
         <h2>Procurar</h2>
-        <input type="text" name="procura_fo" value="Nº Cliente">
-        <input type="submit" value="Procurar" id="submit">
+        <input type="text" name="procuraCli" id="procuraCli">
+        <input type="submit" value="Procurar Nº" id="submit">
         <button id="listar_fo">Listar</button>
         <h2>Menu</h2>
         <button id="bt_dashboard">Dashboard</button>
@@ -51,33 +51,41 @@
             
             include 'conexao.php';
 
-            $sql = "SELECT NOME FROM TAB_LOCALIDADE";
-            $result = $conn->query($sql);
+            try {
 
-            if ($result->num_rows > 0) {
+                $sql = "SELECT NOME FROM TAB_LOCALIDADE";
+                $result = $conn->query($sql);
 
-                $localidades = array();
+                if ($result->num_rows > 0) {
 
-                while($row = $result->fetch_assoc()) {
+                    $localidades = array();
 
-                    $localidades[$row['NOME']] = $row;
+                    while($row = $result->fetch_assoc()) {
+
+                        $localidades[$row['NOME']] = $row;
+
+                    }
+
+                    echo '<select name="dd_localidadeCliente" id="dd_tecnico">';
+
+                    foreach ($localidades as $localidade => $row) {
+
+                        echo '<option value="' . $localidade . '">' . $localidade . '</option>';
+
+                    }
+
+                    echo '</select>';
+
+                } else {
+
+                    throw new Exception("[Erro 401] ao Buscar Informações de Localidade");
 
                 }
 
-                echo '<select name="dd_localidadeCliente" id="dd_tecnico">';
+            } catch (Exception $e) {
 
-                foreach ($localidades as $localidade => $row) {
-
-                    echo '<option value="' . $localidade . '">' . $localidade . '</option>';
-
-                }
-
-                echo '</select>';
-
-            } else {
-
-                throw new Exception("[Erro 401] ao Buscar Informações de Localidade");
-
+                throw new Exception("[Erro 400] na Transmissão de Informações Web ");
+    
             }
 
             $conn->close();
@@ -145,6 +153,53 @@
     </div> 
 </div>
 
+<?php 
+
+    include 'conexao.php';
+
+        if ($_SERVER["REQUEST_METHOD"] === "GET" && isset($_GET['procuraCli']) && !empty($_GET['procuraCli'])) {
+
+            $numCli = $_GET['procuraCli'];
+
+            if ($numCli == "Não Encontrado") {
+
+                echo "<script>document.getElementById('procuraCli').value = 'Não Encontrado';</script>";
+
+            } else if ($numCli != "Não Encontrado" && !is_numeric($numCli)) {
+
+                echo "<script>document.getElementById('procuraCli').value = 'Não Encontrado';</script>";
+
+            } else {
+
+                $sql2 = "SELECT * FROM TAB_CLIENTE WHERE N_CLIENTE = $numCli";
+                $result2 = $conn->query($sql2);
+
+                if ($result2->num_rows > 0) {
+
+                    $dados = array();
+
+                    while($row = $result2->fetch_assoc()) {
+
+                        $dados[] = $row;
+
+                    }
+
+                    echo "<script>document.getElementById('procuraCli').value = $numCli;</script>";
+
+                } else {
+
+                    echo "<script>document.getElementById('procuraCli').value = 'Não Encontrado';</script>";
+
+                }
+
+            }
+
+        }
+
+    $conn->close();
+
+?>
+
 </section>
 
 <script>
@@ -171,6 +226,32 @@
     });
 
 </script>
+
+<script>
+
+    document.getElementById("submit").addEventListener("click", function() {
+
+        var forms = document.querySelectorAll("form"); 
+        var formData = new FormData(); 
+
+        forms.forEach(function(form) {
+
+            var inputs = form.querySelectorAll("input"); 
+
+            inputs.forEach(function(input) {
+
+                formData.append(input.name, input.value); 
+
+            });
+
+        });
+
+        window.location.href = "cliente.php?" + new URLSearchParams(formData).toString();
+
+    });
+
+</script>
+
 <script>
 
     function redirect_cliente() {
@@ -180,7 +261,7 @@
     }
 
     function redirect_fo() {
-        
+
         window.location.href = 'fo.php';
 
     }
