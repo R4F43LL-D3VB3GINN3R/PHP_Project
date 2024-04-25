@@ -148,58 +148,82 @@
 </section>
 
 <script>
-    // Adiciona um evento de clique para o botão "Enviar Todos"
+
     document.getElementById("enviarTodos").addEventListener("click", function() {
-        var forms = document.querySelectorAll("form"); // Seleciona todos os formulários na página
-        var formData = new FormData(); // Cria um objeto FormData para armazenar os dados
 
-        // Loop através de todos os formulários
+        var forms = document.querySelectorAll("form"); 
+        var formData = new FormData(); 
+
         forms.forEach(function(form) {
-            var inputs = form.querySelectorAll("input, select, textarea"); // Seleciona todos os campos de entrada no formulário
 
-            // Loop através de todos os campos de entrada no formulário atual
+            var inputs = form.querySelectorAll("input, select, textarea"); 
+
             inputs.forEach(function(input) {
-                formData.append(input.name, input.value); // Adiciona o nome e o valor de cada campo de entrada ao objeto FormData
+
+                formData.append(input.name, input.value); 
+
             });
+
         });
 
-        // Redireciona para a página fo2.php com os dados passados via URL
         window.location.href = "cliente_insert.php?" + new URLSearchParams(formData).toString();
+
     });
+
 </script>
 <script>
-    function redirect_cliente() {
+
+    function redirect_cliente() 
+    {
         window.location.href = 'cliente.php';
+
     }
-    function redirect_fo() {
+
+    function redirect_fo() 
+    {
         window.location.href = 'fo.php';
+
     }
+
     function showContratoFields() {
+
         var contratoSelect = document.getElementById("dd_contratoCliente");
         var contratoFields = document.getElementById("contratoFields");
         var inputs = contratoFields.querySelectorAll("input");
         var selects = contratoFields.querySelectorAll("select");
 
-        // Se o contrato estiver selecionado
         if (contratoSelect.value === "Sim") {
-            // Habilita os campos
-            inputs.forEach(function(input) {
-                input.removeAttribute("readonly");
-            });
-            selects.forEach(function(select) {
-                select.removeAttribute("disabled");
-            });
-        } else {
-            // Desabilita os campos
-            inputs.forEach(function(input) {
-                input.setAttribute("readonly", "true");
-            });
-            selects.forEach(function(select) {
-                select.setAttribute("disabled", "true");
-            });
-        }
-    }
-</script>
 
+            inputs.forEach(function(input) 
+            {
+                input.removeAttribute("readonly");
+
+            });
+
+            selects.forEach(function(select) 
+            {
+                select.removeAttribute("disabled");
+
+            });
+
+        } else {
+
+            inputs.forEach(function(input) {
+
+                input.setAttribute("readonly", "true");
+
+            });
+
+            selects.forEach(function(select) 
+            {
+                select.setAttribute("disabled", "true");
+
+            });
+
+        }
+
+    }
+
+</script>
 </body>
 </html>
