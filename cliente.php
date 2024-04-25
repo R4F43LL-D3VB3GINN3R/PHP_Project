@@ -13,7 +13,7 @@
 <div class="name2">
     <form action="" id="form_name2">
         <h2>Procurar</h2>
-        <input type="text" name="procura_fo" value="Nº FO">
+        <input type="text" name="procura_fo" value="Nº Cliente">
         <input type="submit" value="Procurar" id="submit">
         <button id="listar_fo">Listar</button>
         <h2>Menu</h2>
@@ -32,40 +32,77 @@
     <div class="subdiv1">
         <form action="fo2.php" method="post" id="form_subdiv1">
             <label for="txt_n_cliente">Nº Cliente: </label>
-            <input type="text" name="txt_n_cliente">
+            <input type="number" name="txt_n_cliente" maxlength="10">
             <label for="txt_nomeCliente">Nome: </label>
             <input type="text" name="txt_nomeCliente">
             <label for="txt_moradaCliente">Morada:</label>
             <input type="text" name="txt_moradaCliente">  
             <label for="txt_codPostalCliente">Cod Postal:</label>
-            <input type="text" name="txt_codPostalCliente">  
+            <input type="text" name="txt_codPostalCliente" maxlength="8">  
         </form>
     </div>   
        
     <div class="subdiv2">
         <form action="fo2.php" method="post" id="form_subdiv2">
+
             <label for="dd_localidadeCliente">Localidade: </label>
-            <select name="dd_localidadeCliente" id="dd_tecnico">
-                <option value="localidade">Localidade</option>
-            </select>
+
+            <?php 
+            
+            include 'conexao.php';
+
+            $sql = "SELECT NOME FROM TAB_LOCALIDADE";
+            $result = $conn->query($sql);
+
+            if ($result->num_rows > 0) {
+
+                $localidades = array();
+
+                while($row = $result->fetch_assoc()) {
+
+                    $localidades[$row['NOME']] = $row;
+
+                }
+
+                echo '<select name="dd_localidadeCliente" id="dd_tecnico">';
+
+                foreach ($localidades as $localidade => $row) {
+
+                    echo '<option value="' . $localidade . '">' . $localidade . '</option>';
+
+                }
+
+                echo '</select>';
+
+            } else {
+
+                throw new Exception("[Erro 401] ao Buscar Informações de Localidade");
+
+            }
+
+            $conn->close();
+            
+            ?>
+
             <label for="txt_telemovelCliente">Telemóvel:</label>
-            <input type="text" name="txt_txt_telemovelCliente"> 
+            <input type="text" name="txt_telemovelCliente"> 
             <label for="txt_telefoneCliente">Telefone:</label>
             <input type="text" name="txt_telefoneCliente">   
             <label for="txt_emailCliente">Email:</label>
-            <input type="text" name="txt_email">   
+            <input type="email" name="txt_emailCliente">   
         </form>
     </div>
           
     <div class="subdiv2">
         <form action="fo2.php" method="post" id="form_subdiv2">
             <label for="txt_nifCliente">Nif:</label>
-            <input type="text" name="txt_nifCliente">   
+            <input type="text" name="txt_nifCliente" maxlength="9">   
             <label for="dd_statusCliente">Status:</label>
             <select name="dd_statusCliente" id="dd_statusCliente">
                 <option value="Normal">Normal</option>
                 <option value="Aguarda">Aguarda</option>
                 <option value="Urgente">Urgente</option>
+                <option value="Retorno">Retorno</option>
             </select>
             <label for="dd_contratoCliente">Contrato:</label>
             <select name="dd_contratoCliente" id="dd_contratoCliente" onchange="showContratoFields()">
@@ -78,7 +115,7 @@
     <div class="subdiv4">
         <form action="fo2.php" method="post" id="form_subdiv4">
             <label for="area_observacoes" id="label_observacoes">Observações:</label>
-            <textarea name="area_observacoes" id="area_observacoes" cols="30" rows="5"></textarea>
+            <textarea name="area_observacoes" id="area_observacoes" cols="30" rows="5" maxlength="500"></textarea>
         </form>
     </div>
             
@@ -92,7 +129,7 @@
             <label for="txt_tempoTotalCliente">Tempo Total: </label>
             <input type="text" name="txt_tempoTotalCliente" readonly="true">
             <label for="txt_tempoExtraCliente">Tempo Extra:</label>
-            <input type="text" name="txt_moradaCliente" readonly="true">  
+            <input type="text" name="txt_tempoExtraCliente" readonly="true">  
             <label for="dd_deslocacaoCliente">Deslocação:</label>
             <select name="dd_deslocacaoCliente" id="dd_deslocacaoCliente" disabled>
                 <option value="Sim">Sim</option>
@@ -106,8 +143,8 @@
         <button id="enviarTodos">Editar</button>       
         <button id="enviarTodos">Remover</button>       
     </div> 
-
 </div>
+
 </section>
 
 <script>
@@ -127,7 +164,7 @@
         });
 
         // Redireciona para a página fo2.php com os dados passados via URL
-        window.location.href = "fo2.php?" + new URLSearchParams(formData).toString();
+        window.location.href = "cliente_insert.php?" + new URLSearchParams(formData).toString();
     });
 </script>
 <script>
@@ -163,5 +200,6 @@
         }
     }
 </script>
+
 </body>
 </html>
