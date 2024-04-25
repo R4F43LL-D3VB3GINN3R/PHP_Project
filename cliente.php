@@ -38,7 +38,7 @@
             <label for="txt_moradaCliente">Morada:</label>
             <input type="text" name="txt_moradaCliente">  
             <label for="txt_codPostalCliente">Cod Postal:</label>
-            <input type="text" name="txt_codPostalCliente" maxlength="8">  
+            <input type="text" name="txt_codPostalCliente" maxlength="7">  
         </form>
     </div>   
        
@@ -173,14 +173,14 @@
 </script>
 <script>
 
-    function redirect_cliente() 
-    {
+    function redirect_cliente() {
+
         window.location.href = 'cliente.php';
 
     }
 
-    function redirect_fo() 
-    {
+    function redirect_fo() {
+        
         window.location.href = 'fo.php';
 
     }
