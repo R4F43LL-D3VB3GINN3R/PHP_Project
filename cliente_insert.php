@@ -111,8 +111,19 @@
         } catch (Exception $e) {
 
             throw new Exception("[Erro 400] na Transmissão de Informações Web ");
+
         }
        
     ?>
+
+    <script>
+
+        function redirect() {
+
+            window.location.href = 'cliente.php';
+
+        }
+        
+    </script>
 </body>
 </html>
