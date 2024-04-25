@@ -1,0 +1,54 @@
+body {
+    height: 700px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: #111927;
+    background-image: 
+        radial-gradient(at 47% 33%, hsl(241.13, 77%, 40%) 0, transparent 59%), 
+        radial-gradient(at 82% 65%, hsl(218.24, 73%, 25%) 0, transparent 55%);
+}
+
+div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 300px;
+    width: 500px;
+    backdrop-filter: blur(0px) saturate(44%);
+    -webkit-backdrop-filter: blur(0px) saturate(44%);
+    background-color: rgba(11, 51, 135, 0);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.125);
+    color: blue;
+    font-size: 15px;
+    font-family: 'Roboto Mono', monospace;
+    font-weight: bold;
+}
+
+h2 {
+    color: rgb(151, 179, 236);
+    font-size: 30px;
+    font-family: 'Roboto Mono', monospace;
+    font-weight: bold;
+}
+
+button {
+    width: 300px;
+    height: 70px;
+    background-color: black;
+    color: blue;
+    border: 2px solid blue; 
+    border-radius: 10px;
+    font-size: 30px;
+    font-family: 'Roboto Mono', monospace;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:hover {
+    color: rgb(151, 179, 236);
+    border: 2px solid rgb(151, 179, 236); 
+}
