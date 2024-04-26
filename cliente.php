@@ -32,13 +32,13 @@
     <div class="subdiv1">
         <form action="fo2.php" method="post" id="form_subdiv1">
             <label for="txt_n_cliente">Nº Cliente: </label>
-            <input type="number" name="txt_n_cliente" maxlength="10">
+            <input type="number" name="txt_n_cliente"id="nCliente" maxlength="10">
             <label for="txt_nomeCliente">Nome: </label>
-            <input type="text" name="txt_nomeCliente">
+            <input type="text" name="txt_nomeCliente" id="nomeCliente">
             <label for="txt_moradaCliente">Morada:</label>
-            <input type="text" name="txt_moradaCliente">  
+            <input type="text" name="txt_moradaCliente" id="moradaCliente">  
             <label for="txt_codPostalCliente">Cod Postal:</label>
-            <input type="text" name="txt_codPostalCliente" maxlength="7">  
+            <input type="text" name="txt_codPostalCliente" id="codPostalCliente" maxlength="7">  
         </form>
     </div>   
        
@@ -66,7 +66,7 @@
 
                     }
 
-                    echo '<select name="dd_localidadeCliente" id="dd_tecnico">';
+                    echo '<select name="dd_localidadeCliente" id="localidadeCliente">';
 
                     foreach ($localidades as $localidade => $row) {
 
@@ -93,20 +93,21 @@
             ?>
 
             <label for="txt_telemovelCliente">Telemóvel:</label>
-            <input type="text" name="txt_telemovelCliente"> 
+            <input type="text" name="txt_telemovelCliente" id="telemovelCliente"> 
             <label for="txt_telefoneCliente">Telefone:</label>
-            <input type="text" name="txt_telefoneCliente">   
+            <input type="text" name="txt_telefoneCliente" id="telefoneCliente">   
             <label for="txt_emailCliente">Email:</label>
-            <input type="email" name="txt_emailCliente">   
+            <input type="email" name="txt_emailCliente" id="emailCliente">   
+
         </form>
     </div>
           
     <div class="subdiv2">
         <form action="fo2.php" method="post" id="form_subdiv2">
             <label for="txt_nifCliente">Nif:</label>
-            <input type="text" name="txt_nifCliente" maxlength="9">   
+            <input type="text" name="txt_nifCliente" id="nifCliente" maxlength="9">   
             <label for="dd_statusCliente">Status:</label>
-            <select name="dd_statusCliente" id="dd_statusCliente">
+            <select name="dd_statusCliente" id="statusCliente">
                 <option value="Normal">Normal</option>
                 <option value="Aguarda">Aguarda</option>
                 <option value="Urgente">Urgente</option>
@@ -135,10 +136,10 @@
                 <option value="Tipo2">Tipo2</option>
             </select>
             <label for="txt_tempoTotalCliente">Tempo Total: </label>
-            <input type="text" name="txt_tempoTotalCliente" readonly="true">
+            <input type="text" name="txt_tempoTotalCliente" id="tempoTotalCliente" readonly="true">
             <label for="txt_tempoExtraCliente">Tempo Extra:</label>
-            <input type="text" name="txt_tempoExtraCliente" readonly="true">  
-            <label for="dd_deslocacaoCliente">Deslocação:</label>
+            <input type="text" name="txt_tempoExtraCliente" id="tempoExtraCliente" readonly="true">  
+            <label for="dd_deslocacaoCliente" id="deslocacaoCliente">Deslocação:</label>
             <select name="dd_deslocacaoCliente" id="dd_deslocacaoCliente" disabled>
                 <option value="Sim">Sim</option>
                 <option value="Não">Não</option>
@@ -176,15 +177,74 @@
 
                 if ($result2->num_rows > 0) {
 
-                    $dados = array();
+                    $dados = $result2->fetch_assoc();
 
-                    while($row = $result2->fetch_assoc()) {
+                    echo "<script>document.getElementById('procuraCli').value = '$numCli';</script>";
+                    echo "<script>document.getElementById('nCliente').value = '$numCli';</script>";
+                    echo "<script>document.getElementById('nomeCliente').value = '" . $dados['NOME'] . "';</script>";
+                    echo "<script>document.getElementById('moradaCliente').value = '" . $dados['MORADA'] . "';</script>";
+                    echo "<script>document.getElementById('codPostalCliente').value = '" . $dados['CODIGO_POSTAL'] . "';</script>";
 
-                        $dados[] = $row;
+                    $sql3 = "SELECT NOME FROM TAB_LOCALIDADE WHERE ID = " . $dados['ID_LOCALIDADE'];
+                    $result3 = $conn->query($sql3);
 
-                    }
+                    if ($result3->num_rows > 0) {
 
-                    echo "<script>document.getElementById('procuraCli').value = $numCli;</script>";
+                        while ($row = $result3->fetch_assoc()) {
+
+                            $dados['ID_LOCALIDADE'] = $row['NOME'];
+
+                        }                      
+
+                        echo "<script>document.getElementById('localidadeCliente').value = '" . $dados['ID_LOCALIDADE'] . "';</script>";
+                        echo "<script>document.getElementById('telemovelCliente').value = '" . $dados['CONTACTO_M'] . "';</script>";
+                        echo "<script>document.getElementById('telefoneCliente').value = '" . $dados['CONTACTO_F'] . "';</script>";
+                        echo "<script>document.getElementById('emailCliente').value = '" . $dados['EMAIL'] . "';</script>";
+                        echo "<script>document.getElementById('nifCliente').value = '" . $dados['NIF'] . "';</script>";
+                        echo "<script>document.getElementById('statusCliente').value = '" . $dados['STATUS'] . "';</script>";
+                        echo "<script>document.getElementById('area_observacoes').value = '" . $dados['OBSERVACOES'] . "';</script>";
+                        
+                        $sql4 = "SELECT * FROM TAB_CONTRATO WHERE ID = '" . $dados['ID_CONTRATO'] . "'";
+
+                        $result4 = $conn->query($sql4);
+
+                        if ($result4->num_rows > 0) {
+
+                            echo "<script>document.getElementById('dd_contratoCliente').value = 'Sim';</script>";
+
+                            echo "<script>
+                                    var contratoSelect = document.getElementById('dd_contratoCliente');
+                                    var contratoFields = document.getElementById('contratoFields');
+                                    var inputs = contratoFields.querySelectorAll('input');
+                                    var selects = contratoFields.querySelectorAll('select');
+
+                                    if (contratoSelect.value === 'Sim') {
+                                        inputs.forEach(function(input) {
+                                            input.removeAttribute('readonly');
+                                        });
+
+                                        selects.forEach(function(select) {
+                                            select.removeAttribute('disabled');
+                                        });
+                                    }
+                                </script>";   
+                                
+                                while($row = $result4->fetch_assoc()) {
+
+                                    echo "<script>document.getElementById('dd_tipoContratoCliente').value = '" . $row['TIPO_CONTRATO'] . "';</script>";
+                                    echo "<script>document.getElementById('tempoTotalCliente').value = '" . $row['TEMPO_TOTAL'] . "';</script>";
+                                    echo "<script>document.getElementById('tempoExtraCliente').value = '" . $row['TEMPO_EXTRA'] . "';</script>";
+                                    echo "<script>document.getElementById('dd_deslocacaoCliente').value = '" . $row['DESLOCACAO'] . "';</script>";
+
+                                }
+
+                        } else {
+      
+                            echo "<script>document.getElementById('dd_contratoCliente').value = 'Não';</script>";
+
+                        }
+
+                    } 
 
                 } else {
 
