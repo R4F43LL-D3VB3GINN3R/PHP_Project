@@ -86,37 +86,38 @@
     
                             }
 
-                        } else if ($dadosCli['ID_CONTRATO'] == $nifCli && $contratoCli == "Não") {
+                        } else if ($dadosCli['ID_CONTRATO'] == $nifCli && $contratoCli == "Não") {            
 
-                            if ($result->num_rows > 0) {
+                            $sql = "DELETE FROM TAB_CLIENTE WHERE NIF = '$nifCli'";
+                            $resultDelete = $conn->query($sql); 
 
-                                $sql = "DELETE FROM TAB_CLIENTE WHERE NIF = '$nifCli'";
-                                $resultDelete = $conn->query($sql); 
+                            $sql = "DELETE FROM TAB_CONTRATO WHERE ID = '$nifCli'";
+                            $result = $conn->query($sql); 
 
-                                $sql = "DELETE FROM TAB_CONTRATO WHERE ID = '$nifCli'";
-                                $result = $conn->query($sql); 
+                            if ($resultDelete) {
 
-                                } if ($resultDelete) {
+                                $stmt = $conn->prepare("INSERT INTO TAB_CLIENTE (N_CLIENTE, NIF, NOME, MORADA, CODIGO_POSTAL, ID_LOCALIDADE, CONTACTO_F, CONTACTO_M, CRIADO_DATA, EMAIL, STATUS, OBSERVACOES)
+                                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                                $stmt->bind_param('iisssissssss', $numCli, $nifCli, $nomeCli, $moradaCli, $codPostalCli, $localCli, $telFoneCli, $telMovelCli, $dadosCli['ATUALIZACAO'], $emailCli, $statusCli, $obsCli);
+                                $resultCadastro = $stmt->execute(); 
 
-                                    $stmt = $conn->prepare("INSERT INTO TAB_CLIENTE (N_CLIENTE, NIF, NOME, MORADA, CODIGO_POSTAL, ID_LOCALIDADE, CONTACTO_F, CONTACTO_M, CRIADO_DATA, EMAIL, STATUS, OBSERVACOES)
-                                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-                                    $stmt->bind_param('iisssisssss', $numCli, $nifCli, $nomeCli, $moradaCli, $codPostalCli, $localCli, $telFoneCli, $telMovelCli, $dadosCli['ATUALIZACAO'], $emailCli, $statusCli, $obsCli);
-                                    $resultCadastro = $stmt->execute(); 
+                                if ($resultCadastro) {
 
-                                    } if ($resultCadastro) {
+                                    echo "<div>
+                                            <h2>Dados do $numCli Alterados e Contrato Removido</h2>
+                                            <button type='button' onclick='redirect()'>Ok</button>
+                                        </div>";
 
-                                        echo "<div>
-                                                <h2>Dados do $numCli Alterados e Contrato Removido</h2>
-                                                <button type='button' onclick='redirect()'>Ok</button>
-                                            </div>";
-
-                            } else {
-
-                                echo "ERRO!";
+                                } 
 
                             }
 
                         } else if ($dadosCli['ID_CONTRATO'] == NULL && $contratoCli == "Sim") {
+
+                            $tipoContratoCli = $_GET['dd_tipoContratoCliente'];
+                            $tempoTotalCli = $_GET['txt_tempoTotalCliente'];
+                            $tempoExtraCli = $_GET['txt_tempoExtraCliente'];
+                            $deslocacaoCli = $_GET['dd_deslocacaoCliente'];
 
                             $stmt = $conn->prepare("INSERT INTO TAB_CONTRATO (ID, TIPO_CONTRATO, TEMPO_TOTAL, TEMPO_EXTRA, DESLOCACAO)
                             VALUES (?, ?, ?, ?, ?)");
@@ -124,7 +125,7 @@
                             $resultContrato = $stmt->execute(); 
 
                             $stmt = $conn->prepare("UPDATE TAB_CLIENTE
-                                                SET N_CLIENTE = ?, NIF = ?, NOME = ?, MORADA = ?, CODIGO_POSTAL = ?, ID_LOCALIDADE = ?, CONTACTO_F = ?, CONTACTO_M = ?, ID_CONTRATO = ?, EMAIL = ?, STATUS = ?, OBSERVACOES = ? WHERE N_CLIENTE = ?");
+                                                    SET N_CLIENTE = ?, NIF = ?, NOME = ?, MORADA = ?, CODIGO_POSTAL = ?, ID_LOCALIDADE = ?, CONTACTO_F = ?, CONTACTO_M = ?, ID_CONTRATO = ?, EMAIL = ?, STATUS = ?, OBSERVACOES = ? WHERE N_CLIENTE = ?");
                             $stmt->bind_param('iisssississsi', $numCli, $nifCli, $nomeCli, $moradaCli, $codPostalCli, $localCli, $telFoneCli, $telMovelCli, $nifCli, $emailCli, $statusCli, $obsCli, $numCli);
                             $resultCadastro = $stmt->execute(); 
 
@@ -145,14 +146,12 @@
 
                     }
 
-                }       
+                }
 
-            }
+            }       
 
         } catch (Exception $e) {
-          
             throw new Exception("[Erro 400]" . $e);
-          
         }
 
     $conn->close();
