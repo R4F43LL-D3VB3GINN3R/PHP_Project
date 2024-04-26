@@ -211,5 +211,14 @@
     
     ?>
 
+<script>
+
+    function redirect() {
+
+        window.location.href = 'cliente.php';
+
+    }
+        
+</script>
 </body>
 </html>
