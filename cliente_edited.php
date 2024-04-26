@@ -76,7 +76,7 @@
                             if ($resultCadastro && $resultContrato) {
     
                                 echo "<div>
-                                        <h2>Dados do $numCli Alterados</h2>
+                                        <h2>Dados do Cliente $numCli Alterados</h2>
                                         <button type='button' onclick='redirect()'>Ok</button>
                                     </div>";
     
@@ -142,6 +142,26 @@
     
                             }
 
+                        } else if ($dadosCli['ID_CONTRATO'] == NULL && $contratoCli == "Não") { 
+
+                            $stmt = $conn->prepare("UPDATE TAB_CLIENTE
+                                                    SET N_CLIENTE = ?, NIF = ?, NOME = ?, MORADA = ?, CODIGO_POSTAL = ?, ID_LOCALIDADE = ?, CONTACTO_F = ?, CONTACTO_M = ?, EMAIL = ?, STATUS = ?, OBSERVACOES = ? WHERE N_CLIENTE = ?");
+                            $stmt->bind_param('iisssisssssi', $numCli, $nifCli, $nomeCli, $moradaCli, $codPostalCli, $localCli, $telFoneCli, $telMovelCli, $emailCli, $statusCli, $obsCli, $numCli);
+                            $resultCadastro = $stmt->execute(); 
+    
+                            if ($resultCadastro) {
+    
+                                echo "<div>
+                                        <h2>Dados do Cliente $numCli Alterados</h2>
+                                        <button type='button' onclick='redirect()'>Ok</button>
+                                    </div>";
+    
+                            } else {
+                            
+                                throw new Exception("[Erro 402] ao modificar dados do Cliente");
+    
+                            }
+
                         }
 
                     }
@@ -151,7 +171,9 @@
             }       
 
         } catch (Exception $e) {
+
             throw new Exception("[Erro 400]" . $e);
+
         }
 
     $conn->close();
