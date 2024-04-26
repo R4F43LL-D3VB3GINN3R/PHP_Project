@@ -148,9 +148,9 @@
     </div> 
 
     <div class="subdiv6">
-        <button id="enviarTodos">Salvar</button> 
-        <button id="enviarTodos">Editar</button>       
-        <button id="enviarTodos">Remover</button>       
+        <button id="enviarTodos">Cadastrar</button> 
+        <button id="enviarTodos_edit">Editar</button>       
+        <button id="enviarTodos_delete">Remover</button>       
     </div> 
 </div>
 
@@ -307,6 +307,56 @@
         });
 
         window.location.href = "cliente.php?" + new URLSearchParams(formData).toString();
+
+    });
+
+</script>
+
+<script>
+
+    document.getElementById("enviarTodos_edit").addEventListener("click", function() {
+
+        var forms = document.querySelectorAll("form"); 
+        var formData = new FormData(); 
+
+        forms.forEach(function(form) {
+
+            var inputs = form.querySelectorAll("input, select, textarea"); 
+
+            inputs.forEach(function(input) {
+
+                formData.append(input.name, input.value); 
+
+            });
+
+        });
+
+        window.location.href = "cliente_edited.php?" + new URLSearchParams(formData).toString();
+
+    });
+
+</script>
+
+<script>
+
+    document.getElementById("enviarTodos_delete").addEventListener("click", function() {
+
+        var forms = document.querySelectorAll("form"); 
+        var formData = new FormData(); 
+
+        forms.forEach(function(form) {
+
+            var inputs = form.querySelectorAll("input, select, textarea"); 
+
+            inputs.forEach(function(input) {
+
+                formData.append(input.name, input.value); 
+
+            });
+
+        });
+
+        window.location.href = "cliente_delete.php?" + new URLSearchParams(formData).toString();
 
     });
 
