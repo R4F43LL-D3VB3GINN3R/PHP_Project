@@ -13,8 +13,8 @@
 <div class="name2">
     <form action="" id="form_name2">
         <h2>Procurar</h2>
-        <input type="text" name="procura_fo" value="Nº FO">
-        <input type="submit" value="Procurar" id="submit">
+        <input type="text" name="procura_fo">
+        <input type="submit" value="Procurar Nº" id="submit">
         <button id="listar_fo">Listar</button>
         <h2>Menu</h2>
         <button id="bt_dashboard">Dashboard</button>
