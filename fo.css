@@ -249,7 +249,6 @@ button {
 #form_subdiv5 {
     background-color: black;
     padding: 5px;
-    border: 1px solid blue;
     height: 60px;
     display: flex;
     justify-content: center;
@@ -334,7 +333,7 @@ h2 {
     border: 2px solid rgb(255, 255, 255);
 }
 
-.subdiv1, .subdiv2, .subdiv3, .subdiv4, .subdiv5, .subdiv6, #form_name2 {
+.subdiv1, .subdiv2, .subdiv3, .subdiv4, .subdiv5, .subdiv6, #form_name2 ,#form_subdiv3{
     backdrop-filter: blur(16px) saturate(180%);
     -webkit-backdrop-filter: blur(16px) saturate(180%);
     background-color: rgb(83, 218, 255);
@@ -345,6 +344,10 @@ h2 {
 #form_name2 {
     width: 180px;
     height: 580px;
+}
+
+#form_subdiv3 {
+    border: 0px solid;
 }
 
 #form_subdiv1, #form_subdiv2, #form_subdiv4, #form_subdiv5 {
