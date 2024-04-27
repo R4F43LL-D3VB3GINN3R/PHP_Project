@@ -30,6 +30,8 @@
                 $contratoCli = $_GET['dd_contratoCliente'];
                 $obsCli = $_GET['area_observacoes'];
 
+                //Consulta a linha referente ao número do cliente...
+
                 $sql = "SELECT N_CLIENTE FROM TAB_CLIENTE WHERE N_CLIENTE = '$numCli'";
                 $result = $conn->query($sql);
 
@@ -40,7 +42,9 @@
                                 <button type='button' onclick='redirect()'>Ok</button>
                         </div>";
 
-                } else {
+                } else { //Se este cliente não existe em nossa base de dados...
+
+                    //Convertemos o id da localidade...
 
                     $sql = "SELECT ID FROM TAB_LOCALIDADE WHERE NOME = '$localCli'";
                     $result = $conn->query($sql);
@@ -59,12 +63,14 @@
 
                     }
 
-                    if ($contratoCli == "Sim") {
+                    if ($contratoCli == "Sim") { //Se o cliente quer um contrato...
 
                         $tipoContratoCli = $_GET['dd_tipoContratoCliente'];
                         $tempoTotalCli = $_GET['txt_tempoTotalCliente'];
                         $tempoExtraCli = $_GET['txt_tempoExtraCliente'];
                         $deslocacaoCli = $_GET['dd_deslocacaoCliente'];
+
+                        //Inserimos tanto o contrato do cliente quanto ele mesmo...
 
                         $stmt = $conn->prepare("INSERT INTO TAB_CONTRATO (ID, TIPO_CONTRATO, TEMPO_TOTAL, TEMPO_EXTRA, DESLOCACAO)
                         VALUES (?, ?, ?, ?, ?)");
@@ -89,7 +95,9 @@
 
                         }
 
-                    } else {
+                    } else { //Se o cliente preferir não ter um contrato... 
+
+                        //Inserimos apenas o cliente...
 
                         $stmt = $conn->prepare("INSERT INTO TAB_CLIENTE (N_CLIENTE, NIF, NOME, MORADA, CODIGO_POSTAL, ID_LOCALIDADE, CONTACTO_F, CONTACTO_M, CRIADO_DATA, EMAIL, STATUS, OBSERVACOES)
                         VALUES (?, ?, ?, ?, ?, ?, ?, ?, NOW(), ?, ?, ?)");
@@ -113,11 +121,11 @@
 
                 }
                     
-                } else {
+            } else {
 
-                    throw new Exception("[Erro 400] na Transmissão de Informações Web ");
+                throw new Exception("[Erro 400] na Transmissão de Informações Web ");
 
-                }
+            }
 
         } catch (Exception $e) {
 
