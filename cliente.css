@@ -15,24 +15,16 @@
   .name2 { grid-area: name2; }
   .name3 { grid-area: name3; }
 
-  .layout {
-    backdrop-filter: blur(0px) saturate(44%);
-    -webkit-backdrop-filter: blur(0px) saturate(44%);
-    background-color: rgba(11, 51, 135, 0.16);
-    border-radius: 12px;
-    border: 1px solid rgba(255, 255, 255, 0.125);
-}
-
 body {
     height: 700px;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    background-color: #111927;
+    background-color: #dfdfee;
     background-image: 
-        radial-gradient(at 47% 33%, hsl(241.13, 77%, 40%) 0, transparent 59%), 
-        radial-gradient(at 82% 65%, hsl(218.24, 73%, 25%) 0, transparent 55%);
+        radial-gradient(at 47% 33%, hsl(180.00, 90%, 51%) 0, transparent 59%), 
+        radial-gradient(at 82% 65%, hsl(190.46, 52%, 59%) 0, transparent 55%);
 }
 
 .name2 {
@@ -42,12 +34,18 @@ body {
     align-items: center;
     flex-direction: column;
     justify-content: center;
-    backdrop-filter: blur(0px) saturate(44%);
-    -webkit-backdrop-filter: blur(0px) saturate(44%);
-    background-color: rgba(255, 0, 0, 0);
-    border-radius: 12px;
-    border: 1px solid rgba(255, 255, 255, 0.125);
-    color: rgb(255, 255, 255);
+    font-size: 15px;
+    font-family: 'Roboto Mono', monospace;
+    font-weight: bold;
+}
+
+.name3 {
+    width: 1150px;
+    height: 600px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
     font-size: 15px;
     font-family: 'Roboto Mono', monospace;
     font-weight: bold;
@@ -58,36 +56,11 @@ body {
     align-items: center;
     flex-direction: column;
     padding: 5px;
-    height: 550px;
-}
-
-.name3 {
-    width: 1150px;
-    height: 600px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    backdrop-filter: blur(0px) saturate(44%);
-    -webkit-backdrop-filter: blur(0px) saturate(44%);
-    background-color: rgba(11, 51, 135, 0);
-    border-radius: 12px;
-    border: 1px solid rgba(255, 255, 255, 0.125);
-    color: blue;
-    font-size: 15px;
-    font-family: 'Roboto Mono', monospace;
-    font-weight: bold;
 }
 
 .subdiv1, .subdiv2, .subdiv3, .subdiv4, .subdiv5, .subdiv6 {
     height: 95px;
     width: 1120px;
-    backdrop-filter: blur(0px) saturate(44%);
-    -webkit-backdrop-filter: blur(0px) saturate(44%);
-    background-color: rgba(11, 51, 135, 0);
-    border-radius: 12px;
-    border: 1px solid rgba(255, 255, 255, 0.125);
-    color: blue;
     font-size: 15px;
     font-family: 'Roboto Mono', monospace;
     font-weight: bold;
@@ -120,9 +93,6 @@ body {
 
 input {
     width: 150px;
-    background-color: #000000;
-    border: 1px solid rgb(120, 102, 102);
-    color: rgb(255, 255, 255);
     font-size: 15px;
     font-family: 'Roboto Mono', monospace;
     font-weight: bold;
@@ -131,8 +101,6 @@ input {
 
 select {
     width: 150px;
-    background-color: #000000;
-    color: rgb(255, 255, 255);
     font-size: 15px;
     font-family: 'Roboto Mono', monospace;
     font-weight: bold;
@@ -143,63 +111,30 @@ textarea {
     width: 750px;
     height: 50px;
     margin: 15px;
-    background-color: #000000;
-    color: rgb(255, 255, 255);
     font-size: 15px;
     font-family: 'Roboto Mono', monospace;
     font-weight: bold;
     cursor: pointer;
 }
 
-#submit {
-    margin-top: 20px;
-    width: 160px;
-    background-color: black;
-    padding: 5px;
-    border: 1px solid blue;
-    color: blue;
-    border: 2px solid blue; 
-    border-radius: 10px;
-}
-
-#submit:hover {
-    color: rgb(151, 179, 236);
-    border: 2px solid rgb(151, 179, 236); 
-}
-
-#listar_fo {
-    margin-top: 20px;
-    width: 160px;
+#submit, #listar_fo {
     height: 35px;
+    width: 160px;
+    padding: 5px;
+    border-radius: 10px;
+    text-align: center;
 }
 
 #bt_tipo, #bt_marca, #bt_modelo, #bt_catalogo {
-    margin-top: 10px;
+    margin-top: 5px;
 }
 
 button {
-    width: 150px;
-    background-color: black;
-    color: blue;
-    border: 2px solid blue; 
-    border-radius: 10px;
-    height: 30px;
+    width: 160px;
+    height: 35px;
     font-size: 15px;
     font-family: 'Roboto Mono', monospace;
     font-weight: bold;
-    cursor: pointer;
-}
-
-button:hover {
-    color: rgb(151, 179, 236);
-    border: 2px solid rgb(151, 179, 236); 
-}
-
-#bt_gen {
-    width: 55px;
-    height: 30px;
-    text-align: center;
-    border: 2px solid;
     cursor: pointer;
 }
 
@@ -238,22 +173,13 @@ button:hover {
 }
 
 form {
-    backdrop-filter: blur(0px) saturate(44%);
-    -webkit-backdrop-filter: blur(0px) saturate(44%);
-    background-color: rgba(11, 51, 135, 0);
-    border-radius: 12px;
-    border: 1px solid rgba(255, 255, 255, 0.125);
-    color: blue;
     font-size: 15px;
     font-family: 'Roboto Mono', monospace;
     font-weight: bold;
 }
 
 #form_subdiv1, #form_subdiv2, #form_subdiv5 {
-    background-color: black;
-    padding: 5px;
-    border: 1px solid blue;
-    border-radius: 5px;
+    padding: 7px;
     width: 1050px;
     display: flex;
     justify-content: center;
@@ -264,38 +190,91 @@ form {
 }
 
 #input_save {
-    background-color: black;
-    border: 2px solid blue;
-    color: blue;
-    border-radius: 10px;
     font-size: 15px;
     font-family: 'Roboto Mono', monospace;
     font-weight: bold;
     height: 30px;
 }
 
-#input_save:hover {
-    color: rgb(151, 179, 236);
-    border: 4px solid rgb(151, 179, 236); 
-}
-
-.name1, .name2, .name3, .subdiv1, .subdiv2, .subdiv3, .subdiv4, .subdiv5, .subdiv6, .layout, #form_name2 {
-    backdrop-filter: blur(0px) saturate(44%);
-    -webkit-backdrop-filter: blur(0px) saturate(44%);
-    background-color: rgba(11, 51, 135, 0);
+.layout {
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    background-color: rgb(199, 255, 250);
     border-radius: 12px;
-    border: 2px solid rgb(44, 38, 158);
 }
 
-label {
-    color: rgb(151, 179, 236);
+.name1, .name2, .name3 {
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    background-color: rgb(144, 238, 254);
+    border-radius: 12px;
+    border: 2px solid rgb(255, 255, 255);
+}
+
+.subdiv1, .subdiv2, .subdiv3, .subdiv4, .subdiv5, .subdiv6, #form_name2 {
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    background-color: rgb(83, 218, 255);
+    border-radius: 12px;
+    border: 2px solid rgb(255, 255, 255);
+}
+
+#form_name2 {
+    width: 180px;
+    height: 580px;
+}
+
+#form_subdiv1, #form_subdiv2, #form_subdiv4, #form_subdiv5 {
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    background-color: rgb(12, 190, 239);
+    border-radius: 12px;
+    border: 2px solid rgb(255, 255, 255);
+}
+
+#form_subdiv4 {
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    background-color: rgb(83, 218, 255);
+    border-radius: 12px;
+    border: 0px solid rgb(255, 255, 255);
+}
+
+input , select, textarea{
+    background-color: rgb(255, 255, 255);
+    color: black;
+    border: 2px solid rgb(0, 75, 226);
+}
+
+label{
+    color: rgb(255, 255, 255);
 }
 
 h2 {
-    color: rgb(151, 179, 236);
+    color: rgb(255, 255, 255);
 }
 
-#bt_cliente, #bt_fo {
-    margin-top: 10px;
+button , #submit, #bt_cliente, #bt_fo{
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    background-color: rgb(0, 170, 255);
+    border-radius: 12px;
+    border: 3px solid rgb(255, 255, 255);
+    color:rgb(255, 255, 255);
+    margin-top: 5px;
+}
+
+button:hover , #submit:hover, #bt_cliente:hover, #bt_fo:hover{
+    background-color: rgb(255, 255, 255);
+    border: 3px solid rgb(0, 170, 255);
+    color:rgb(0, 170, 255);
+}
+
+#label_observacoes{
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    background-color: rgb(12, 190, 239);
+    border-radius: 12px;
+    border: 2px solid rgb(255, 255, 255);
 }
 
