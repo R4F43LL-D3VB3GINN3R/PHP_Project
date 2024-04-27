@@ -10,6 +10,8 @@
 <body>
 <section class="layout">
 
+<?php //Menu Lateral...?>
+
 <div class="name2">
     <form action="" id="form_name2">
         <h2>Procurar</h2>
@@ -28,6 +30,8 @@
     </form>
 </div>
 
+<?php //Formulários de preenchimento...?>
+
 <div class="name3">
     <div class="subdiv1">
         <form action="fo2.php" method="post" id="form_subdiv1">
@@ -41,6 +45,8 @@
             <input type="text" name="txt_codPostalCliente" id="codPostalCliente" maxlength="7">  
         </form>
     </div>   
+
+    <?php //Dropdown de Lugares...?>
        
     <div class="subdiv2">
         <form action="fo2.php" method="post" id="form_subdiv2">
@@ -53,20 +59,28 @@
 
             try {
 
+                //Consulta todos os nomes de lugares...
+
                 $sql = "SELECT NOME FROM TAB_LOCALIDADE";
                 $result = $conn->query($sql);
 
                 if ($result->num_rows > 0) {
 
+                    //Cria uma array para receber os resultados da consulta...
+
                     $localidades = array();
 
                     while($row = $result->fetch_assoc()) {
+
+                        //Enche o array com todos os nomes de lugares...
 
                         $localidades[$row['NOME']] = $row;
 
                     }
 
                     echo '<select name="dd_localidadeCliente" id="localidadeCliente">';
+
+                    //Percorre o array e enche a dropdown com o conteúdo do vetor...
 
                     foreach ($localidades as $localidade => $row) {
 
@@ -156,105 +170,134 @@
 
 <?php 
 
+    // Ao clicar no botão procurar, enviamos os dados do formulário para esta mesma página por método GET...
+
     include 'conexao.php';
 
-        if ($_SERVER["REQUEST_METHOD"] === "GET" && isset($_GET['procuraCli']) && !empty($_GET['procuraCli'])) {
+    // Verifica o método e se algum número foi enviado...
 
-            $numCli = $_GET['procuraCli'];
+    if ($_SERVER["REQUEST_METHOD"] === "GET" && isset($_GET['procuraCli']) && !empty($_GET['procuraCli'])) {
 
-            if ($numCli == "Não Encontrado") {
+        $numCli = $_GET['procuraCli']; // Variável para receber o número enviado...
 
-                echo "<script>document.getElementById('procuraCli').value = 'Não Encontrado';</script>";
+        if ($numCli == "Não Encontrado") { //Se no input tiver escrito Não encontrado...
 
-            } else if ($numCli != "Não Encontrado" && !is_numeric($numCli)) {
+            //Inserimos o valor de Não encontrado no input...
 
-                echo "<script>document.getElementById('procuraCli').value = 'Não Encontrado';</script>";
+            echo "<script>document.getElementById('procuraCli').value = 'Não Encontrado';</script>";
+
+            //Se for escrito qualquer coisa que não seja um número...
+
+        } else if ($numCli != "Não Encontrado" && !is_numeric($numCli)) {
+
+            //Inserimos o valor de Não encontrado no input...
+
+            echo "<script>document.getElementById('procuraCli').value = 'Não Encontrado';</script>";
+
+            //Se for enviado um valor numérico podemos iniciar a consulta...
+
+        } else {
+
+            //Consulta se o número do cliente existe na tabela...
+
+            $sql2 = "SELECT * FROM TAB_CLIENTE WHERE N_CLIENTE = $numCli";
+            $result2 = $conn->query($sql2);
+
+            if ($result2->num_rows > 0) { //Se o número for encontrado...
+
+                $dados = $result2->fetch_assoc(); //Insere a linha da consulta no vetor...
+
+                //Insere valores nos campos...
+
+                echo "<script>document.getElementById('procuraCli').value = '$numCli';</script>";
+                echo "<script>document.getElementById('nCliente').value = '$numCli';</script>";
+                echo "<script>document.getElementById('nomeCliente').value = '" . $dados['NOME'] . "';</script>";
+                echo "<script>document.getElementById('moradaCliente').value = '" . $dados['MORADA'] . "';</script>";
+                echo "<script>document.getElementById('codPostalCliente').value = '" . $dados['CODIGO_POSTAL'] . "';</script>";
+
+                //Procura o id da localidade...
+
+                $sql3 = "SELECT NOME FROM TAB_LOCALIDADE WHERE ID = " . $dados['ID_LOCALIDADE'];
+                $result3 = $conn->query($sql3);
+
+                if ($result3->num_rows > 0) {
+
+                    while ($row = $result3->fetch_assoc()) {
+
+                        //Converte o valor da localidade no vetor pelo id da localidade...
+
+                        $dados['ID_LOCALIDADE'] = $row['NOME'];
+
+                    }   
+                    
+                    //Preenche mais campos...
+
+                    echo "<script>document.getElementById('localidadeCliente').value = '" . $dados['ID_LOCALIDADE'] . "';</script>";
+                    echo "<script>document.getElementById('telemovelCliente').value = '" . $dados['CONTACTO_M'] . "';</script>";
+                    echo "<script>document.getElementById('telefoneCliente').value = '" . $dados['CONTACTO_F'] . "';</script>";
+                    echo "<script>document.getElementById('emailCliente').value = '" . $dados['EMAIL'] . "';</script>";
+                    echo "<script>document.getElementById('nifCliente').value = '" . $dados['NIF'] . "';</script>";
+                    echo "<script>document.getElementById('statusCliente').value = '" . $dados['STATUS'] . "';</script>";
+                    echo "<script>document.getElementById('area_observacoes').value = '" . $dados['OBSERVACOES'] . "';</script>";
+
+                    //Consulta o id do contrato para ver se o cliente possui contrato...
+                    
+                    $sql4 = "SELECT * FROM TAB_CONTRATO WHERE ID = '" . $dados['ID_CONTRATO'] . "'";
+                    $result4 = $conn->query($sql4);
+
+                    if ($result4->num_rows > 0) { //Se o campo não for null é porque o cliente temn contrato...
+
+                        //Definimos o campo como sim...
+
+                        echo "<script>document.getElementById('dd_contratoCliente').value = 'Sim';</script>";
+
+                        //Sendo sim, podemos chamar o corpo da função para habilitar os próximos campos...
+
+                        echo "<script>
+                                var contratoSelect = document.getElementById('dd_contratoCliente');
+                                var contratoFields = document.getElementById('contratoFields');
+                                var inputs = contratoFields.querySelectorAll('input');
+                                var selects = contratoFields.querySelectorAll('select');
+
+                                if (contratoSelect.value === 'Sim') {
+                                    inputs.forEach(function(input) {
+                                        input.removeAttribute('readonly');
+                                    });
+
+                                    selects.forEach(function(select) {
+                                        select.removeAttribute('disabled');
+                                    });
+                                }
+                            </script>";   
+
+                            //Inserimos os campos da tabela contrato nos inputs...
+                            
+                            while($row = $result4->fetch_assoc()) {
+
+                                echo "<script>document.getElementById('dd_tipoContratoCliente').value = '" . $row['TIPO_CONTRATO'] . "';</script>";
+                                echo "<script>document.getElementById('tempoTotalCliente').value = '" . $row['TEMPO_TOTAL'] . "';</script>";
+                                echo "<script>document.getElementById('tempoExtraCliente').value = '" . $row['TEMPO_EXTRA'] . "';</script>";
+                                echo "<script>document.getElementById('dd_deslocacaoCliente').value = '" . $row['DESLOCACAO'] . "';</script>";
+
+                            }
+
+                    } else { //Se não há contrato, definimos o campo como Não...
+    
+                        echo "<script>document.getElementById('dd_contratoCliente').value = 'Não';</script>";
+
+                    }
+
+                } 
 
             } else {
 
-                $sql2 = "SELECT * FROM TAB_CLIENTE WHERE N_CLIENTE = $numCli";
-                $result2 = $conn->query($sql2);
-
-                if ($result2->num_rows > 0) {
-
-                    $dados = $result2->fetch_assoc();
-
-                    echo "<script>document.getElementById('procuraCli').value = '$numCli';</script>";
-                    echo "<script>document.getElementById('nCliente').value = '$numCli';</script>";
-                    echo "<script>document.getElementById('nomeCliente').value = '" . $dados['NOME'] . "';</script>";
-                    echo "<script>document.getElementById('moradaCliente').value = '" . $dados['MORADA'] . "';</script>";
-                    echo "<script>document.getElementById('codPostalCliente').value = '" . $dados['CODIGO_POSTAL'] . "';</script>";
-
-                    $sql3 = "SELECT NOME FROM TAB_LOCALIDADE WHERE ID = " . $dados['ID_LOCALIDADE'];
-                    $result3 = $conn->query($sql3);
-
-                    if ($result3->num_rows > 0) {
-
-                        while ($row = $result3->fetch_assoc()) {
-
-                            $dados['ID_LOCALIDADE'] = $row['NOME'];
-
-                        }                      
-
-                        echo "<script>document.getElementById('localidadeCliente').value = '" . $dados['ID_LOCALIDADE'] . "';</script>";
-                        echo "<script>document.getElementById('telemovelCliente').value = '" . $dados['CONTACTO_M'] . "';</script>";
-                        echo "<script>document.getElementById('telefoneCliente').value = '" . $dados['CONTACTO_F'] . "';</script>";
-                        echo "<script>document.getElementById('emailCliente').value = '" . $dados['EMAIL'] . "';</script>";
-                        echo "<script>document.getElementById('nifCliente').value = '" . $dados['NIF'] . "';</script>";
-                        echo "<script>document.getElementById('statusCliente').value = '" . $dados['STATUS'] . "';</script>";
-                        echo "<script>document.getElementById('area_observacoes').value = '" . $dados['OBSERVACOES'] . "';</script>";
-                        
-                        $sql4 = "SELECT * FROM TAB_CONTRATO WHERE ID = '" . $dados['ID_CONTRATO'] . "'";
-
-                        $result4 = $conn->query($sql4);
-
-                        if ($result4->num_rows > 0) {
-
-                            echo "<script>document.getElementById('dd_contratoCliente').value = 'Sim';</script>";
-
-                            echo "<script>
-                                    var contratoSelect = document.getElementById('dd_contratoCliente');
-                                    var contratoFields = document.getElementById('contratoFields');
-                                    var inputs = contratoFields.querySelectorAll('input');
-                                    var selects = contratoFields.querySelectorAll('select');
-
-                                    if (contratoSelect.value === 'Sim') {
-                                        inputs.forEach(function(input) {
-                                            input.removeAttribute('readonly');
-                                        });
-
-                                        selects.forEach(function(select) {
-                                            select.removeAttribute('disabled');
-                                        });
-                                    }
-                                </script>";   
-                                
-                                while($row = $result4->fetch_assoc()) {
-
-                                    echo "<script>document.getElementById('dd_tipoContratoCliente').value = '" . $row['TIPO_CONTRATO'] . "';</script>";
-                                    echo "<script>document.getElementById('tempoTotalCliente').value = '" . $row['TEMPO_TOTAL'] . "';</script>";
-                                    echo "<script>document.getElementById('tempoExtraCliente').value = '" . $row['TEMPO_EXTRA'] . "';</script>";
-                                    echo "<script>document.getElementById('dd_deslocacaoCliente').value = '" . $row['DESLOCACAO'] . "';</script>";
-
-                                }
-
-                        } else {
-      
-                            echo "<script>document.getElementById('dd_contratoCliente').value = 'Não';</script>";
-
-                        }
-
-                    } 
-
-                } else {
-
-                    echo "<script>document.getElementById('procuraCli').value = 'Não Encontrado';</script>";
-
-                }
+                echo "<script>document.getElementById('procuraCli').value = 'Não Encontrado';</script>";
 
             }
 
         }
+
+    }
 
     $conn->close();
 
@@ -263,6 +306,8 @@
 </section>
 
 <script>
+
+    //Envio de formulários para inserir clientes...
 
     document.getElementById("enviarTodos").addEventListener("click", function() {
 
@@ -289,6 +334,8 @@
 
 <script>
 
+    //Envio de formulários para esta página...
+
     document.getElementById("submit").addEventListener("click", function() {
 
         var forms = document.querySelectorAll("form"); 
@@ -313,6 +360,8 @@
 </script>
 
 <script>
+
+    //Envio de formulários para edição de clientes.
 
     document.getElementById("enviarTodos_edit").addEventListener("click", function() {
 
@@ -339,6 +388,8 @@
 
 <script>
 
+    //Envio de formulários para remoção de clientes.
+
     document.getElementById("enviarTodos_delete").addEventListener("click", function() {
 
         var forms = document.querySelectorAll("form"); 
@@ -364,6 +415,8 @@
 
 <script>
 
+    //Funções de redirecionamento...
+
     function redirect_cliente() {
 
         window.location.href = 'cliente.php';
@@ -375,6 +428,8 @@
         window.location.href = 'fo.php';
 
     }
+
+    //Funções para habilitar e desabilitar campos conforme a dropdown de contrato...
 
     function showContratoFields() {
 
