@@ -57,23 +57,71 @@
                     
                     echo '</select>';
 
+                    $conn->close();
+
                 ?>
 
                 <input type="submit" value="-" name="sub_tipo" id="sub">
                 <label for="txt_marca">Marca</label>
                 <input type="text" name="txt_marca">
-                <input type="submit" value="+" id="add">
-                <select name="" id="">
-                    <option value=""></option>
-                </select>
-                <input type="submit" value="-" id="sub">
+                <input type="submit" value="+" id="add" name="add_marca">
+                
+                <?php 
+                
+                    echo '<select name="dd_marca" id="marca">';
+
+                    include 'conexao.php';
+
+                    $sql = "SELECT NOME FROM TAB_MARCA";
+                    $result = $conn->query($sql);
+
+                    if ($result->num_rows > 0) {
+
+                        while ($row = $result->fetch_assoc()) {
+
+                            echo '<option value=' . $row['NOME'] . '>' . $row['NOME'] . '</option>';
+
+                        }
+
+                    }
+                    
+                    echo '</select>';
+
+                    $conn->close();
+
+                ?>
+
+                <input type="submit" value="-" id="sub" name="sub_marca">
                 <label for="txt_modelo">Modelo</label>
                 <input type="text" name="txt_modelo">
-                <input type="submit" value="+" id="add">
-                <select name="" id="">
-                    <option value=""></option>
-                </select>
-                <input type="submit" value="-" id="sub">
+                <input type="submit" value="+" id="add" name="add_modelo">
+                
+                <?php 
+                
+                    echo '<select name="dd_modelo" id="modelo">';
+
+                    include 'conexao.php';
+
+                    $sql = "SELECT NOME FROM TAB_MODELO";
+                    $result = $conn->query($sql);
+
+                    if ($result->num_rows > 0) {
+
+                        while ($row = $result->fetch_assoc()) {
+
+                            echo '<option value=' . $row['NOME'] . '>' . $row['NOME'] . '</option>';
+
+                        }
+
+                    }
+                    
+                    echo '</select>';
+
+                    $conn->close();
+
+                ?>
+
+                <input type="submit" value="-" id="sub" name="sub_modelo">
             </form>
         </div>
 
