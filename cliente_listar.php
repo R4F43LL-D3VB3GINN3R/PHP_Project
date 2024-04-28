@@ -35,6 +35,9 @@
             
                 include 'conexao.php';
 
+                //Consultar todos os dados de clientes e os nomes dos lugares
+                //relacionando-os com o id da localidade...
+
                 $sql = "SELECT c.*, l.NOME AS NOME_LOCALIDADE
                 FROM TAB_CLIENTE c
                 INNER JOIN TAB_LOCALIDADE l ON c.ID_LOCALIDADE = l.ID;";
@@ -61,6 +64,8 @@
                             <th>ID Contrato</th>
                             <th>Status</th>
                         </tr>";
+
+                    //Percorre o vetor e injeta cada coluna na coluna da tabela html...
 
                     foreach ($clientes as $cliente) {
 
