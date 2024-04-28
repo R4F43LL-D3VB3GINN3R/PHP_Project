@@ -17,55 +17,84 @@
 
         if ($_SERVER["REQUEST_METHOD"] === "GET") {
 
-            //Das informações, só precisamos do numero do cliente e do nif...
-            //O nif é preciso porque se houver contrato, o id do contrato é o nif do cliente...
-
+            // Recupere os dados do cliente do método GET
             $numCli = $_GET['txt_n_cliente'];
             $nifCli = $_GET['txt_nifCliente'];
 
-            //Consulta a linha referente ao número do cliente...
+            echo '<form method="post">
+                <input type="hidden" name="txt_n_cliente" value="' . $numCli . '">
+                <input type="hidden" name="txt_nifCliente" value="' . $nifCli . '">
+                <div>
+                    <h2>Tem certeza que deseja remover o Cliente '  . $numCli . ' ?</h2>
+                    <button type="submit" name="resposta" value="sim">Sim</button>
+                    <button type="submit" name="resposta" value="nao">Não</button>
+                </div>
+            </form>';
+        
+        }
+                
 
-            $sql = "SELECT * FROM TAB_CLIENTE WHERE N_CLIENTE = '$numCli'";
-            $result = $conn->query($sql);
+        if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
-            if ($result->num_rows <= 0) {
+            $resposta = $_POST['resposta'];
+        
+            if ($resposta === 'nao') {
 
-                echo "<div>
-                            <h2>Cliente $numCli não existe em nosso sistema</h2>
-                            <button type='button' onclick='redirect()'>Ok</button>
-                    </div>";
+                echo "<script>window.location.href = 'cliente.php';</script>"; 
 
-            } else { //Se tudo correr bem com a consulta...
+            } else {
+        
+                //Das informações, só precisamos do numero do cliente e do nif...
+                //O nif é preciso porque se houver contrato, o id do contrato é o nif do cliente...
 
-                $dadosCli = $result->fetch_assoc(); //Insere o cliente no vetor...
+                $numCli = $_POST['txt_n_cliente'];
+                $nifCli = $_POST['txt_nifCliente'];
 
-                if($dadosCli['ID_CONTRATO'] == NULL) { //Se não houver contrato...
+                //Consulta a linha referente ao número do cliente...
 
-                    //Remove apenas o cliente...
+                $sql = "SELECT * FROM TAB_CLIENTE WHERE N_CLIENTE = '$numCli'";
+                $result = $conn->query($sql);
 
-                    $sql = "DELETE FROM TAB_CLIENTE WHERE N_CLIENTE = '$numCli'";
-                    $result = $conn->query($sql);
-
-                    echo "<div>
-                    <h2>Cliente $numCli Removido.</h2>
-                    <button type='button' onclick='redirect()'>Ok</button>
-                    </div>";
-
-
-                } else { //Se houver contrato...
-
-                    //Remove o cliente e o contrato primeiro e depois o contrato...
-
-                    $sql = "DELETE FROM TAB_CLIENTE WHERE N_CLIENTE = '$numCli'";
-                    $result = $conn->query($sql);
-
-                    $sql = "DELETE FROM TAB_CONTRATO WHERE ID = '$nifCli'";
-                    $result = $conn->query($sql);
+                if ($result->num_rows <= 0) {
 
                     echo "<div>
-                    <h2>Cliente $numCli Removido.</h2>
-                    <button type='button' onclick='redirect()'>Ok</button>
-                    </div>";
+                                <h2>Cliente $numCli não existe em nosso sistema</h2>
+                                <button type='button' onclick='redirect()'>Ok</button>
+                        </div>";
+
+                } else { //Se tudo correr bem com a consulta...
+
+                    $dadosCli = $result->fetch_assoc(); //Insere o cliente no vetor...
+
+                    if($dadosCli['ID_CONTRATO'] == NULL) { //Se não houver contrato...
+
+                        //Remove apenas o cliente...
+
+                        $sql = "DELETE FROM TAB_CLIENTE WHERE N_CLIENTE = '$numCli'";
+                        $result = $conn->query($sql);
+
+                        echo "<div>
+                        <h2>Cliente $numCli Removido.</h2>
+                        <button type='button' onclick='redirect()'>Ok</button>
+                        </div>";
+
+
+                    } else { //Se houver contrato...
+
+                        //Remove o cliente e o contrato primeiro e depois o contrato...
+
+                        $sql = "DELETE FROM TAB_CLIENTE WHERE N_CLIENTE = '$numCli'";
+                        $result = $conn->query($sql);
+
+                        $sql = "DELETE FROM TAB_CONTRATO WHERE ID = '$nifCli'";
+                        $result = $conn->query($sql);
+
+                        echo "<div>
+                        <h2>Cliente $numCli Removido.</h2>
+                        <button type='button' onclick='redirect()'>Ok</button>
+                        </div>";
+
+                    }
 
                 }
 
@@ -78,6 +107,7 @@
         throw new Exception("[Erro] na Transmissão de Informações Web ");
 
     }
+
 
     $conn->close();
 
