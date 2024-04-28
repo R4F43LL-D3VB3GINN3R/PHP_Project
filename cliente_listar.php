@@ -23,14 +23,68 @@
             <button type="button" onclick='redirect_cliente()' id="bt_cliente">Cliente</button>
             <button type="button" onclick='redirect_fo()' id="bt_fo">Folhas de Obras</button>
             <h2>Equipamento</h2>
-            <button id="bt_tipo">Tipo</button>
-            <button id="bt_marca">Marca</button>
-            <button id="bt_modelo">Modelo</button>
+            <button type="button" id="bt_gerenciar">Gerenciar</button>
             <button id="bt_catalogo">Catálogo</button>
         </form>
     </div>
 
     <div class="name3">
+        <form action="" id="form3">
+
+            <?php 
+            
+                include 'conexao.php';
+
+                $sql = "SELECT c.*, l.NOME AS NOME_LOCALIDADE
+                FROM TAB_CLIENTE c
+                INNER JOIN TAB_LOCALIDADE l ON c.ID_LOCALIDADE = l.ID;";
+                $result = $conn->query($sql);
+
+                if ($result->num_rows > 0) {
+
+                    $clientes = array();
+
+                    while($row = $result->fetch_assoc()) {
+
+                        $clientes[] = $row;
+                    }
+
+                    echo "<table border='0'>";
+                    echo "<tr>
+                            <th>Nº Cliente</th>
+                            <th>NIF</th>
+                            <th>Nome</th>
+                            <th>Morada</th>
+                            <th>Localidade</th>
+                            <th>Contacto Móvel</th>
+                            <th>Data de Criação</th>
+                            <th>ID Contrato</th>
+                            <th>Status</th>
+                        </tr>";
+
+                    foreach ($clientes as $cliente) {
+
+                        echo "<tr>";
+                        echo "<td>{$cliente['N_CLIENTE']}</td>";
+                        echo "<td>{$cliente['NIF']}</td>";
+                        echo "<td>{$cliente['NOME']}</td>";
+                        echo "<td>{$cliente['MORADA']}</td>";
+                        echo "<td>{$cliente['NOME_LOCALIDADE']}</td>";
+                        echo "<td>{$cliente['CONTACTO_M']}</td>";
+                        echo "<td>{$cliente['CRIADO_DATA']}</td>";
+                        echo "<td>{$cliente['ID_CONTRATO']}</td>";
+                        echo "<td>{$cliente['STATUS']}</td>";
+                        echo "</tr>";
+
+                    }
+
+                    echo "</table>";
+
+                }
+            
+            ?>
+
+        </form>
     </div>   
 
     </section>
