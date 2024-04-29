@@ -14,8 +14,13 @@
     try {
 
         include 'conexao.php';
+        include 'permissoes.php';
 
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
+
+            $nick = $_POST['nick'];
+
+            //Se o formulário for para adicionar tipo...
 
             if (isset($_POST['add_tipo'])) {
 
@@ -30,7 +35,8 @@
 
                     if ($result) {
 
-                        header("Location: equipamentos.php");
+                        repasseNick($nick, "equipamentos.php");    
+                        exit;
 
                     } else {
 
@@ -40,9 +46,12 @@
 
                 } else {
 
-                    header("Location: equipamentos.php");
+                    repasseNick($nick, "equipamentos.php");    
+                    exit;
 
                 }
+
+            //Se o formulário for para remover tipo...
 
             } else if (isset($_POST['sub_tipo'])) {
 
@@ -53,13 +62,16 @@
 
                 if ($result) {
 
-                    header("Location: equipamentos.php");
+                    repasseNick($nick, "equipamentos.php");    
+                    exit;
 
                 } else {
 
                     throw new Exception("Não foi possível inserir os dados ");
 
                 } 
+
+            //Se o formulário for para adicionar marca...
 
             } else if (isset($_POST['add_marca'])) {
 
@@ -74,7 +86,8 @@
 
                     if ($result) {
 
-                        header("Location: equipamentos.php");
+                        repasseNick($nick, "equipamentos.php");    
+                        exit;
 
                     } else {
 
@@ -84,9 +97,12 @@
 
                 } else {
 
-                    header("Location: equipamentos.php");
+                    repasseNick($nick, "equipamentos.php");    
+                    exit;
 
                 }
+
+            //Se o formulário for para remover marca...
 
             } else if (isset($_POST['sub_marca'])) {
 
@@ -97,13 +113,16 @@
 
                 if ($result) {
 
-                    header("Location: equipamentos.php");
+                    repasseNick($nick, "equipamentos.php");    
+                    exit;
 
                 } else {
 
                     throw new Exception("Não foi possível inserir os dados ");
 
                 } 
+
+            //Se o formulário for para adicionar modelo...
 
             } else if (isset($_POST['add_modelo'])) {
 
@@ -118,7 +137,8 @@
 
                     if ($result) {
 
-                        header("Location: equipamentos.php");
+                        repasseNick($nick, "equipamentos.php");    
+                        exit;
 
                     } else {
 
@@ -128,9 +148,12 @@
 
                 } else {
 
-                    header("Location: equipamentos.php");
+                    repasseNick($nick, "equipamentos.php");    
+                    exit;
 
                 }
+
+            //Se o formulário for para remover modelo...
 
 
             } else if (isset($_POST['sub_modelo'])) {
@@ -142,7 +165,59 @@
 
                 if ($result) {
 
-                    header("Location: equipamentos.php");
+                    repasseNick($nick, "equipamentos.php");    
+                    exit;
+
+                } else {
+
+                    throw new Exception("Não foi possível inserir os dados ");
+
+                }
+                
+            //Se o formulário for para adicionar estado...
+
+            } else if (isset($_POST['add_estado'])) {
+
+                $estado = $_POST['txt_estado'];
+
+                if($estado != NULL) {
+
+                    $stmt = $conn->prepare("INSERT INTO TAB_ESTADO (NOME)
+                    VALUES (?)");
+                    $stmt->bind_param('s', $estado);
+                    $result = $stmt->execute();
+
+                    if ($result) {
+
+                        repasseNick($nick, "equipamentos.php");    
+                        exit;
+
+                    } else {
+
+                        throw new Exception("Não foi possível inserir os dados ");
+
+                    }
+
+                } else {
+
+                    repasseNick($nick, "equipamentos.php");    
+                    exit;
+
+                }
+
+            //Se o formulário for para remover estado...
+
+            } else if (isset($_POST['sub_estado'])) {
+
+                $estado = $_POST['dd_estado'];
+
+                $sql = "DELETE FROM TAB_ESTADO WHERE NOME = '$estado'";
+                $result = $conn->query($sql);
+
+                if ($result) {
+
+                    repasseNick($nick, "equipamentos.php");    
+                    exit;
 
                 } else {
 
@@ -165,8 +240,6 @@
         throw new Exception("[Erro 400] na Transmissão de Informações Web ");
 
     }
-
-    $conn->close();
 
 ?>
 
