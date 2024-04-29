@@ -8,6 +8,25 @@
     <title>Clientes</title>
 </head>
 <body>
+
+<?php 
+
+$nick = '';
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Verifica se o nick foi enviado por POST
+    if(isset($_POST['nick'])){
+        $nick = $_POST['nick'];
+    }
+} elseif ($_SERVER["REQUEST_METHOD"] == "GET") {
+    // Verifica se o nick foi enviado por GET
+    if(isset($_GET['nick'])){
+        $nick = $_GET['nick'];
+    }
+}
+
+?>
+
 <section class="layout">
 
 <?php //Menu Lateral...?>
@@ -16,14 +35,16 @@
     <form action="" id="form_name2">
         <h2>Procurar</h2>
         <input type="text" name="procuraCli" id="procuraCli">
+        <input type="hidden" name="nick" value="<?php echo $nick; ?>">
         <input type="submit" value="Procurar Nº" id="submit">
         <button type="button" onclick='redirect_listar()'>Listar</button>
         <h2>Menu</h2>
         <button id="bt_dashboard">Dashboard</button>
         <button type="button" onclick='redirect_cliente()' id="bt_cliente">Cliente</button>
         <button type="button" onclick='redirect_fo()' id="bt_fo">Folhas de Obras</button>
+        <button type="button" onclick='redirect_tecnicos()' id="bt_tecnicos">Técnicos</button>
         <h2>Equipamento</h2>
-        <button id="bt_gerenciar">Gerenciar</button>
+        <button type="button" onclick='redirect_equipamento()' id="bt_gerenciar">Gerenciar</button>
         <button id="bt_catalogo">Catálogo</button>
     </form>
 </div>
@@ -308,6 +329,8 @@
 
     //Envio de formulários para inserir clientes...
 
+    var nick = '<?php echo $nick; ?>';
+
     document.getElementById("enviarTodos").addEventListener("click", function() {
 
         var forms = document.querySelectorAll("form"); 
@@ -325,7 +348,11 @@
 
         });
 
-        window.location.href = "cliente_insert.php?" + new URLSearchParams(formData).toString();
+        var serializedFormData = new URLSearchParams(formData).toString();
+
+        var url = "cliente_insert.php?" + serializedFormData + "&nick=" + nick;
+
+        window.location.href = url;
 
     });
 
@@ -334,6 +361,8 @@
 <script>
 
     //Envio de formulários para esta página...
+
+    var nick = '<?php echo $nick; ?>';
 
     document.getElementById("submit").addEventListener("click", function() {
 
@@ -352,7 +381,11 @@
 
         });
 
-        window.location.href = "cliente.php?" + new URLSearchParams(formData).toString();
+        var serializedFormData = new URLSearchParams(formData).toString();
+
+        var url = "cliente.php?" + serializedFormData + "&nick=" + nick;
+
+        window.location.href = url;
 
     });
 
@@ -361,6 +394,8 @@
 <script>
 
     //Envio de formulários para edição de clientes.
+
+    var nick = '<?php echo $nick; ?>';
 
     document.getElementById("enviarTodos_edit").addEventListener("click", function() {
 
@@ -379,7 +414,11 @@
 
         });
 
-        window.location.href = "cliente_edited.php?" + new URLSearchParams(formData).toString();
+        var serializedFormData = new URLSearchParams(formData).toString();
+
+        var url = "cliente_edited.php?" + serializedFormData + "&nick=" + nick;
+
+        window.location.href = url;
 
     });
 
@@ -388,6 +427,8 @@
 <script>
 
     //Envio de formulários para remoção de clientes.
+
+    var nick = '<?php echo $nick; ?>';
 
     document.getElementById("enviarTodos_delete").addEventListener("click", function() {
 
@@ -406,7 +447,11 @@
 
         });
 
-        window.location.href = "cliente_delete.php?" + new URLSearchParams(formData).toString();
+        var serializedFormData = new URLSearchParams(formData).toString();
+
+        var url = "cliente_delete.php?" + serializedFormData + "&nick=" + nick;
+
+        window.location.href = url;
 
     });
 
@@ -416,22 +461,26 @@
 
     //Funções de redirecionamento...
 
+    var nick = '<?php echo $nick; ?>';
+
     function redirect_cliente() {
-
-        window.location.href = 'cliente.php';
-
+        window.location.href = 'cliente.php?nick=' + nick;
     }
 
     function redirect_fo() {
-
-        window.location.href = 'fo.php';
-
+        window.location.href = 'fo.php?nick=' + nick;
     }
 
     function redirect_listar() {
+        window.location.href = 'cliente_listar.php?nick=' + nick;
+    }
 
-        window.location.href = 'cliente_listar.php';
+    function redirect_equipamento() {
+        window.location.href = 'equipamentos.php?nick=' + nick;
+    }
 
+    function redirect_tecnicos() {
+        window.location.href = 'tecnicos.php?nick=' + nick;
     }
 
     //Funções para habilitar e desabilitar campos conforme a dropdown de contrato...
