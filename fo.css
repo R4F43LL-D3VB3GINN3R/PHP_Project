@@ -124,6 +124,7 @@ body {
 }
 
 input {
+    height: 25px;
     width: 150px;
     background-color: #000000;
     border: 1px solid rgb(120, 102, 102);
@@ -135,6 +136,7 @@ input {
 }
 
 select {
+    height: 30px;
     width: 150px;
     background-color: #000000;
     color: rgb(255, 255, 255);
@@ -142,6 +144,7 @@ select {
     font-family: 'Roboto Mono', monospace;
     font-weight: bold;
     cursor: pointer;
+    text-align: center;
 }
 
 textarea {
@@ -273,12 +276,17 @@ form {
     padding: 5px;
     border: 1px solid blue;
     border-radius: 5px;
-    width: 1000px;
+    width: 1050px;
     display: flex;
     justify-content: center;
     flex-direction: row;
     align-items: center;
     gap: 20px;
+}
+
+#form_subdiv2 {
+    gap: 5px;
+    width: 1100px;
 }
 
 #input_save {
@@ -369,7 +377,8 @@ h2 {
 input , select, textarea{
     background-color: rgb(255, 255, 255);
     color: black;
-    border: 2px solid rgb(0, 75, 226);
+    border: 2px solid rgb(111, 114, 122);
+    border-radius: 5px;
 }
 
 label{
