@@ -8,34 +8,53 @@
     <title>Clientes</title>
 </head>
 <body>
+
+    <?php 
+
+    $nick = '';
+
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        // Verifica se o nick foi enviado por POST
+        if(isset($_POST['nick'])){
+            $nick = $_POST['nick'];
+        }
+    } elseif ($_SERVER["REQUEST_METHOD"] == "GET") {
+        // Verifica se o nick foi enviado por GET
+        if(isset($_GET['nick'])){
+            $nick = $_GET['nick'];
+        }
+    }
+
+    ?>
+
     <section class="layout">
 
     <?php //Menu Lateral...?>
 
     <div class="name2">
-        <form action="equipamentos.php" id="form_name2" method="get">
-            <h2>Procurar</h2>
-            <input type="text" name="procuraCli" id="procuraCli">
-            <input type="submit" value="Procurar Nº" id="submit">
-            <button type="button" onclick='redirect_listar()'>Listar</button>
+        <form action="equipamentos.php" id="form_name2" method="get" class="form_name2">
             <h2>Menu</h2>
             <button id="bt_dashboard">Dashboard</button>
             <button type="button" onclick='redirect_cliente()' id="bt_cliente">Cliente</button>
             <button type="button" onclick='redirect_fo()' id="bt_fo">Folhas de Obras</button>
+            <button type="button" onclick='redirect_tecnicos()' id="bt_tecnicos">Técnicos</button>
             <h2>Equipamento</h2>
             <button type="button" onclick='redirect_equipamento()' id="bt_gerenciar">Gerenciar</button>
             <button id="bt_catalogo">Catálogo</button>
+            <input type="hidden" name="nick" value="<?php echo $nick; ?>">
         </form>
     </div>
 
-    <div class="name3">
+    <?php //Menu de Adicionar e Remover...?>
 
-        <div class="subdiv1">
-            <form action="equipamentos_insert.php" id="form3" method="post" name="form3">
+    <div class="name3">  
+        <form action="equipamentos_insert.php" id="form3" method="post" name="form3">
+            <div class="subdiv1">
                 <label for="txt_tipo">Tipo</label>
                 <input type="text" name="txt_tipo" id="tipo">
+                <input type="hidden" name="nick" value="<?php echo $nick; ?>">
                 <input type="submit" value="+" name="add_tipo" id="add">
-                
+                    
                 <?php 
                 
                     echo '<select name="dd_tipo" id="tipo">';
@@ -49,7 +68,7 @@
 
                         while ($row = $result->fetch_assoc()) {
 
-                            echo '<option value=' . $row['NOME'] . '>' . $row['NOME'] . '</option>';
+                            echo '<option value="' . $row['NOME'] . '">' . $row['NOME'] . '</option>';
 
                         }
 
@@ -62,8 +81,12 @@
                 ?>
 
                 <input type="submit" value="-" name="sub_tipo" id="sub">
+                </div>
+
+                <div class="subdiv2">
                 <label for="txt_marca">Marca</label>
                 <input type="text" name="txt_marca">
+                <input type="hidden" name="nick" value="<?php echo $nick; ?>">
                 <input type="submit" value="+" id="add" name="add_marca">
                 
                 <?php 
@@ -79,7 +102,7 @@
 
                         while ($row = $result->fetch_assoc()) {
 
-                            echo '<option value=' . $row['NOME'] . '>' . $row['NOME'] . '</option>';
+                            echo '<option value="' . $row['NOME'] . '">' . $row['NOME'] . '</option>';
 
                         }
 
@@ -92,8 +115,12 @@
                 ?>
 
                 <input type="submit" value="-" id="sub" name="sub_marca">
+                </div>
+
+                <div class="subdiv3">
                 <label for="txt_modelo">Modelo</label>
                 <input type="text" name="txt_modelo">
+                <input type="hidden" name="nick" value="<?php echo $nick; ?>">
                 <input type="submit" value="+" id="add" name="add_modelo">
                 
                 <?php 
@@ -109,7 +136,40 @@
 
                         while ($row = $result->fetch_assoc()) {
 
-                            echo '<option value=' . $row['NOME'] . '>' . $row['NOME'] . '</option>';
+                            echo '<option value="' . $row['NOME'] . '">' . $row['NOME'] . '</option>';
+
+                        }
+
+                    }
+                    
+                    echo '</select>';
+
+                    $conn->close();
+
+                ?>
+                <input type="submit" value="+" id="sub" name="sub_modelo">
+                </div>
+
+                <div class="subdiv4">
+                <label for="txt_estado">Estado</label>
+                <input type="text" name="txt_estado">
+                <input type="hidden" name="nick" value="<?php echo $nick; ?>">
+                <input type="submit" value="+" id="add" name="add_estado">
+                
+                <?php 
+                
+                    echo '<select name="dd_estado" id="estado">';
+
+                    include 'conexao.php';
+
+                    $sql = "SELECT NOME FROM TAB_ESTADO";
+                    $result = $conn->query($sql);
+
+                    if ($result->num_rows > 0) {
+
+                        while ($row = $result->fetch_assoc()) {
+
+                            echo '<option value="' . $row['NOME'] . '">' . $row['NOME'] . '</option>';
 
                         }
 
@@ -121,15 +181,8 @@
 
                 ?>
 
-                <input type="submit" value="-" id="sub" name="sub_modelo">
-            </form>
-        </div>
-
-        <div class="subdiv2">
-            <form action="" id="form3">
-
-                <h2>Em Manutenção</h2>
-
+                <input type="submit" value="-" id="sub" name="sub_estado">
+                </div>
             </form>
         </div>
 
@@ -140,28 +193,26 @@
 
     //Funções de redirecionamento...
 
+    var nick = '<?php echo $nick; ?>';
+
     function redirect_cliente() {
-
-        window.location.href = 'cliente.php';
-
+        window.location.href = 'cliente.php?nick=' + nick;
     }
 
     function redirect_fo() {
-
-        window.location.href = 'fo.php';
-
+        window.location.href = 'fo.php?nick=' + nick;
     }
 
     function redirect_listar() {
-
-        window.location.href = 'cliente_listar.php';
-
+        window.location.href = 'cliente_listar.php?nick=' + nick;
     }
 
     function redirect_equipamento() {
+        window.location.href = 'equipamentos.php?nick=' + nick;
+    }
 
-        window.location.href = 'equipamentos.php';
-
+    function redirect_tecnicos() {
+        window.location.href = 'tecnicos.php?nick=' + nick;
     }
 
 </script>
