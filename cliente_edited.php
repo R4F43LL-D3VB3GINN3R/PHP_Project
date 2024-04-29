@@ -17,6 +17,8 @@
 
             if ($_SERVER["REQUEST_METHOD"] === "GET") {
 
+                $nick = isset($_GET['nick']) ? $_GET['nick'] : '';
+
                 $numCli = $_GET['txt_n_cliente'];
                 $nomeCli = $_GET['txt_nomeCliente'];
                 $moradaCli = $_GET['txt_moradaCliente'];
@@ -213,10 +215,12 @@
 
 <script>
 
+    var nick = '<?php echo $nick; ?>';
+
     function redirect() {
 
-        window.location.href = 'cliente.php';
-
+        window.location.href = 'cliente.php?nick=' + nick;
+        
     }
         
 </script>
