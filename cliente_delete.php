@@ -14,16 +14,21 @@
     try {
 
         include 'conexao.php';
+        include 'permissoes.php';
 
         if ($_SERVER["REQUEST_METHOD"] === "GET") {
 
             // Recupere os dados do cliente do método GET
             $numCli = $_GET['txt_n_cliente'];
             $nifCli = $_GET['txt_nifCliente'];
+            $nick = $_GET['nick'];
+
+            access($nick);
 
             echo '<form method="post">
                 <input type="hidden" name="txt_n_cliente" value="' . $numCli . '">
                 <input type="hidden" name="txt_nifCliente" value="' . $nifCli . '">
+                <input type="hidden" name="nick" value="' . $nick . '">
                 <div>
                     <h2>Tem certeza que deseja remover o Cliente '  . $numCli . ' ?</h2>
                     <button type="submit" name="resposta" value="sim">Sim</button>
@@ -31,16 +36,17 @@
                 </div>
             </form>';
         
-        }
-                
+        }     
 
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
             $resposta = $_POST['resposta'];
+            $nick = $_POST['nick'];
         
             if ($resposta === 'nao') {
 
-                echo "<script>window.location.href = 'cliente.php';</script>"; 
+                repasseNick ($nick, 'cliente.php');
+                exit;
 
             } else {
         
@@ -100,11 +106,15 @@
 
             }
 
+        } else {
+
+            throw new Exception("[Erro] na Transmissão de Informações Web ");
+
         }
 
     } catch (Exception $e) {
 
-        throw new Exception("[Erro] na Transmissão de Informações Web ");
+        
 
     }
 
@@ -115,9 +125,11 @@
 
 <script>
 
+    var nick = '<?php echo $nick; ?>';
+
     function redirect() {
 
-        window.location.href = 'cliente.php';
+        window.location.href = 'cliente.php?nick=' + nick;
 
     }
 
