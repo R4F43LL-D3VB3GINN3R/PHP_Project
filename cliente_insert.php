@@ -29,6 +29,7 @@
                 $statusCli = $_GET['dd_statusCliente'];
                 $contratoCli = $_GET['dd_contratoCliente'];
                 $obsCli = $_GET['area_observacoes'];
+                $nick = $_GET['nick'];
 
                 //Consulta a linha referente ao número do cliente...
 
@@ -139,11 +140,13 @@
 
     <script>
 
-        function redirect() {
+    var nick = '<?php echo $nick; ?>';
 
-            window.location.href = 'cliente.php';
+    function redirect() {
 
-        }
+        window.location.href = 'cliente.php?nick=' + nick;
+
+    }
         
     </script>
 </body>
