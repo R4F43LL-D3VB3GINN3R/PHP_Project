@@ -54,8 +54,8 @@ body {
 #form3 {
 
     height: 95%;
-    overflow-y: auto; /* Adiciona uma barra de rolagem vertical */
-    max-height: 600px; /* Define a altura máxima da tabela para a barra de rolagem aparecer */
+    overflow-y: auto; 
+    max-height: 600px; 
     display: flex;
     justify-content: left;
     align-items: center;
@@ -71,20 +71,15 @@ table {
     border-collapse:collapse;
     margin-top: 20px;
     text-align: center;
-    overflow-y: auto; /* Adiciona uma barra de rolagem vertical */
-    max-height: 600px; /* Define a altura máxima da tabela para a barra de rolagem aparecer */
     margin-top: 20px;
     backdrop-filter: blur(0px) saturate(180%);
     -webkit-backdrop-filter: blur(0px) saturate(180%);
-    background-color: rgba(0, 0, 0, 0.248);
-    border-radius: 20px;
     border: 1px solid rgba(255, 255, 255, 0.125);
 }
 
 th, td {
     padding: 5px;
     border: 2px solid rgb(255, 255, 255);
-    cursor: pointer; /* torna o cabeçalho clicável */
 }
 
 th {
@@ -92,7 +87,6 @@ th {
     backdrop-filter: blur(16px) saturate(180%);
     -webkit-backdrop-filter: blur(16px) saturate(180%);
     background-color: rgb(12, 190, 239);
-    border-radius: 20px;
     border: 2px solid rgb(255, 255, 255);
 }
 
@@ -100,7 +94,6 @@ td {
     backdrop-filter: blur(16px) saturate(180%);
     -webkit-backdrop-filter: blur(16px) saturate(180%);
     background-color: rgb(0, 170, 255);
-    border-radius: 12px;
     border: 3px solid rgb(255, 255, 255);
     color:rgb(255, 255, 255);
 }
@@ -114,7 +107,9 @@ td {
 }
 
 input {
+    height: 25px;
     width: 150px;
+    border-radius: 5px;
     font-size: 15px;
     font-family: 'Roboto Mono', monospace;
     font-weight: bold;
@@ -178,7 +173,7 @@ button {
 input , select, textarea{
     background-color: rgb(255, 255, 255);
     color: black;
-    border: 2px solid rgb(0, 75, 226);
+    border: 2px solid rgb(111, 114, 122);
 }
 
 label{
