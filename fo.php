@@ -8,7 +8,28 @@
     <title>Folhas de Obras</title>
 </head>
 <body>
+
+<?php 
+
+$nick = '';
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Verifica se o nick foi enviado por POST
+    if(isset($_POST['nick'])){
+        $nick = $_POST['nick'];
+    }
+} elseif ($_SERVER["REQUEST_METHOD"] == "GET") {
+    // Verifica se o nick foi enviado por GET
+    if(isset($_GET['nick'])){
+        $nick = $_GET['nick'];
+    }
+}
+
+?>
+
 <section class="layout">
+
+<?php //Menu de barra lateral...?>
 
 <div class="name2">
     <form action="" id="form_name2">
@@ -20,6 +41,7 @@
         <button id="bt_dashboard">Dashboard</button>
         <button type="button" onclick='redirect_cliente()' id="bt_cliente">Cliente</button>
         <button type="button" onclick='redirect_fo()' id="bt_fo">Folhas de Obras</button>
+        <button type="button" onclick='redirect_tecnicos()' id="bt_tecnicos">Técnicos</button>
         <h2>Equipamento</h2>
         <button type="button" onclick='redirect_equipamento()' id="bt_gerenciar">Gerenciar</button>
         <button id="bt_catalogo">Catálogo</button>
@@ -28,31 +50,32 @@
 
 <div class="name3">
     <div class="subdiv1">
-        <form action="fo2.php" method="post" id="form_subdiv1">
+        <form action="fo2.php" method="get" id="form_subdiv1">
             <label for="txt_cliente">Cliente: </label>
             
             <?php 
                 
-                    echo '<select name="dd_cliente" id="cliente">';
+                echo '<select name="dd_cliente" id="cliente">';
 
-                    include 'conexao.php';
+                include 'conexao.php';
 
-                    $sql = "SELECT NOME FROM TAB_CLIENTE";
-                    $result = $conn->query($sql);
+                $sql = "SELECT NOME FROM TAB_CLIENTE";
+                $result = $conn->query($sql);
 
-                    if ($result->num_rows > 0) {
+                if ($result->num_rows > 0) {
 
-                        while ($row = $result->fetch_assoc()) {
+                    while ($row = $result->fetch_assoc()) {
 
-                            echo '<option value=' . $row['NOME'] . '>' . $row['NOME'] . '</option>';
-
-                        }
+                        echo '<option value="' . $row['NOME'] . '">' . $row['NOME'] . '</option>';
 
                     }
-                    
-                    echo '</select>';
 
-                    $conn->close();
+                }
+                
+                echo '</select>';
+                
+
+                $conn->close();
 
             ?>
 
@@ -60,26 +83,26 @@
             
             <?php 
                 
-                    echo '<select name="dd_tecnico" id="tecnico">';
+                echo '<select name="dd_tecnico" id="tecnico">';
 
-                    include 'conexao.php';
+                include 'conexao.php';
 
-                    $sql = "SELECT NICK FROM TAB_TECNICO";
-                    $result = $conn->query($sql);
+                $sql = "SELECT NICK FROM TAB_TECNICO";
+                $result = $conn->query($sql);
 
-                    if ($result->num_rows > 0) {
+                if ($result->num_rows > 0) {
 
-                        while ($row = $result->fetch_assoc()) {
+                    while ($row = $result->fetch_assoc()) {
 
-                            echo '<option value=' . $row['NICK'] . '>' . $row['NICK'] . '</option>';
-
-                        }
+                        echo '<option value="' . $row['NICK'] . '">' . $row['NICK'] . '</option>';
 
                     }
-                    
-                    echo '</select>';
 
-                    $conn->close();
+                }
+                
+                echo '</select>';
+
+                $conn->close();
 
             ?>
 
@@ -96,26 +119,26 @@
             
             <?php 
                 
-                    echo '<select name="dd_equipamento" id="equipamento">';
+                echo '<select name="dd_tipo" id="tipo">';
 
-                    include 'conexao.php';
+                include 'conexao.php';
 
-                    $sql = "SELECT NOME FROM TAB_TIPO";
-                    $result = $conn->query($sql);
+                $sql = "SELECT NOME FROM TAB_TIPO";
+                $result = $conn->query($sql);
 
-                    if ($result->num_rows > 0) {
+                if ($result->num_rows > 0) {
 
-                        while ($row = $result->fetch_assoc()) {
+                    while ($row = $result->fetch_assoc()) {
 
-                            echo '<option value=' . $row['NOME'] . '>' . $row['NOME'] . '</option>';
-
-                        }
+                        echo '<option value="' . $row['NOME'] . '">' . $row['NOME'] . '</option>';
 
                     }
-                    
-                    echo '</select>';
 
-                    $conn->close();
+                }
+                
+                echo '</select>';
+
+                $conn->close();
 
                 ?>
 
@@ -123,53 +146,53 @@
             
             <?php 
                 
-                    echo '<select name="dd_marca" id="marca">';
+                echo '<select name="dd_marca" id="marca">';
 
-                    include 'conexao.php';
+                include 'conexao.php';
 
-                    $sql = "SELECT NOME FROM TAB_MARCA";
-                    $result = $conn->query($sql);
+                $sql = "SELECT NOME FROM TAB_MARCA";
+                $result = $conn->query($sql);
 
-                    if ($result->num_rows > 0) {
+                if ($result->num_rows > 0) {
 
-                        while ($row = $result->fetch_assoc()) {
+                    while ($row = $result->fetch_assoc()) {
 
-                            echo '<option value=' . $row['NOME'] . '>' . $row['NOME'] . '</option>';
-
-                        }
+                        echo '<option value="' . $row['NOME'] . '">' . $row['NOME'] . '</option>';
 
                     }
-                    
-                    echo '</select>';
 
-                    $conn->close();
+                }
+                
+                echo '</select>';
+
+                $conn->close();
 
                 ?>
 
-            <label for="dd_modelo">Mod Equip:</label>
+            <label for="dd_modelo">Modelo Equip:</label>
             
             <?php 
                 
-                    echo '<select name="dd_modelo" id="modelo">';
+                echo '<select name="dd_modelo" id="modelo">';
 
-                    include 'conexao.php';
+                include 'conexao.php';
 
-                    $sql = "SELECT NOME FROM TAB_MODELO";
-                    $result = $conn->query($sql);
+                $sql = "SELECT NOME FROM TAB_MODELO";
+                $result = $conn->query($sql);
 
-                    if ($result->num_rows > 0) {
+                if ($result->num_rows > 0) {
 
-                        while ($row = $result->fetch_assoc()) {
+                    while ($row = $result->fetch_assoc()) {
 
-                            echo '<option value=' . $row['NOME'] . '>' . $row['NOME'] . '</option>';
-
-                        }
+                        echo '<option value="' . $row['NOME'] . '">' . $row['NOME'] . '</option>';
 
                     }
-                    
-                    echo '</select>';
 
-                    $conn->close();
+                }
+                
+                echo '</select>';
+
+                $conn->close();
 
                 ?>
 
@@ -198,8 +221,8 @@
         <form action="fo2.php" method="post" id="form_subdiv5">
             <label for="txt_ticket">Nº Ticket:</label>
             <input type="text" name="txt_ticket">
-            <label for="txt_requerimento">Nº Requerimento:</label>
-            <input type="text" name="txt_requerimento">
+            <label for="txt_requerimento">Nº Requisição:</label>
+            <input type="number" name="txt_requerimento">
             <label for="txt_numero_serie">Nº Série:</label>
             <input type="text" name="txt_numero_serie" id="txt_numero_serie">
             <button type="button" id="bt_gen" onclick='generatenum()'>Gerar</button>
@@ -207,7 +230,7 @@
     </div> 
 
     <div class="subdiv5">
-        <button id="enviarTodos">Salvar</button>       
+        <button id="enviarTodos">Inserir</button>       
     </div> 
 
 </div>
@@ -215,12 +238,15 @@
 
 <script>
 
+    var nick = '<?php echo $nick; ?>';
+
     document.getElementById("enviarTodos").addEventListener("click", function() {
 
         var forms = document.querySelectorAll("form"); 
         var formData = new FormData(); 
 
         forms.forEach(function(form) {
+
             var inputs = form.querySelectorAll("input, select, textarea");
 
             inputs.forEach(function(input) {
@@ -228,10 +254,15 @@
                 formData.append(input.name, input.value); 
 
             });
-            
+
         });
 
-        window.location.href = "fo2.php?" + new URLSearchParams(formData).toString();
+        var serializedFormData = new URLSearchParams(formData).toString();
+
+        var url = "fo_insert.php?" + serializedFormData + "&nick=" + nick;
+
+        window.location.href = url;
+
     });
 
 </script>
@@ -272,28 +303,26 @@ function generatenum() {
 
 <script>
 
+var nick = '<?php echo $nick; ?>';
+
     function redirect_cliente() {
-
-        window.location.href = 'cliente.php';
-
+        window.location.href = 'cliente.php?nick=' + nick;
     }
 
     function redirect_fo() {
-
-        window.location.href = 'fo.php';
-
+        window.location.href = 'fo.php?nick=' + nick;
     }
 
     function redirect_listar() {
-
-         window.location.href = 'cliente_listar.php';
-
+        window.location.href = 'cliente_listar.php?nick=' + nick;
     }
 
     function redirect_equipamento() {
+        window.location.href = 'equipamentos.php?nick=' + nick;
+    }
 
-        window.location.href = 'equipamentos.php';
-
+    function redirect_tecnicos() {
+        window.location.href = 'tecnicos.php?nick=' + nick;
     }
 
 </script>
