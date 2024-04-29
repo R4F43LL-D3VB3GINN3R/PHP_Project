@@ -8,6 +8,25 @@
     <title>Clientes</title>
 </head>
 <body>
+
+<?php 
+
+$nick = '';
+
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        // Verifica se o nick foi enviado por POST
+        if(isset($_POST['nick'])){
+            $nick = $_POST['nick'];
+        }
+    } elseif ($_SERVER["REQUEST_METHOD"] == "GET") {
+        // Verifica se o nick foi enviado por GET
+        if(isset($_GET['nick'])){
+            $nick = $_GET['nick'];
+        }
+    }
+
+?>
+
     <section class="layout">
 
     <?php //Menu Lateral...?>
@@ -16,14 +35,16 @@
         <form action="cliente.php" id="form_name2" method="get">
             <h2>Procurar</h2>
             <input type="text" name="procuraCli" id="procuraCli">
+            <input type="hidden" name="nick" value="<?php echo $nick; ?>">
             <input type="submit" value="Procurar Nº" id="submit">
             <button type="button" onclick='redirect_listar()'>Listar</button>
             <h2>Menu</h2>
             <button id="bt_dashboard">Dashboard</button>
             <button type="button" onclick='redirect_cliente()' id="bt_cliente">Cliente</button>
             <button type="button" onclick='redirect_fo()' id="bt_fo">Folhas de Obras</button>
+            <button type="button" onclick='redirect_tecnicos()' id="bt_tecnicos">Técnicos</button>
             <h2>Equipamento</h2>
-            <button type="button" id="bt_gerenciar">Gerenciar</button>
+            <button type="button" onclick='redirect_equipamento()' id="bt_gerenciar">Gerenciar</button>
             <button id="bt_catalogo">Catálogo</button>
         </form>
     </div>
@@ -85,6 +106,10 @@
 
                     echo "</table>";
 
+                } else {
+
+                    throw new Exception("[Erro] na consulta ao banco de dados.");
+
                 }
             
             ?>
@@ -98,22 +123,26 @@
 
     //Funções de redirecionamento...
 
+    var nick = '<?php echo $nick; ?>';
+
     function redirect_cliente() {
-
-        window.location.href = 'cliente.php';
-
+        window.location.href = 'cliente.php?nick=' + nick;
     }
 
     function redirect_fo() {
-
-        window.location.href = 'fo.php';
-
+        window.location.href = 'fo.php?nick=' + nick;
     }
 
     function redirect_listar() {
+        window.location.href = 'cliente_listar.php?nick=' + nick;
+    }
 
-        window.location.href = 'cliente_listar.php';
+    function redirect_equipamento() {
+        window.location.href = 'equipamentos.php?nick=' + nick;
+    }
 
+    function redirect_tecnicos() {
+        window.location.href = 'tecnicos.php?nick=' + nick;
     }
 
 </script>
