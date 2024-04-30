@@ -145,6 +145,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <option value="Aguarda">Aguarda</option>
                 <option value="Urgente">Urgente</option>
                 <option value="Retorno">Retorno</option>
+                <option value="Normal">Finalizado</option>
             </select>
             <label for="dd_contratoCliente">Contrato:</label>
             <select name="dd_contratoCliente" id="dd_contratoCliente" onchange="showContratoFields()">
@@ -183,8 +184,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <div class="subdiv6">
         <button id="enviarTodos">Cadastrar</button> 
-        <button id="enviarTodos_edit">Editar</button>       
-        <button id="enviarTodos_delete">Remover</button>       
+        <button id="enviarTodos_edit">Editar</button>             
     </div> 
 </div>
 
@@ -417,39 +417,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         var serializedFormData = new URLSearchParams(formData).toString();
 
         var url = "cliente_edited.php?" + serializedFormData + "&nick=" + nick;
-
-        window.location.href = url;
-
-    });
-
-</script>
-
-<script>
-
-    //Envio de formulários para remoção de clientes.
-
-    var nick = '<?php echo $nick; ?>';
-
-    document.getElementById("enviarTodos_delete").addEventListener("click", function() {
-
-        var forms = document.querySelectorAll("form"); 
-        var formData = new FormData(); 
-
-        forms.forEach(function(form) {
-
-            var inputs = form.querySelectorAll("input, select, textarea"); 
-
-            inputs.forEach(function(input) {
-
-                formData.append(input.name, input.value); 
-
-            });
-
-        });
-
-        var serializedFormData = new URLSearchParams(formData).toString();
-
-        var url = "cliente_delete.php?" + serializedFormData + "&nick=" + nick;
 
         window.location.href = url;
 
