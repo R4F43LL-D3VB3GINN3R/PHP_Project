@@ -34,8 +34,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <div class="name2">
     <form action="" id="form_name2">
         <h2>Procurar</h2>
-        <input type="text" name="procura_fo">
-        <button type="button">Procurar Nº</button>
+        <input type="text" name="procura_fo" id="procura_fo">
+        <input type="hidden" name="nick" value="<?php echo $nick; ?>">
+        <input type="submit" value="Procurar Nº Série" id="submit">
         <button type="button" id="listar_fo" onclick='redirect_listar()'>Listar</button>
         <h2>Menu</h2>
         <button id="bt_dashboard">Dashboard</button>
@@ -202,39 +203,170 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div class="subdiv3">
         <form action="fo2.php" method="post" id="form_subdiv3">
             <label for="area_avaria_servicos" id="label_avaria">Avaria/Serviços:</label>
-            <textarea name="area_avaria_servicos" id="area_avaria_servicos" cols="30" rows="5"></textarea>
+            <textarea name="area_avaria_servicos" id="avaria_servicos" cols="30" rows="5"></textarea>
             <label for="area_acessorios" id="label_acessorios">Acessórios Usados:</label>
-            <textarea name="area_acessorios" id="area_acessorios" cols="30" rows="5"></textarea>
+            <textarea name="area_acessorios" id="acessorios" cols="30" rows="5"></textarea>
         </form>
     </div>
          
     <div class="subdiv4">
         <form action="fo2.php" method="post" id="form_subdiv4">
             <label for="area_observacoes" id="label_observacoes">Observações:</label>
-            <textarea name="area_observacoes" id="area_observacoes" cols="30" rows="5"></textarea>
+            <textarea name="area_observacoes" id="observacoes" cols="30" rows="5"></textarea>
             <label for="area_estado" id="label_estado">Avaliação Equip:</label>
-            <textarea name="area_estado" id="area_estado" cols="30" rows="5"></textarea>
+            <textarea name="area_estado" id="equip_estado" cols="30" rows="5"></textarea>
         </form>
     </div>
             
     <div class="subdiv5">
         <form action="fo2.php" method="post" id="form_subdiv5">
             <label for="txt_ticket">Nº Ticket:</label>
-            <input type="text" name="txt_ticket">
+            <input type="text" name="txt_ticket" id="ticket">
             <label for="txt_requerimento">Nº Requisição:</label>
-            <input type="number" name="txt_requerimento">
+            <input type="number" name="txt_requerimento" id="requerimento">
             <label for="txt_numero_serie">Nº Série:</label>
-            <input type="text" name="txt_numero_serie" id="txt_numero_serie">
+            <input type="text" name="txt_numero_serie" id="numero_serie">
             <button type="button" id="bt_gen" onclick='generatenum()'>Gerar</button>
         </form>
     </div> 
 
     <div class="subdiv5">
-        <button id="enviarTodos">Inserir</button>       
+        <button id="enviarTodos">Inserir</button>   
+        <button id="enviarTodos_editar">Alterar</button>       
     </div> 
 
 </div>
+
+<?php 
+
+    // Ao clicar no botão procurar, enviamos os dados do formulário para esta mesma página por método GET...
+
+    include 'conexao.php';
+
+    // Verifica o método e se algum número foi enviado...
+
+    if ($_SERVER["REQUEST_METHOD"] === "GET" && isset($_GET['procura_fo']) && !empty($_GET['procura_fo'])) {
+
+        $num_serie = $_GET['procura_fo']; // Variável para receber o número enviado...
+
+        if ($num_serie == "Não Encontrado") { //Se no input tiver escrito Não encontrado...
+
+            //Inserimos o valor de Não encontrado no input...
+
+            echo "<script>document.getElementById('procura_fo').value = 'Não Encontrado';</script>";
+
+            //Se for escrito qualquer coisa que não seja um número...
+
+        } else if ($num_serie != "Não Encontrado" && is_numeric($num_serie)) {
+
+            //Inserimos o valor de Não encontrado no input...
+
+            echo "<script>document.getElementById('procura_fo').value = 'Não Encontrado';</script>";
+
+            //Se for enviado um valor numérico podemos iniciar a consulta...
+
+        } else {
+
+            //Consulta se o número do cliente existe na tabela...
+
+            $sql2 = "SELECT * FROM TAB_FO WHERE N_SERIE = '$num_serie'";
+            $result2 = $conn->query($sql2);
+
+            if ($result2->num_rows > 0) { //Se o número for encontrado...
+
+                $dados = $result2->fetch_assoc(); //Insere a linha da consulta no vetor...
+
+                //Insere valores nos campos...
+
+                echo "<script>document.getElementById('procura_fo').value = '$num_serie';</script>";
+                echo "<script>document.getElementById('numero_serie').value = '$num_serie';</script>";
+                echo "<script>document.getElementById('requerimento').value = '" . $dados['REQUISICAO'] . "';</script>";
+                echo "<script>document.getElementById('ticket').value = '" . $dados['TICKET'] . "';</script>";
+                echo "<script>document.getElementById('avaria_servicos').value = '" . $dados['AVARIA_SERVICOS'] . "';</script>";
+                echo "<script>document.getElementById('acessorios').value = '" . $dados['ACESSORIOS'] . "';</script>";
+                echo "<script>document.getElementById('observacoes').value = '" . $dados['OBSERVACOES'] . "';</script>";
+                echo "<script>document.getElementById('equip_estado').value = '" . $dados['ESTADO_AVALIACAO'] . "';</script>";              
+
+                $sql = "SELECT c.NOME AS cliente_nome, t.NICK AS tecnico_nome, tipo.NOME AS tipo_nome, marca.NOME AS marca_nome, modelo.NOME AS modelo_nome
+                FROM TAB_CLIENTE c
+                JOIN TAB_TECNICO t ON t.ID = '" . $dados['ID_TECNICO'] . "'
+                JOIN TAB_TIPO tipo ON tipo.ID = '" . $dados['ID_TIPO'] . "'
+                JOIN TAB_MARCA marca ON marca.ID = '" . $dados['ID_MARCA'] . "'
+                JOIN TAB_MODELO modelo ON modelo.ID = '" . $dados['ID_MODELO'] . "'
+                WHERE c.ID = '" . $dados['ID_CLIENTE'] . "'";
+
+                $result = $conn->query($sql);
+
+                if ($result->num_rows > 0) {
+
+                    while($row = $result->fetch_assoc()) {
+
+                        $nome_cliente = $row['cliente_nome'];
+                        $nome_tecnico = $row['tecnico_nome'];
+                        $nome_tipo = $row['tipo_nome'];
+                        $nome_marca = $row['marca_nome'];
+                        $nome_modelo = $row['modelo_nome'];
+
+                    }                   
+
+                    echo "<script>document.getElementById('cliente').value = '" . $nome_cliente . "';</script>";
+                    echo "<script>document.getElementById('tecnico').value = '$nome_tecnico';</script>";
+                    echo "<script>document.getElementById('tipo').value = '$nome_tipo';</script>";
+                    echo "<script>document.getElementById('marca').value = '$nome_marca';</script>";
+                    echo "<script>document.getElementById('modelo').value = '$nome_modelo';</script>";
+
+                } else {
+
+                    echo 'erro';
+
+                }
+
+            } else {
+
+                echo "<script>document.getElementById('procura_fo').value = 'Não Encontrado';</script>";
+
+            }
+
+        }
+
+    }
+
+    $conn->close();
+
+?>
+
 </section>
+
+<script>
+
+    var nick = '<?php echo $nick; ?>';
+
+    document.getElementById("submit").addEventListener("click", function() {
+
+        var forms = document.querySelectorAll("form"); 
+        var formData = new FormData(); 
+
+        forms.forEach(function(form) {
+
+            var inputs = form.querySelectorAll("input, select, textarea");
+
+            inputs.forEach(function(input) {
+
+                formData.append(input.name, input.value); 
+
+            });
+
+        });
+
+        var serializedFormData = new URLSearchParams(formData).toString();
+
+        var url = "fo.php?" + serializedFormData + "&nick=" + nick;
+
+        window.location.href = url;
+
+    });
+
+</script>
 
 <script>
 
@@ -260,6 +392,37 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         var serializedFormData = new URLSearchParams(formData).toString();
 
         var url = "fo_insert.php?" + serializedFormData + "&nick=" + nick;
+
+        window.location.href = url;
+
+    });
+
+</script>
+
+<script>
+
+    var nick = '<?php echo $nick; ?>';
+
+    document.getElementById("enviarTodos_editar").addEventListener("click", function() {
+
+        var forms = document.querySelectorAll("form"); 
+        var formData = new FormData(); 
+
+        forms.forEach(function(form) {
+
+            var inputs = form.querySelectorAll("input, select, textarea");
+
+            inputs.forEach(function(input) {
+
+                formData.append(input.name, input.value); 
+
+            });
+
+        });
+
+        var serializedFormData = new URLSearchParams(formData).toString();
+
+        var url = "fo_edited.php?" + serializedFormData + "&nick=" + nick;
 
         window.location.href = url;
 
@@ -295,7 +458,7 @@ function generatenum() {
 
     var serialNumber = generateSerialNumber(10); 
 
-    document.getElementById('txt_numero_serie').value = serialNumber;
+    document.getElementById('numero_serie').value = serialNumber;
 
 }
 
