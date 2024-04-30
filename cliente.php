@@ -145,7 +145,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <option value="Aguarda">Aguarda</option>
                 <option value="Urgente">Urgente</option>
                 <option value="Retorno">Retorno</option>
-                <option value="Normal">Finalizado</option>
+                <option value="Finalizado">Finalizado</option>
             </select>
             <label for="dd_contratoCliente">Contrato:</label>
             <select name="dd_contratoCliente" id="dd_contratoCliente" onchange="showContratoFields()">
