@@ -184,7 +184,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <div class="subdiv6">
         <button id="enviarTodos">Cadastrar</button> 
-        <button id="enviarTodos_edit">Editar</button>             
+        <button id="enviarTodos_edit">Alterar</button>             
     </div> 
 </div>
 
