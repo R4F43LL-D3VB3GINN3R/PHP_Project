@@ -477,7 +477,7 @@ var nick = '<?php echo $nick; ?>';
     }
 
     function redirect_listar() {
-        window.location.href = 'cliente_listar.php?nick=' + nick;
+        window.location.href = 'fo_listar.php?nick=' + nick;
     }
 
     function redirect_equipamento() {
