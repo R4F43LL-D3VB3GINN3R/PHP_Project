@@ -39,7 +39,7 @@ $nick = '';
         <input type="submit" value="Procurar Nº Série" id="submit">
         <button type="button" id="listar_fo" onclick='redirect_listar()'>Listar</button>
         <h2>Menu</h2>
-        <button id="bt_dashboard">Dashboard</button>
+        <button type="button" onclick='redirect_dashboard()' id="bt_dashboard">Dashboard</button>
         <button type="button" onclick='redirect_cliente()' id="bt_cliente">Cliente</button>
         <button type="button" onclick='redirect_fo()' id="bt_fo">Folhas de Obras</button>
         <button type="button" onclick='redirect_tecnicos()' id="bt_tecnicos">Técnicos</button>
@@ -150,6 +150,10 @@ $nick = '';
 
     function redirect_tecnicos() {
         window.location.href = 'tecnicos.php?nick=' + nick;
+    }
+
+    function redirect_dashboard() {
+        window.location.href = 'dashboard.php?nick=' + nick;
     }
 
 </script>
