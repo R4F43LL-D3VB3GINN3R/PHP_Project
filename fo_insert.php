@@ -75,9 +75,11 @@
 
                         //Insere na tabela...
 
-                        $stmt = $conn->prepare("INSERT INTO TAB_FO (ID_CLIENTE, ID_TECNICO, CRIACAO_DATA, REQUISICAO, TICKET, ID_TIPO, ID_MARCA, ID_MODELO, N_SERIE, AVARIA_SERVICOS, ACESSORIOS, OBSERVACOES, ESTADO_AVALIACAO)
-                        VALUES (?, ?, NOW(), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-                        $stmt->bind_param('iisiiissssss', $cliente_id, $tecnico_id, $requisicao, $ticket, $tipo_id, $marca_id, $modelo_id, $num_serie, $avaria, $acessorios, $observacoes, $estado_aval);
+                        $estado_id = 1;
+
+                        $stmt = $conn->prepare("INSERT INTO TAB_FO (ID_CLIENTE, ID_TECNICO, CRIACAO_DATA, REQUISICAO, TICKET, ID_TIPO, ID_MARCA, ID_MODELO, ID_ESTADO, N_SERIE, AVARIA_SERVICOS, ACESSORIOS, OBSERVACOES, ESTADO_AVALIACAO)
+                        VALUES (?, ?, NOW(), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                        $stmt->bind_param('iisiiiissssss', $cliente_id, $tecnico_id, $requisicao, $ticket, $tipo_id, $marca_id, $modelo_id, $estado_id, $num_serie, $avaria, $acessorios, $observacoes, $estado_aval);
                         $result = $stmt->execute();
 
 
