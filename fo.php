@@ -108,9 +108,35 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             ?>
 
             <label for="dd_orcamento">Orçamento:</label>
-            <select name="dd_orcamento" id="dd_orcamento">
-                <option value="orcamento">Orçamento</option>
-            </select>    
+            <input type="text" id="dd_orcamento" name="dd_orcamento" value="0.00">
+
+            <label for="dd_estado">Estado FO:</label>
+            
+            <?php 
+                
+                echo '<select name="dd_estado" id="estado">';
+
+                include 'conexao.php';
+
+                $sql = "SELECT NOME FROM TAB_ESTADO";
+                $result = $conn->query($sql);
+
+                if ($result->num_rows > 0) {
+
+                    while ($row = $result->fetch_assoc()) {
+
+                        echo '<option value="' . $row['NOME'] . '">' . $row['NOME'] . '</option>';
+
+                    }
+
+                }
+                
+                echo '</select>';
+
+                $conn->close();
+
+                ?>
+
         </form>
     </div>   
        
@@ -232,7 +258,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <div class="subdiv5">
         <button id="enviarTodos">Inserir</button>   
-        <button id="enviarTodos_editar">Alterar</button>       
+        <button id="enviarTodos_editar">Alterar</button>  
+        <button id="enviarTodos_producao">Produção</button>       
     </div> 
 
 </div>
@@ -287,12 +314,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 echo "<script>document.getElementById('observacoes').value = '" . $dados['OBSERVACOES'] . "';</script>";
                 echo "<script>document.getElementById('equip_estado').value = '" . $dados['ESTADO_AVALIACAO'] . "';</script>";              
 
-                $sql = "SELECT c.NOME AS cliente_nome, t.NICK AS tecnico_nome, tipo.NOME AS tipo_nome, marca.NOME AS marca_nome, modelo.NOME AS modelo_nome
+                $sql = "SELECT c.NOME AS cliente_nome, t.NICK AS tecnico_nome, tipo.NOME AS tipo_nome, marca.NOME AS marca_nome, modelo.NOME AS modelo_nome, estado.NOME AS estado_nome
                 FROM TAB_CLIENTE c
                 JOIN TAB_TECNICO t ON t.ID = '" . $dados['ID_TECNICO'] . "'
                 JOIN TAB_TIPO tipo ON tipo.ID = '" . $dados['ID_TIPO'] . "'
                 JOIN TAB_MARCA marca ON marca.ID = '" . $dados['ID_MARCA'] . "'
                 JOIN TAB_MODELO modelo ON modelo.ID = '" . $dados['ID_MODELO'] . "'
+                JOIN TAB_ESTADO estado ON estado.ID = '" . $dados['ID_ESTADO'] . "'
                 WHERE c.ID = '" . $dados['ID_CLIENTE'] . "'";
 
                 $result = $conn->query($sql);
@@ -306,6 +334,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         $nome_tipo = $row['tipo_nome'];
                         $nome_marca = $row['marca_nome'];
                         $nome_modelo = $row['modelo_nome'];
+                        $nome_estado = $row['estado_nome'];
 
                     }                   
 
@@ -314,6 +343,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     echo "<script>document.getElementById('tipo').value = '$nome_tipo';</script>";
                     echo "<script>document.getElementById('marca').value = '$nome_marca';</script>";
                     echo "<script>document.getElementById('modelo').value = '$nome_modelo';</script>";
+                    echo "<script>document.getElementById('estado').value = '$nome_estado';</script>";
 
                 } else {
 
