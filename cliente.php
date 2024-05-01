@@ -39,7 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <input type="submit" value="Procurar Nº" id="submit">
         <button type="button" onclick='redirect_listar()'>Listar</button>
         <h2>Menu</h2>
-        <button id="bt_dashboard">Dashboard</button>
+        <button type="button" onclick='redirect_dashboard()' id="bt_dashboard">Dashboard</button>
         <button type="button" onclick='redirect_cliente()' id="bt_cliente">Cliente</button>
         <button type="button" onclick='redirect_fo()' id="bt_fo">Folhas de Obras</button>
         <button type="button" onclick='redirect_tecnicos()' id="bt_tecnicos">Técnicos</button>
@@ -126,9 +126,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             ?>
 
             <label for="txt_telemovelCliente">Telemóvel:</label>
-            <input type="text" name="txt_telemovelCliente" id="telemovelCliente"> 
+            <input type="text" name="txt_telemovelCliente" id="telemovelCliente" maxlength="9"> 
             <label for="txt_telefoneCliente">Telefone:</label>
-            <input type="text" name="txt_telefoneCliente" id="telefoneCliente">   
+            <input type="text" name="txt_telefoneCliente" id="telefoneCliente" maxlength="9">   
             <label for="txt_emailCliente">Email:</label>
             <input type="email" name="txt_emailCliente" id="emailCliente">   
 
@@ -448,6 +448,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     function redirect_tecnicos() {
         window.location.href = 'tecnicos.php?nick=' + nick;
+    }
+
+    function redirect_dashboard() {
+        window.location.href = 'dashboard.php?nick=' + nick;
     }
 
     //Funções para habilitar e desabilitar campos conforme a dropdown de contrato...
