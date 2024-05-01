@@ -37,9 +37,9 @@ $nick = '';
             <input type="text" name="procuraCli" id="procuraCli">
             <input type="hidden" name="nick" value="<?php echo $nick; ?>">
             <input type="submit" value="Procurar Nº" id="submit">
-            <button type="button" onclick='redirect_listar()'>Listar</button>
+            <button type="button" onclick='redirect_listar()'>Listar Todos</button>
             <h2>Menu</h2>
-            <button id="bt_dashboard">Dashboard</button>
+            <button type="button" onclick='redirect_dashboard()' id="bt_dashboard">Dashboard</button>
             <button type="button" onclick='redirect_cliente()' id="bt_cliente">Cliente</button>
             <button type="button" onclick='redirect_fo()' id="bt_fo">Folhas de Obras</button>
             <button type="button" onclick='redirect_tecnicos()' id="bt_tecnicos">Técnicos</button>
@@ -60,8 +60,9 @@ $nick = '';
                 //relacionando-os com o id da localidade...
 
                 $sql = "SELECT c.*, l.NOME AS NOME_LOCALIDADE
-                FROM TAB_CLIENTE c
-                INNER JOIN TAB_LOCALIDADE l ON c.ID_LOCALIDADE = l.ID;";
+                        FROM TAB_CLIENTE c
+                        INNER JOIN TAB_LOCALIDADE l ON c.ID_LOCALIDADE = l.ID
+                        WHERE c.STATUS <> 'Finalizado'";
                 $result = $conn->query($sql);
 
                 if ($result->num_rows > 0) {
@@ -134,7 +135,7 @@ $nick = '';
     }
 
     function redirect_listar() {
-        window.location.href = 'cliente_listar.php?nick=' + nick;
+        window.location.href = 'cliente_listar_ativos.php?nick=' + nick;
     }
 
     function redirect_equipamento() {
@@ -143,6 +144,10 @@ $nick = '';
 
     function redirect_tecnicos() {
         window.location.href = 'tecnicos.php?nick=' + nick;
+    }
+
+    function redirect_dashboard() {
+        window.location.href = 'dashboard.php?nick=' + nick;
     }
 
 </script>
