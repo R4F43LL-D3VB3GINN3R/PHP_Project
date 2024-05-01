@@ -115,7 +115,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             JOIN TAB_MARCA marca ON fo.ID_MARCA = marca.ID
             JOIN TAB_MODELO modelo ON fo.ID_MODELO = modelo.ID
             JOIN TAB_ESTADO estado ON fo.ID_ESTADO = estado.ID
-            WHERE ID_ESTADO = 2";
+            WHERE ID_ESTADO = 2 or ID_ESTADO = 3";
 
             $result = $conn->query($sql);
 
@@ -172,7 +172,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             JOIN TAB_MARCA marca ON fo.ID_MARCA = marca.ID
             JOIN TAB_MODELO modelo ON fo.ID_MODELO = modelo.ID
             JOIN TAB_ESTADO estado ON fo.ID_ESTADO = estado.ID
-            WHERE ID_ESTADO = 3";
+            WHERE ID_ESTADO = 4";
 
             $result = $conn->query($sql);
 
@@ -228,7 +228,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             JOIN TAB_MARCA marca ON fo.ID_MARCA = marca.ID
             JOIN TAB_MODELO modelo ON fo.ID_MODELO = modelo.ID
             JOIN TAB_ESTADO estado ON fo.ID_ESTADO = estado.ID
-            WHERE ID_ESTADO = 4";
+            WHERE ID_ESTADO = 5";
 
             $result = $conn->query($sql);
 
@@ -284,7 +284,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             JOIN TAB_MARCA marca ON fo.ID_MARCA = marca.ID
             JOIN TAB_MODELO modelo ON fo.ID_MODELO = modelo.ID
             JOIN TAB_ESTADO estado ON fo.ID_ESTADO = estado.ID
-            WHERE ID_ESTADO = 5";
+            WHERE ID_ESTADO = 6";
 
             $result = $conn->query($sql);
 
