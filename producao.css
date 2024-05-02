@@ -35,9 +35,9 @@ body {
     align-items: center;
     flex-direction: column;
     width: 100%;
-    height: 100%; 
+    height: 700px; 
     overflow-y: auto; 
-    border: 2px solid rgb(2, 253, 115);
+    border: 7px solid rgb(2, 253, 115);
     padding-top: 30px;
 }
 
@@ -46,11 +46,10 @@ body {
 }
 
 .div_tempo {
-    height: 400px;
+    height: 700px;
     width: 900px;
     border: 2px solid gray;
     display: flex;
-   
     flex-direction: row;
 }
 
@@ -98,5 +97,38 @@ body {
 
 .time_footer input {
     width: 50px;
+    text-align: center;
+}
+
+.div_mat {
+    height: 300px;
+    width: 900px;
+    border: 2px solid rgb(53, 3, 250);
+    display: flex;
+    flex-direction: row;
+}
+
+.tab3 {
+    height: 180px;
+    border: 1px solid rgb(7, 248, 43);
+    text-align: center;
+}
+
+.tab3, #quantMat1, #quantMat2, #quantMat3, #quantMat4, #quantMat5, #quantMat6, #quantMat7, #quantMat8, #quantMat9, #quantMat10 {
+    width: 60px;
+    text-align: center;
+}
+
+.tab3, #descricao1, #descricao2, #descricao3, #descricao4, #descricao5, #descricao6, #descricao7, #descricao8, #descricao9, #descricao10 {
+    width: 480px;
+} 
+
+.tab3, #precUnit1, #precUnit2, #precUnit3, #precUnit4, #precUnit5, #precUnit6, #precUnit7, #precUnit8, #precUnit9, #precUnit10 {
+    width: 60px;
+    text-align: center;
+}
+
+.tab3, #precTot1, #precTot2, #precTot3, #precTot4, #precTot5, #precTot6, #precTot7, #precTot8, #precTot9, #precTot10 {
+    width: 60px;
     text-align: center;
 }
