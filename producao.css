@@ -16,7 +16,7 @@ body {
     display: flex;
     align-items: center;
     flex-direction: column;
-    width: 80%;
+    width: 70%;
     height: 100%; 
     border: 2px solid yellow;
 }
@@ -25,7 +25,8 @@ body {
     display: flex;
     align-items: center;
     flex-direction: column;
-    width: 20%;
+    justify-content: center;
+    width: 30%;
     height: 100%;
     border: 2px solid rgb(9, 1, 255);
 }
@@ -141,6 +142,8 @@ body {
     justify-content: center;
     align-items: center;
     border: 2px solid black;
+    width: 300px;
+    padding: 10px;
 }
 
 .div_km {
@@ -175,4 +178,98 @@ body {
 
 #submit {
     margin-bottom: 50px;
+}
+
+.form_menu {
+    width: 100%;
+    height: 100%;
+    border: 2px solid lime;
+    overflow-y: auto; 
+}
+
+.div_menuright0, .div_menuright1, .div_menuright2, .div_menuright3, .div_menuright4, .div_menuright5, .div_menuright6 {
+    width: 100%;
+    height: 300px;
+    border: 2px solid black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.div_menuright0 {
+    height: 120px;
+    justify-content: center;
+}
+
+.div_menuright1 {
+    gap: 5px;
+    height: 250px;
+}
+
+.div_menuright2_3 {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.div_menuright4_5 {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.div_menuright2 {
+    height: 200px;
+    gap: 5px;
+    width: 50%;
+}
+
+.div_menuright3 {
+    height: 200px;
+    gap: 5px;
+    width: 50%;
+}
+
+.div_menuright4 {
+    height: 270px;
+    gap: 5px;
+    width: 50%;
+}
+
+.div_menuright5 {
+    height: 270px;
+    gap: 5px;
+    width: 50%;
+}
+
+.div_menuright6 {
+    height: 110px;
+    gap: 5px;
+    width: 100%;
+    justify-content: center;
+}
+
+.div_menuright2 select {
+    width: 100px;
+    text-align: center;
+}
+
+.div_menuright3 select {
+    width: 100px;
+    text-align: center;
+}
+
+#bt_voltar {
+    margin: 5px;
+}
+
+.div_title{
+    width: 100%;
+    height: 20px;
+    border: 2px solid black;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
