@@ -256,12 +256,142 @@
 
   <?php //Main right principal?>
     
-  <div class="right">
+    <div class="right">
 
-    <h2>aaa</h2>
-    <input type="text">
+        <form action="" class="form_menu">
 
-  </div>
+            <div class="div_menuright0"> <?php //Menu botões.?>
+
+                <button type="button" id="bt_cat">Catálogo</button>
+                <button type="button" id="bt_voltar">Voltar</button>
+                <button type="button" id="bt_imprimir">Imprimir</button>
+
+            </div>
+
+            <div class="div_title"> <?php //TX.?>
+                <h2>SQG Rádio</h2>
+            </div>
+            <div class="div_menuright1">
+                
+                <h3>TX(Transmissão)</h3>
+                <label for="txt_pot">Pot(W):</label>
+                <input type="text" name="txt_pot" id="pot">
+                <label for="txt_pot">Modelação(KHZ):</label>
+                <input type="text" name="txt_mod" id="mod">
+                <label for="txt_pot">Des. Freq:</label>
+                <input type="text" name="txt_freq" id="freq">
+
+            </div>
+
+            <div class="div_menuright2_3">
+
+                <div class="div_menuright2">
+                    
+                    <h3>TX(Alimentação)</h3>
+                    <label for="dd_bat">Est. Bateria</label>
+                    <select name="dd_bat" id="bat">
+                        <option value="S">Sim</option>
+                        <option value="N">N/A</option>
+                    </select>
+                    <label for="dd_alimentacao">Alimentação (12V)</label>
+                    <select name="dd_alimentacao" id="alimentacao">
+                        <option value="S">Sim</option>
+                        <option value="N">N/A</option>
+                    </select>
+
+                </div>
+
+                <div class="div_menuright3">
+                    
+                    <h3>TX(Recepção)</h3>
+                    <label for="txt_sens">Sensibilidade (μV)</label>
+                    <input type="text" name="txt_sens" id="sens">
+                    <label for="dd_audio">Áudio</label>
+                    <select name="dd_audio" id="audio">
+                        <option value="S">Sim</option>
+                        <option value="N">N/A</option>
+                    </select>
+
+                </div>
+
+            </div> <?php //Fim TX.?>
+
+            <div class="div_title">
+                <h2>SQG Informática</h2>
+            </div>
+
+            <div class="div_menuright4_5"> <?php //Hardware e Software?>
+
+                <div class="div_menuright4">
+
+                    <h3>Hardware</h3>
+                    <label for="dd_teste_funcional">Teste Funcional</label>
+                    <select name="dd_teste_funcional" id="teste_funcional">
+                        <option value="S">Sim</option>
+                        <option value="N">N/A</option>
+                    </select>
+                    <label for="dd_aval_funcionamento">Avaliação de Funcionamento</label>
+                    <select name="dd_aval_funcionamento" id="aval_funcionamento">
+                        <option value="S">Sim</option>
+                        <option value="N">N/A</option>
+                    </select>
+                    <label for="dd_circuito_de_alimentacao">Circuito de Alimentação</label>
+                    <select name="dd_circuito_de_alimentacao" id="circuito_de_alimentacao">
+                        <option value="S">Sim</option>
+                        <option value="N">N/A</option>
+                    </select>
+
+                </div>
+
+                <div class="div_menuright5">
+
+                    <h3>Software</h3>
+                    <label for="dd_inicia_corretamente">Inicia Corretamente</label>
+                    <select name="dd_inicia_Corretamente" id="inicia_corretamente">
+                        <option value="S">Sim</option>
+                        <option value="N">N/A</option>
+                    </select>
+                    <label for="dd_HWSW">Interactividade (HW/SW)</label>
+                    <select name="dd_HWSW" id="HWSW">
+                        <option value="S">Sim</option>
+                        <option value="N">N/A</option>
+                    </select>
+                    <label for="dd_actualizacaoSW">Actualização(SW)</label>
+                    <select name="dd_actualizacaoSW" id="actualizacaoSW">
+                        <option value="S">Sim</option>
+                        <option value="N">N/A</option>
+                    </select>
+                    <label for="dd_resultado_esperado">Resultado Esperado</label>
+                    <select name="dd_resultado_esperado" id="resultado_esperado">
+                        <option value="S">Sim</option>
+                        <option value="N">N/A</option>
+                    </select>
+
+                </div>
+
+            </div> <?php // Final da div Hardware Software?>
+
+            <div class="div_title"> <?php //TX.?>
+                <h2>Debitar</h2>
+            </div>
+            <div class="div_menuright6">
+
+                <label for="dd_facturar">Facturar</label>
+                <select name="dd_avenca" id="avenca">
+                    <option value="S">Sim</option>
+                    <option value="N">Não</option>
+                </select>
+                <label for="dd_deslocacao">Deslocação</label>
+                <select name="dd_deslocacao" id="deslocacao">
+                    <option value="S">Sim</option>
+                    <option value="N">Não</option>
+                </select>
+
+            </div>
+
+        </form>
+
+    </div>
 
 </body>
 </html>
