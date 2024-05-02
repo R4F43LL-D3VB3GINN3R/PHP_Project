@@ -15,14 +15,12 @@
         <form action="" id="form_left">
 
             <div class="div_procura">
-                <label for="txt_ticket">Nº Ticket</label>
+                <label for="txt_ticket">Ticket Nº</label>
                 <select type="text" name="txt_ticket" id="ticket">
-                <option value="a">aaaaaaaaaaaaaaaaaaaaa</option>
+                <option value="a"></option>
                 </select>
                 <button type="button" id="bt_pesquisar">Procurar</button><br>
             </div>
-            
-            <h2>Mão-De-Obra</h2>
 
             <?php //Controlador de Tempo?>
 
@@ -31,8 +29,8 @@
                 <table class="tab1">
                     <thead>
                         <tr>
-                            <th>Nome</th>
-                            <th>Data</th>
+                            <th id="th">Nome</th>
+                            <th id="th">Data</th>
                         </tr>
                         <tr>
                             <th>Nome</th>
@@ -151,8 +149,6 @@
                 <label for="txt_desl_km">Deslocação KM:</label>
                 <input type="number" name="txt_desl_km" id="desl_km" >
             </div>
-
-            <h2>Material Utilizado</h2>
 
             <div class="div_mat"> <?php //Tabela de materiais?>
 
@@ -330,7 +326,7 @@
                         <option value="S">Sim</option>
                         <option value="N">N/A</option>
                     </select>
-                    <label for="dd_aval_funcionamento">Avaliação de Funcionamento</label>
+                    <label for="dd_aval_funcionamento">Aval. de Funcionamento</label>
                     <select name="dd_aval_funcionamento" id="aval_funcionamento">
                         <option value="S">Sim</option>
                         <option value="N">N/A</option>
