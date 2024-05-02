@@ -5,11 +5,16 @@ html, body {
 body {
     width: 1520px;
     height: 100%; 
-    border: 2px solid;
     display: flex;
     align-items: left;
     justify-content: center;
     flex-direction: row;
+}
+
+input, select, textarea {
+    border-radius: 5px;
+    border: 1px solid rgb(120, 102, 102);
+    cursor: pointer;
 }
 
 .left {
@@ -18,7 +23,6 @@ body {
     flex-direction: column;
     width: 70%;
     height: 100%; 
-    border: 2px solid yellow;
 }
 
 .right {
@@ -28,7 +32,6 @@ body {
     justify-content: center;
     width: 30%;
     height: 100%;
-    border: 2px solid rgb(9, 1, 255);
 }
 
 #form_left {
@@ -38,7 +41,6 @@ body {
     width: 100%;
     height: 700px; 
     overflow-y: auto; 
-    border: 7px solid rgb(2, 253, 115);
     padding-top: 30px;
 }
 
@@ -48,18 +50,17 @@ body {
 
 .div_tempo {
     height: 700px;
-    width: 900px;
-    border: 2px solid gray;
+    width: 890px;
     display: flex;
     flex-direction: row;
+    padding: 15px;
+    margin-top: 20px;
 }
 
 .tab1 {
-    height: 100%;
+    height: 200px;
     width: 20%;
-    border: 1px solid red;
     text-align: center;
-    gap: 10px;
 }
 
 .tab1 input {
@@ -69,12 +70,11 @@ body {
 .tab2 {
     height: 100%;
     width: 80%;
-    border: 1px solid red;
     text-align: center;
 }
 
 .tab2 input {
-    width: 50px;
+    width: 75px;
     text-align: center;
 }
 
@@ -90,9 +90,8 @@ body {
     flex-direction: row;
     justify-content: center;
     text-align: right;
-    border: 2px solid orange;
-    width: 900px;
-    height: 50px;
+    width: 920px;
+    height: 40px;
     gap: 2px;
 }
 
@@ -102,17 +101,16 @@ body {
 }
 
 .div_mat {
-    height: 300px;
-    width: 900px;
-    border: 2px solid rgb(53, 3, 250);
+    height: 700px;
+    width: 890px;
     display: flex;
     flex-direction: row;
-    margin-bottom: 50px;
+    padding: 20px;
+    margin-bottom: 20px;
 }
 
 .tab3 {
     height: 180px;
-    border: 1px solid rgb(7, 248, 43);
     text-align: center;
 }
 
@@ -141,22 +139,28 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    border: 2px solid black;
     width: 300px;
-    padding: 10px;
+    padding: 5px;
+}
+
+#ticket {
+    margin-top: 10px;
+    width: 100px;
+    height: 30px;
+    border-radius: 5px;
 }
 
 .div_km {
     height: 200px;
-    width: 700px;
-    border: 2px solid black;
+    width: 910px;
     text-align: center;
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
     gap: 10px;
-    margin-bottom: 50px;
+    margin-bottom: 20px;
+    padding: 5px;
 }
 
 .div_km input {
@@ -166,44 +170,52 @@ body {
 .div_trabEfetuados {
     height: 200px;
     width: 700px;
-    border: 2px solid black;
     text-align: center;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     gap: 10px;
-    margin-bottom: 50px;
+    margin-bottom: 10px;
+    padding: 20px;
 }
 
 #submit {
-    margin-bottom: 50px;
+    margin-bottom: 20px;
 }
 
 .form_menu {
     width: 100%;
     height: 100%;
-    border: 2px solid lime;
     overflow-y: auto; 
+}
+
+.form_menu select {
+    width: 100px;
+    height: 30px;
+}
+
+.form_menu input {
+    height: 25px;
 }
 
 .div_menuright0, .div_menuright1, .div_menuright2, .div_menuright3, .div_menuright4, .div_menuright5, .div_menuright6 {
     width: 100%;
-    height: 300px;
-    border: 2px solid black;
     display: flex;
     flex-direction: column;
     align-items: center;
+    border: 3px solid rgb(255, 255, 255);
+    border-radius: 10px;
 }
 
 .div_menuright0 {
-    height: 120px;
+    height: 150px;
     justify-content: center;
 }
 
 .div_menuright1 {
     gap: 5px;
-    height: 250px;
+    height: 260px;
 }
 
 .div_menuright2_3 {
@@ -231,19 +243,19 @@ body {
 }
 
 .div_menuright4 {
-    height: 270px;
+    height: 350px;
     gap: 5px;
     width: 50%;
 }
 
 .div_menuright5 {
-    height: 270px;
+    height: 350px;
     gap: 5px;
     width: 50%;
 }
 
 .div_menuright6 {
-    height: 110px;
+    height: 150px;
     gap: 5px;
     width: 100%;
     justify-content: center;
@@ -259,17 +271,183 @@ body {
     text-align: center;
 }
 
-#bt_voltar {
-    margin: 5px;
-}
-
 .div_title{
     width: 100%;
     height: 20px;
-    border: 2px solid black;
     text-align: center;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+* {
+    font-size: 15px;
+    font-family: 'Roboto Mono', monospace;
+    font-weight: bold;
+}
+
+h3 {
+    font-size: 20px;
+}
+
+h2 {
+    font-size: 25px;
+}
+
+body {
+    background-color: #dfdfee;
+    background-image: 
+        radial-gradient(at 47% 33%, hsl(180.00, 90%, 51%) 0, transparent 59%), 
+        radial-gradient(at 82% 65%, hsl(190.46, 52%, 59%) 0, transparent 55%);
+}
+
+.form_menu, #form_left {
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    background-color: rgb(149, 228, 250);
+    border-radius: 12px;
+    border: 5px solid rgb(255, 255, 255);
+}
+
+.div_procura {
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    background-color: rgb(55, 205, 246);
+    border-radius: 12px;
+    border: 3px solid rgb(255, 255, 255);
+    color: white;
+}
+
+.div_procura input {
+    width: 20px;
+    border: 1px solid rgb(120, 102, 102);
+}
+
+#ticket {
+    margin-top: 10px;
+    width: 100px;
+    height: 30px;
+    border-radius: 5px;
+}
+
+.div_tempo, .div_mat {
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    background-color: rgb(55, 205, 246);
+    border-top: 3px solid rgb(255, 255, 255);
+    border-left: 3px solid rgb(255, 255, 255);
+    border-right: 3px solid rgb(255, 255, 255);
+    color: white;
+}
+
+.div_mat {
+    border: 3px solid rgb(255, 255, 255);
+}
+
+.time_footer {
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    background-color: rgb(55, 205, 246);
+    border-left: 3px solid rgb(255, 255, 255);
+    border-right: 3px solid rgb(255, 255, 255);
+    color: white;
+}
+
+.div_km {
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    background-color: rgb(55, 205, 246);
+    border-bottom: 3px solid rgb(255, 255, 255);
+    border-left: 3px solid rgb(255, 255, 255);
+    border-right: 3px solid rgb(255, 255, 255);
+    color: white;
+}
+
+.div_km input {
+    width: 50px;
+    height: 25px;
+}
+
+.div_trabEfetuados{
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    background-color: rgb(55, 205, 246);
+    border: 3px solid rgb(255, 255, 255);
+    color: white;
+}
+
+.div_menuright0 {
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    background-color: rgb(55, 205, 246);
+    border: 3px solid rgb(255, 255, 255);
+    border-radius: 10px;
+    color: white;
+}
+
+.div_menuright1 {
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    background-color: rgb(55, 205, 246);
+    border-left: 3px solid rgb(255, 255, 255);
+    border-right: 3px solid rgb(255, 255, 255);
+    color: white;
+}
+
+.div_title {
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    background-color: rgb(55, 205, 246);
+    border: 3px solid rgb(255, 255, 255);
+    border-radius: 10px;
+    color: white;
+    height: 50px;
+}
+
+.form_menu {
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    background-color: rgb(55, 205, 246);
+    color: white;
+}
+
+button {
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    background-color: rgb(0, 170, 255);
+    border-radius: 12px;
+    border: 3px solid rgb(255, 255, 255);
+    color:rgb(255, 255, 255);
+    margin-top: 5px;
+    width: 150px;
+    height: 35px;
+    cursor: pointer;
+}
+
+button:hover, #submit:hover {
+    background-color: rgb(255, 255, 255);
+    border: 3px solid rgb(0, 170, 255);
+    color:rgb(0, 170, 255);
+}
+
+#submit {
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    background-color: rgb(0, 170, 255);
+    border-radius: 12px;
+    border: 3px solid rgb(255, 255, 255);
+    color:rgb(255, 255, 255);
+    margin-top: 5px;
+    width: 100px;
+    height: 40px;
+    cursor: pointer;
+}
+
+#th {
+    color: rgb(55, 205, 246);
+}
+
+h2 {
+    color: rgb(255, 255, 255);
 }
