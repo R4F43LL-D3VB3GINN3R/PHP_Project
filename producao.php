@@ -14,10 +14,13 @@
     <div class="left">
         <form action="" id="form_left">
 
-            <label for="txt_ticket">Nº Ticket</label>
-            <input type="text" name="txt_ticket" id="ticket">
-            <input type="text" name="txt_cliente" id="cliente">
-            <button type="button" id="bt_voltar">Voltar</button><br>
+            <div class="div_procura">
+                <label for="txt_ticket">Nº Ticket</label>
+                <select type="text" name="txt_ticket" id="ticket">
+                <option value="a">aaaaaaaaaaaaaaaaaaaaa</option>
+                </select>
+                <button type="button" id="bt_pesquisar">Procurar</button><br>
+            </div>
             
             <h2>Mão-De-Obra</h2>
 
@@ -142,11 +145,18 @@
                 
             </div>
 
+            <?php //Deslocação KM?>
+
+            <div class="div_km"> 
+                <label for="txt_desl_km">Deslocação KM:</label>
+                <input type="number" name="txt_desl_km" id="desl_km" >
+            </div>
+
             <h2>Material Utilizado</h2>
 
             <div class="div_mat"> <?php //Tabela de materiais?>
 
-                <table class="tab3">
+                <table class="tab3"> 
                     <thead>
                         <tr>
                             <th>Quantidade</th>
@@ -230,7 +240,16 @@
                     </tbody>
                 </table>
 
-            </div> <?php //Encerra a tabela de materiais?>   
+            </div> <?php //Encerra a tabela de materiais?>  
+
+            <?php //Trabalhos Efetuados?>
+
+            <div class="div_trabEfetuados">
+                <label for="">Trabalhos Efetuados</label>
+                <textarea name="trabEfetuados" id="trabEfetuados" cols="70" rows="5"></textarea>
+            </div>
+
+            <input type="submit" name="bt_submit" id="submit" value="Gravar">
 
         </form> <?php //Encerra o Formulário?>
     </div> <?php //Encerra a div .left?>
