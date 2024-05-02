@@ -18,6 +18,7 @@
         <input type="text" name="txt_ticket" id="ticket">
         <input type="text" name="txt_cliente" id="cliente">
         <button type="button" id="bt_voltar">Voltar</button><br>
+        <h2>Mão-De-Obra</h2>
 
         <?php //Controlador de Tempo?>
 
