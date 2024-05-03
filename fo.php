@@ -371,6 +371,37 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     var nick = '<?php echo $nick; ?>';
 
+    document.getElementById("enviarTodos_producao").addEventListener("click", function() {
+
+        var forms = document.querySelectorAll("form"); 
+        var formData = new FormData(); 
+
+        forms.forEach(function(form) {
+
+            var inputs = form.querySelectorAll("input, select, textarea");
+
+            inputs.forEach(function(input) {
+
+                formData.append(input.name, input.value); 
+
+            });
+
+        });
+
+        var serializedFormData = new URLSearchParams(formData).toString();
+
+        var url = "producao.php?" + serializedFormData + "&nick=" + nick;
+
+        window.location.href = url;
+
+    });
+
+</script>
+
+<script>
+
+    var nick = '<?php echo $nick; ?>';
+
     document.getElementById("submit").addEventListener("click", function() {
 
         var forms = document.querySelectorAll("form"); 
