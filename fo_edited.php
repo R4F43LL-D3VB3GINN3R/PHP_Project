@@ -22,6 +22,7 @@
                 $orcamento = $_GET['dd_orcamento'];
                 $tipo = $_GET['dd_tipo'];
                 $marca = $_GET['dd_marca'];
+                $estado = $_GET['dd_estado'];
                 $modelo = $_GET['dd_modelo'];
                 $avaria = $_GET['area_avaria_servicos'];
                 $acessorios = $_GET['area_acessorios'];
@@ -51,12 +52,13 @@
 
                     //Join para recuperar o id de todos os elementos da tabela...
 
-                    $sql = "SELECT c.ID AS cliente_id, t.ID AS tecnico_id, tipo.ID AS tipo_id, marca.ID AS marca_id, modelo.ID AS modelo_id
+                    $sql = "SELECT c.ID AS cliente_id, t.ID AS tecnico_id, tipo.ID AS tipo_id, marca.ID AS marca_id, modelo.ID AS modelo_id, estado.ID AS estado_id
                     FROM TAB_CLIENTE c
                     JOIN TAB_TECNICO t ON t.NICK = '$tecnico'
                     JOIN TAB_TIPO tipo ON tipo.NOME = '$tipo'
                     JOIN TAB_MARCA marca ON marca.NOME = '$marca'
                     JOIN TAB_MODELO modelo ON modelo.NOME = '$modelo'
+                    JOIN TAB_ESTADO estado ON estado.NOME = '$estado'
                     WHERE c.NOME = '$cliente'";
 
                     $result = $conn->query($sql);
@@ -70,15 +72,16 @@
                             $tipo_id = $row['tipo_id'];
                             $marca_id = $row['marca_id'];
                             $modelo_id = $row['modelo_id'];
+                            $estado_id = $row['estado_id'];
 
                         }
 
                         //Insere na tabela...
 
                         $stmt = $conn->prepare("UPDATE TAB_FO
-                                                SET ID_CLIENTE = ?, ID_TECNICO = ?, ID_TIPO = ?, ID_MARCA = ?, ID_MODELO = ?, AVARIA_SERVICOS = ?, ACESSORIOS = ?, OBSERVACOES = ?, ESTADO_AVALIACAO = ?
+                                                SET ID_CLIENTE = ?, ID_TECNICO = ?, ID_TIPO = ?, ID_MARCA = ?, ID_MODELO = ?, ID_ESTADO = ?, AVARIA_SERVICOS = ?, ACESSORIOS = ?, OBSERVACOES = ?, ESTADO_AVALIACAO = ?, FATURACAO = ?
                                                 WHERE N_SERIE = ?");
-                                                $stmt->bind_param('iiiiisssss', $cliente_id, $tecnico_id, $tipo_id, $marca_id, $modelo_id, $avaria, $acessorios, $observacoes, $estado_aval, $num_serie);
+                                                $stmt->bind_param('iiiiiissssis', $cliente_id, $tecnico_id, $tipo_id, $marca_id, $modelo_id, $estado_id, $avaria, $acessorios, $observacoes, $estado_aval, $orcamento, $num_serie);
                                                 $result = $stmt->execute();            
 
                         if ($result > 0) {
