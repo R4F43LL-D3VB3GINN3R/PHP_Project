@@ -23,6 +23,7 @@
                 $tipo = $_GET['dd_tipo'];
                 $marca = $_GET['dd_marca'];
                 $modelo = $_GET['dd_modelo'];
+                $estado = $_GET['dd_estado'];
                 $avaria = $_GET['area_avaria_servicos'];
                 $acessorios = $_GET['area_acessorios'];
                 $observacoes = $_GET['area_observacoes'];
@@ -51,12 +52,13 @@
 
                     //Join para recuperar o id de todos os elementos da tabela...
 
-                    $sql = "SELECT c.ID AS cliente_id, t.ID AS tecnico_id, tipo.ID AS tipo_id, marca.ID AS marca_id, modelo.ID AS modelo_id
+                    $sql = "SELECT c.ID AS cliente_id, t.ID AS tecnico_id, tipo.ID AS tipo_id, marca.ID AS marca_id, modelo.ID AS modelo_id, estado.ID AS estado_id
                     FROM TAB_CLIENTE c
                     JOIN TAB_TECNICO t ON t.NICK = '$tecnico'
                     JOIN TAB_TIPO tipo ON tipo.NOME = '$tipo'
                     JOIN TAB_MARCA marca ON marca.NOME = '$marca'
                     JOIN TAB_MODELO modelo ON modelo.NOME = '$modelo'
+                    JOIN TAB_ESTADO estado ON estado.NOME = '$estado'
                     WHERE c.NOME = '$cliente'";
 
                     $result = $conn->query($sql);
@@ -70,6 +72,7 @@
                             $tipo_id = $row['tipo_id'];
                             $marca_id = $row['marca_id'];
                             $modelo_id = $row['modelo_id'];
+                            $estado_id = $row['estado_id'];
 
                         }
 
@@ -81,7 +84,6 @@
                         VALUES (?, ?, NOW(), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
                         $stmt->bind_param('iisiiiissssssi', $cliente_id, $tecnico_id, $requisicao, $ticket, $tipo_id, $marca_id, $modelo_id, $estado_id, $num_serie, $avaria, $acessorios, $observacoes, $estado_aval, $faturacao);
                         $result = $stmt->execute();
-
 
                         if ($result > 0) {
 
