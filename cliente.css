@@ -222,6 +222,11 @@ form {
     border: 2px solid rgb(255, 255, 255);
 }
 
+.subdiv5 #tempoTotalCliente, #tempoExtraCliente {
+    width: 40px;
+    text-align: center;
+}
+
 #form_name2 {
     width: 180px;
     height: 580px;
@@ -281,4 +286,3 @@ button:hover , #submit:hover, #bt_cliente:hover, #bt_fo:hover{
     border-radius: 12px;
     border: 2px solid rgb(255, 255, 255);
 }
-
