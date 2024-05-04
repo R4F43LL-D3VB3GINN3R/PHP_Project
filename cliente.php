@@ -170,10 +170,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <option value="Tipo1">Tipo1</option>
                 <option value="Tipo2">Tipo2</option>
             </select>
+            <label for="dd_tipoModalidadeCliente">Modalidade: </label>
+            <select name="dd_tipoModalidadeCliente" id="dd_tipoModalidadeCliente" disabled>
+                <option value="Tipo1">Tipo1</option>
+                <option value="Tipo2">Tipo2</option>
+            </select>
             <label for="txt_tempoTotalCliente">Tempo Total: </label>
-            <input type="text" name="txt_tempoTotalCliente" id="tempoTotalCliente" readonly="true">
+            <input type="number" name="txt_tempoTotalCliente" id="tempoTotalCliente" readonly="true">
             <label for="txt_tempoExtraCliente">Tempo Extra:</label>
-            <input type="text" name="txt_tempoExtraCliente" id="tempoExtraCliente" readonly="true">  
+            <input type="number" name="txt_tempoExtraCliente" id="tempoExtraCliente" readonly="true">  
             <label for="dd_deslocacaoCliente" id="deslocacaoCliente">Deslocação:</label>
             <select name="dd_deslocacaoCliente" id="dd_deslocacaoCliente" disabled>
                 <option value="Sim">Sim</option>
