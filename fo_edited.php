@@ -17,6 +17,7 @@
 
             if ($_SERVER["REQUEST_METHOD"] === "GET") {
 
+                $id = $_GET['procura_fo'];
                 $cliente = $_GET['dd_cliente'];
                 $tecnico = $_GET['dd_tecnico'];
                 $orcamento = $_GET['dd_orcamento'];
@@ -35,7 +36,7 @@
 
                 //Consulta a linha referente ao número do cliente...
 
-                $sql = "SELECT N_SERIE FROM TAB_FO WHERE N_SERIE = '$num_serie'";
+                $sql = "SELECT ID FROM TAB_FO WHERE ID = '$id'";
                 $result = $conn->query($sql);
 
                 //Se ele encontrar o número do cliente na tabela...
@@ -44,7 +45,7 @@
                 if ($result->num_rows == 0) {
 
                     echo "<div>
-                                <h2>Você não pode alterar o Nº de Série</h2>
+                                <h2>Folha de Obra não existe no sistema</h2>
                                 <button type='button' onclick='redirect()'>Ok</button>
                         </div>";
 
@@ -80,8 +81,8 @@
 
                         $stmt = $conn->prepare("UPDATE TAB_FO
                                                 SET ID_CLIENTE = ?, ID_TECNICO = ?, ID_TIPO = ?, ID_MARCA = ?, ID_MODELO = ?, ID_ESTADO = ?, AVARIA_SERVICOS = ?, ACESSORIOS = ?, OBSERVACOES = ?, ESTADO_AVALIACAO = ?, FATURACAO = ?
-                                                WHERE N_SERIE = ?");
-                                                $stmt->bind_param('iiiiiissssis', $cliente_id, $tecnico_id, $tipo_id, $marca_id, $modelo_id, $estado_id, $avaria, $acessorios, $observacoes, $estado_aval, $orcamento, $num_serie);
+                                                WHERE ID = ?");
+                                                $stmt->bind_param('iiiiiissssii', $cliente_id, $tecnico_id, $tipo_id, $marca_id, $modelo_id, $estado_id, $avaria, $acessorios, $observacoes, $estado_aval, $orcamento, $id);
                                                 $result = $stmt->execute();            
 
                         if ($result > 0) {
@@ -89,7 +90,7 @@
                             if ($result) {
 
                                 echo "<div>
-                                            <h2>Folha de Obra $num_serie alterada com sucesso</h2>
+                                            <h2>Folha de Obra Nº $id alterada com sucesso</h2>
                                             <button type='button' onclick='redirect()'>Ok</button>
                                     </div>";
                                 
