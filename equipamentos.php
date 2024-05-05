@@ -63,7 +63,7 @@
 
                     include 'conexao.php';
 
-                    $sql = "SELECT NOME FROM TAB_TIPO";
+                    $sql = "SELECT NOME FROM TAB_TIPO WHERE STATUS = 'Ativo'";
                     $result = $conn->query($sql);
 
                     if ($result->num_rows > 0) {
@@ -98,7 +98,7 @@
 
                     include 'conexao.php';
 
-                    $sql = "SELECT NOME FROM TAB_MARCA";
+                    $sql = "SELECT NOME FROM TAB_MARCA WHERE STATUS = 'Ativo'";
                     $result = $conn->query($sql);
 
                     if ($result->num_rows > 0) {
@@ -133,7 +133,7 @@
 
                     include 'conexao.php';
 
-                    $sql = "SELECT NOME FROM TAB_MODELO";
+                    $sql = "SELECT NOME FROM TAB_MODELO WHERE STATUS = 'Ativo'";
                     $result = $conn->query($sql);
 
                     if ($result->num_rows > 0) {
