@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="../imgs/ipicon.jpg" type="image/x-icon">
     <link rel="stylesheet" href="../style/fo_listar.css">
-    <title>Clientes</title>
+    <title>Folhas de Obras</title>
 </head>
 <body>
 
@@ -36,7 +36,7 @@ $nick = '';
         <h2>Procurar</h2>
         <input type="text" name="procura_fo" id="procura_fo">
         <input type="hidden" name="nick" value="<?php echo $nick; ?>">
-        <input type="submit" value="Procurar Nº Série" id="submit">
+        <input type="submit" value="Procurar Nº FO" id="submit">
         <button type="button" id="listar_fo" onclick='redirect_listar()'>Listar</button>
         <h2>Menu</h2>
         <button type="button" onclick='redirect_dashboard()' id="bt_dashboard">Dashboard</button>
@@ -61,7 +61,7 @@ $nick = '';
 
                 // Consultar todos os dados de folhas de obra (FO) e fazer junções para obter nomes em vez de IDs
                 $sql = "SELECT 
-                fo.ID, 
+                fo.ID AS id_fo, 
                 c.NOME AS cliente_nome, 
                 t.NICK AS tecnico_nick, 
                 tipo.NOME AS tipo_nome, 
@@ -85,6 +85,7 @@ $nick = '';
 
                     echo "<table border='1'>";
                     echo "<tr>
+                    <th>Nº FO</th>
                     <th>Cliente</th>
                     <th>Técnico</th>
                     <th>Tipo</th>
@@ -99,6 +100,7 @@ $nick = '';
                     while($row = $result->fetch_assoc()) {
                         
                         echo "<tr>";
+                        echo "<td>{$row['id_fo']}</td>";
                         echo "<td>{$row['cliente_nome']}</td>";
                         echo "<td>{$row['tecnico_nick']}</td>";
                         echo "<td>{$row['tipo_nome']}</td>";
