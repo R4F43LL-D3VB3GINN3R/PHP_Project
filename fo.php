@@ -36,7 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <h2>Procurar</h2>
         <input type="text" name="procura_fo" id="procura_fo">
         <input type="hidden" name="nick" value="<?php echo $nick; ?>">
-        <input type="submit" value="Procurar Nº Série" id="submit">
+        <input type="submit" value="Procurar Nº FO" id="submit">
         <button type="button" id="listar_fo" onclick='redirect_listar()'>Listar</button>
         <h2>Menu</h2>
         <button type="button" onclick='redirect_dashboard()' id="bt_dashboard">Dashboard</button>
@@ -274,9 +274,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($_SERVER["REQUEST_METHOD"] === "GET" && isset($_GET['procura_fo']) && !empty($_GET['procura_fo'])) {
 
-        $num_serie = $_GET['procura_fo']; // Variável para receber o número enviado...
+        $id = $_GET['procura_fo']; // Variável para receber o número enviado...
 
-        if ($num_serie == "Não Encontrado") { //Se no input tiver escrito Não encontrado...
+        if ($id == "Não Encontrado") { //Se no input tiver escrito Não encontrado...
 
             //Inserimos o valor de Não encontrado no input...
 
@@ -284,7 +284,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             //Se for escrito qualquer coisa que não seja um número...
 
-        } else if ($num_serie != "Não Encontrado" && is_numeric($num_serie)) {
+        } else if ($id != "Não Encontrado" && !is_numeric($id)) {
 
             //Inserimos o valor de Não encontrado no input...
 
@@ -296,7 +296,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             //Consulta se o número do cliente existe na tabela...
 
-            $sql2 = "SELECT * FROM TAB_FO WHERE N_SERIE = '$num_serie'";
+            $sql2 = "SELECT * FROM TAB_FO WHERE ID = '$id'";
             $result2 = $conn->query($sql2);
 
             if ($result2->num_rows > 0) { //Se o número for encontrado...
@@ -305,8 +305,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 //Insere valores nos campos...
 
-                echo "<script>document.getElementById('procura_fo').value = '$num_serie';</script>";
-                echo "<script>document.getElementById('numero_serie').value = '$num_serie';</script>";
+                echo "<script>document.getElementById('procura_fo').value = '$id';</script>";
+                echo "<script>document.getElementById('numero_serie').value = '" . $dados['N_SERIE'] . "';</script>";
                 echo "<script>document.getElementById('requerimento').value = '" . $dados['REQUISICAO'] . "';</script>";
                 echo "<script>document.getElementById('ticket').value = '" . $dados['TICKET'] . "';</script>";
                 echo "<script>document.getElementById('avaria_servicos').value = '" . $dados['AVARIA_SERVICOS'] . "';</script>";
