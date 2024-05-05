@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="../imgs/ipicon.jpg" type="image/x-icon">
     <link rel="stylesheet" href="../style/equipamentos.css">
-    <title>Clientes</title>
+    <title>Equipamentos</title>
 </head>
 <body>
 
@@ -81,6 +81,8 @@
                     $conn->close();
 
                 ?>
+
+                <input type="submit" value="-" id="sub" name="sub_tipo">
    
             </div>
 
@@ -114,6 +116,8 @@
                     $conn->close();
 
                 ?>
+
+                <input type="submit" value="-" id="sub" name="sub_marca">
           
             </div>
 
@@ -147,6 +151,8 @@
                     $conn->close();
 
                 ?>
+
+                <input type="submit" value="-" id="sub" name="sub_modelo">
 
             </div>
     </section>
