@@ -45,7 +45,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <button type="button" onclick='redirect_tecnicos()' id="bt_tecnicos">Técnicos</button>
         <h2>Equipamento</h2>
         <button type="button" onclick='redirect_equipamento()' id="bt_gerenciar">Gerenciar</button>
-        <button id="bt_catalogo">Catálogo</button>
+        <button type="button" onclick='redirect_catalogo()' id="bt_catalogo">Catálogo</button>
     </form>
 </div>
 
@@ -457,6 +457,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     function redirect_dashboard() {
         window.location.href = 'dashboard.php?nick=' + nick;
+    }
+
+    function redirect_catalogo() {
+        window.location.href = 'catalogo.php?nick=' + nick;
     }
 
     //Funções para habilitar e desabilitar campos conforme a dropdown de contrato...
