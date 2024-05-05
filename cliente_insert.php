@@ -28,6 +28,7 @@
                 $nifCli = $_GET['txt_nifCliente'];
                 $statusCli = $_GET['dd_statusCliente'];
                 $contratoCli = $_GET['dd_contratoCliente'];
+                $modalidadeCli = $_GET['dd_tipoModalidadeCliente'];
                 $obsCli = $_GET['area_observacoes'];
                 $nick = $_GET['nick'];
 
@@ -69,13 +70,14 @@
                         $tipoContratoCli = $_GET['dd_tipoContratoCliente'];
                         $tempoTotalCli = $_GET['txt_tempoTotalCliente'];
                         $tempoExtraCli = $_GET['txt_tempoExtraCliente'];
+                        $modalidadeCli = $_GET['dd_tipoModalidadeCliente'];
                         $deslocacaoCli = $_GET['dd_deslocacaoCliente'];
 
                         //Inserimos tanto o contrato do cliente quanto ele mesmo...
 
-                        $stmt = $conn->prepare("INSERT INTO TAB_CONTRATO (ID, TIPO_CONTRATO, TEMPO_TOTAL, TEMPO_EXTRA, DESLOCACAO)
-                        VALUES (?, ?, ?, ?, ?)");
-                        $stmt->bind_param('isiis', $nifCli, $tipoContratoCli, $tempoTotalCli, $tempoExtraCli, $deslocacaoCli);
+                        $stmt = $conn->prepare("INSERT INTO TAB_CONTRATO (ID, TIPO_CONTRATO, TEMPO_TOTAL, TEMPO_EXTRA, DESLOCACAO, MODALIDADE)
+                        VALUES (?, ?, ?, ?, ?, ?)");
+                        $stmt->bind_param('isiiss', $nifCli, $tipoContratoCli, $tempoTotalCli, $tempoExtraCli, $deslocacaoCli, $modalidadeCli);
                         $resultContrato = $stmt->execute(); 
 
                         $stmt = $conn->prepare("INSERT INTO TAB_CLIENTE (N_CLIENTE, NIF, NOME, MORADA, CODIGO_POSTAL, ID_LOCALIDADE, CONTACTO_F, CONTACTO_M, CRIADO_DATA, ID_CONTRATO, EMAIL, STATUS, OBSERVACOES)
