@@ -66,11 +66,12 @@
                             $tempoTotalCli = $_GET['txt_tempoTotalCliente'];
                             $tempoExtraCli = $_GET['txt_tempoExtraCliente'];
                             $deslocacaoCli = $_GET['dd_deslocacaoCliente'];
+                            $modalidadeCli = $_GET['dd_tipoModalidadeCliente'];
 
                             $stmt = $conn->prepare("UPDATE TAB_CONTRATO
-                                                    SET ID = ?, TIPO_CONTRATO = ?, TEMPO_TOTAL = ?, TEMPO_EXTRA = ?, DESLOCACAO = ? 
+                                                    SET ID = ?, TIPO_CONTRATO = ?, TEMPO_TOTAL = ?, TEMPO_EXTRA = ?, DESLOCACAO = ?, MODALIDADE = ? 
                                                     WHERE ID = ?");
-                            $stmt->bind_param('isiisi', $nifCli, $tipoContratoCli, $tempoTotalCli, $tempoExtraCli, $deslocacaoCli, $nifCli);
+                            $stmt->bind_param('isiisis', $nifCli, $tipoContratoCli, $tempoTotalCli, $tempoExtraCli, $deslocacaoCli, $modalidadeCli, $nifCli);
                             $resultContrato = $stmt->execute();
 
                             $stmt = $conn->prepare("UPDATE TAB_CLIENTE
@@ -135,11 +136,12 @@
                             $tempoTotalCli = $_GET['txt_tempoTotalCliente'];
                             $tempoExtraCli = $_GET['txt_tempoExtraCliente'];
                             $deslocacaoCli = $_GET['dd_deslocacaoCliente'];
+                            $modalidadeCli = $_GET['dd_tipoModalidadeCliente'];
 
                             //Inserimos seu contrato primeiro...
-                            $stmt = $conn->prepare("INSERT INTO TAB_CONTRATO (ID, TIPO_CONTRATO, TEMPO_TOTAL, TEMPO_EXTRA, DESLOCACAO)
+                            $stmt = $conn->prepare("INSERT INTO TAB_CONTRATO (ID, TIPO_CONTRATO, TEMPO_TOTAL, TEMPO_EXTRA, DESLOCACAO, MODALIDADE)
                             VALUES (?, ?, ?, ?, ?)");
-                            $stmt->bind_param('isiis', $nifCli, $tipoContratoCli, $tempoTotalCli, $tempoExtraCli, $deslocacaoCli);
+                            $stmt->bind_param('isiis', $nifCli, $tipoContratoCli, $tempoTotalCli, $tempoExtraCli, $deslocacaoCli, $modalidadeCli);
                             $resultContrato = $stmt->execute(); 
 
                             //Atualizamos o cliente para receber o contrato...
