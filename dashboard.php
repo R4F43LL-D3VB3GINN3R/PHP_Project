@@ -1,332 +1,113 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">  
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="../imgs/ipicon.jpg" type="image/x-icon">
-    <link rel="stylesheet" href="../style/dashboard.css">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <title>Dashboard</title>
-</head>
-<body>
+.layout {
+    width: 100%;
+    height: 710px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+  
+    display: grid;
+    grid:
+      "top top top top top top" 1fr
+      "body1 body2 body3 body4 body5 body6" 1fr
+      / 1fr 1fr 1fr 1fr 1fr 1fr;
+    gap: 0px;
+  }
+  
+  .top { grid-area: top; }
+  .body1 { grid-area: body1; }
+  .body2 { grid-area: body2; }
+  .body3 { grid-area: body3; }
+  .body4 { grid-area: body4; }
+  .body5 { grid-area: body5; }
+  .body6 { grid-area: body6; }
 
-<?php 
-
-$nick = '';
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Verifica se o nick foi enviado por POST
-    if(isset($_POST['nick'])){
-        $nick = $_POST['nick'];
-    }
-} elseif ($_SERVER["REQUEST_METHOD"] == "GET") {
-    // Verifica se o nick foi enviado por GET
-    if(isset($_GET['nick'])){
-        $nick = $_GET['nick'];
-    }
+  body {
+    height: 100%;
+    width: 2300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
 }
 
-?>
+.top {
+    height: 60px;
+    background-color: rgb(208, 231, 251);
+    display: flex;
+    align-items: center;
+    justify-content: left;
+}
 
-    <section class="layout">
-        <div class="top">
-            <button type="button" onclick='redirect()' id="bt_back">Voltar</button>
-        </div>
-        <div class="body1"> 
-            <h2>Reparação/Serviço</h2>    
+.body1, .body2, .body3, .body4, .body5, .body6 {
+    width: 100%;
+    height: 650px;
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto; 
+    text-align: center;
+    background-color: rgb(255, 255, 255);
+}
 
-            <?php 
-            
-                include 'conexao.php';
+table {
+  font-size: 14px;
+  text-align: center;
+  font-family: 'Roboto Mono', monospace;
+  gap: 5px;
+}
 
-                $sql = "SELECT 
-                fo.ID, 
-                c.NOME AS cliente_nome, 
-                t.NICK AS tecnico_nick, 
-                tipo.NOME AS tipo_nome, 
-                marca.NOME AS marca_nome, 
-                modelo.NOME AS modelo_nome,
-                estado.NOME AS estado_nome,
-                fo.N_SERIE,
-                fo.CRIACAO_DATA,
-                fo.TICKET
-                FROM TAB_FO fo
-                JOIN TAB_CLIENTE c ON fo.ID_CLIENTE = c.ID
-                JOIN TAB_TECNICO t ON fo.ID_TECNICO = t.ID
-                JOIN TAB_TIPO tipo ON fo.ID_TIPO = tipo.ID
-                JOIN TAB_MARCA marca ON fo.ID_MARCA = marca.ID
-                JOIN TAB_MODELO modelo ON fo.ID_MODELO = modelo.ID
-                JOIN TAB_ESTADO estado ON fo.ID_ESTADO = estado.ID
-                WHERE ID_ESTADO = 1";
+table:hover{
+  border-top: 3px solid rgb(135, 134, 134);
+  border-right: 3px solid rgb(135, 134, 134);
+}
 
-                $result = $conn->query($sql);
+td, th {
+  border-bottom: 1px solid black;
+}
 
-                if ($result->num_rows > 0) {
+th {
+  background-color: rgb(215, 211, 211);
+}
 
-                    echo "<table border='1'>";
-                    echo "<tr>
-                    <th>Cliente</th>
-                    <th>Técnico</th>
-                    <th>Data/Hr</th>
-                    </tr>";
+td {
+  background-color: white;
+  cursor: pointer;
+}
 
-                    while($row = $result->fetch_assoc()) {
-                        
-                        echo "<tr>";
-                        echo "<td><a href='fo.php?procura_fo={$row['N_SERIE']}&nick={$nick}'>{$row['cliente_nome']}</a></td>";
-                        echo "<td><a href='fo.php?procura_fo={$row['N_SERIE']}&nick={$nick}'>{$row['tecnico_nick']}</a></td>";
-                        echo "<td><a href='fo.php?procura_fo={$row['N_SERIE']}&nick={$nick}'>{$row['CRIACAO_DATA']}</a></td>";
-                        echo "</tr>";
-                    }
+td:hover {
+  background-color: rgb(209, 209, 207);
+  border: 0.5px solid;
+}
 
-                echo "</table>";
+h2 {
+  border: 1px solid black;
+  background-color: rgb(161, 160, 160);
+  color: rgb(0, 0, 0);
+  font-weight: bold;
+  font-family: 'Roboto Mono', monospace;
+}
 
-                } else {
+#bt_back {
+    width: 150px;
+    height: 35px;
+    font-size: 15px;
+    font-family: 'Roboto Mono', monospace;
+    font-weight: bold;
+    cursor: pointer;
+    margin-left: 20px;
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    background-color: rgb(0, 170, 255);
+    border-radius: 12px;
+    border: 3px solid rgb(255, 255, 255);
+    color:rgb(255, 255, 255);
+    margin-top: 5px;
+}
 
-                    throw new Exception("[Erro] na consulta ao banco de dados.");
-
-                }
-            
-            ?>
-
-        </div>
-        <div class="body2">
-        <h2>Orçamentar/Orçamentado</h2>    
-
-        <?php 
-            
-            include 'conexao.php';
-
-            $sql = "SELECT 
-            fo.ID, 
-            c.NOME AS cliente_nome, 
-            t.NICK AS tecnico_nick, 
-            tipo.NOME AS tipo_nome, 
-            marca.NOME AS marca_nome, 
-            modelo.NOME AS modelo_nome,
-            estado.NOME AS estado_nome,
-            fo.N_SERIE,
-            fo.CRIACAO_DATA,
-            fo.TICKET
-            FROM TAB_FO fo
-            JOIN TAB_CLIENTE c ON fo.ID_CLIENTE = c.ID
-            JOIN TAB_TECNICO t ON fo.ID_TECNICO = t.ID
-            JOIN TAB_TIPO tipo ON fo.ID_TIPO = tipo.ID
-            JOIN TAB_MARCA marca ON fo.ID_MARCA = marca.ID
-            JOIN TAB_MODELO modelo ON fo.ID_MODELO = modelo.ID
-            JOIN TAB_ESTADO estado ON fo.ID_ESTADO = estado.ID
-            WHERE ID_ESTADO = 2 or ID_ESTADO = 3";
-
-            $result = $conn->query($sql);
-
-            if ($result->num_rows > 0) {
-
-                echo "<table border='1'>";
-                echo "<tr>
-                <th>Cliente</th>
-                <th>Técnico</th>
-                <th>Data/Hr</th>
-                </tr>";
-
-                while($row = $result->fetch_assoc()) {
-                    
-                    echo "<tr>";
-                    echo "<td><a href='fo.php?procura_fo={$row['N_SERIE']}&nick={$nick}'>{$row['cliente_nome']}</a></td>";
-                    echo "<td><a href='fo.php?procura_fo={$row['N_SERIE']}&nick={$nick}'>{$row['tecnico_nick']}</a></td>";
-                    echo "<td><a href='fo.php?procura_fo={$row['N_SERIE']}&nick={$nick}'>{$row['CRIACAO_DATA']}</a></td>";
-                    echo "</tr>";
-                }
-
-            echo "</table>";
-
-            } else {
-
-                throw new Exception("[Erro] na consulta ao banco de dados.");
-
-            }
-        
-        ?>
-
-        </div>
-        <div class="body3">
-        <h2>Aguarda Mat/Requisição</h2>    
-        <?php 
-            
-            include 'conexao.php';
-
-            $sql = "SELECT 
-            fo.ID, 
-            c.NOME AS cliente_nome, 
-            t.NICK AS tecnico_nick, 
-            tipo.NOME AS tipo_nome, 
-            marca.NOME AS marca_nome, 
-            modelo.NOME AS modelo_nome,
-            estado.NOME AS estado_nome,
-            fo.N_SERIE,
-            fo.CRIACAO_DATA,
-            fo.TICKET
-            FROM TAB_FO fo
-            JOIN TAB_CLIENTE c ON fo.ID_CLIENTE = c.ID
-            JOIN TAB_TECNICO t ON fo.ID_TECNICO = t.ID
-            JOIN TAB_TIPO tipo ON fo.ID_TIPO = tipo.ID
-            JOIN TAB_MARCA marca ON fo.ID_MARCA = marca.ID
-            JOIN TAB_MODELO modelo ON fo.ID_MODELO = modelo.ID
-            JOIN TAB_ESTADO estado ON fo.ID_ESTADO = estado.ID
-            WHERE ID_ESTADO = 4";
-
-            $result = $conn->query($sql);
-
-            if ($result->num_rows > 0) {
-
-                echo "<table border='1'>";
-                echo "<tr>
-                <th>Cliente</th>
-                <th>Técnico</th>
-                <th>Data/Hr</th>
-                </tr>";
-
-                while($row = $result->fetch_assoc()) {
-                    
-                    echo "<tr>";
-                    echo "<td><a href='fo.php?procura_fo={$row['N_SERIE']}&nick={$nick}'>{$row['cliente_nome']}</a></td>";
-                    echo "<td><a href='fo.php?procura_fo={$row['N_SERIE']}&nick={$nick}'>{$row['tecnico_nick']}</a></td>";
-                    echo "<td><a href='fo.php?procura_fo={$row['N_SERIE']}&nick={$nick}'>{$row['CRIACAO_DATA']}</a></td>";
-                    echo "</tr>";
-                }
-
-            echo "</table>";
-
-            } else {
-
-                throw new Exception("[Erro] na consulta ao banco de dados.");
-
-            }
-        
-        ?>
-        </div>
-        <div class="body4">
-        <h2>Pendente</h2>    
-        <?php 
-            
-            include 'conexao.php';
-
-            $sql = "SELECT 
-            fo.ID, 
-            c.NOME AS cliente_nome, 
-            t.NICK AS tecnico_nick, 
-            tipo.NOME AS tipo_nome, 
-            marca.NOME AS marca_nome, 
-            modelo.NOME AS modelo_nome,
-            estado.NOME AS estado_nome,
-            fo.N_SERIE,
-            fo.CRIACAO_DATA,
-            fo.TICKET
-            FROM TAB_FO fo
-            JOIN TAB_CLIENTE c ON fo.ID_CLIENTE = c.ID
-            JOIN TAB_TECNICO t ON fo.ID_TECNICO = t.ID
-            JOIN TAB_TIPO tipo ON fo.ID_TIPO = tipo.ID
-            JOIN TAB_MARCA marca ON fo.ID_MARCA = marca.ID
-            JOIN TAB_MODELO modelo ON fo.ID_MODELO = modelo.ID
-            JOIN TAB_ESTADO estado ON fo.ID_ESTADO = estado.ID
-            WHERE ID_ESTADO = 5";
-
-            $result = $conn->query($sql);
-
-            if ($result->num_rows > 0) {
-
-                echo "<table border='1'>";
-                echo "<tr>
-                <th>Cliente</th>
-                <th>Técnico</th>
-                <th>Data/Hr</th>
-                </tr>";
-
-                while($row = $result->fetch_assoc()) {
-                    
-                    echo "<tr>";
-                    echo "<td><a href='fo.php?procura_fo={$row['N_SERIE']}&nick={$nick}'>{$row['cliente_nome']}</a></td>";
-                    echo "<td><a href='fo.php?procura_fo={$row['N_SERIE']}&nick={$nick}'>{$row['tecnico_nick']}</a></td>";
-                    echo "<td><a href='fo.php?procura_fo={$row['N_SERIE']}&nick={$nick}'>{$row['CRIACAO_DATA']}</a></td>";
-                    echo "</tr>";
-                }
-
-            echo "</table>";
-
-            } else {
-
-                throw new Exception("[Erro] na consulta ao banco de dados.");
-
-            }
-        
-        ?>
-        </div>
-        <div class="body5">
-        <h2>Reparado/Resolvido</h2>    
-        <?php 
-            
-            include 'conexao.php';
-
-            $sql = "SELECT 
-            fo.ID, 
-            c.NOME AS cliente_nome, 
-            t.NICK AS tecnico_nick, 
-            tipo.NOME AS tipo_nome, 
-            marca.NOME AS marca_nome, 
-            modelo.NOME AS modelo_nome,
-            estado.NOME AS estado_nome,
-            fo.N_SERIE,
-            fo.CRIACAO_DATA,
-            fo.TICKET
-            FROM TAB_FO fo
-            JOIN TAB_CLIENTE c ON fo.ID_CLIENTE = c.ID
-            JOIN TAB_TECNICO t ON fo.ID_TECNICO = t.ID
-            JOIN TAB_TIPO tipo ON fo.ID_TIPO = tipo.ID
-            JOIN TAB_MARCA marca ON fo.ID_MARCA = marca.ID
-            JOIN TAB_MODELO modelo ON fo.ID_MODELO = modelo.ID
-            JOIN TAB_ESTADO estado ON fo.ID_ESTADO = estado.ID
-            WHERE ID_ESTADO = 6";
-
-            $result = $conn->query($sql);
-
-            if ($result->num_rows > 0) {
-
-                echo "<table border='1'>";
-                echo "<tr>
-                <th>Cliente</th>
-                <th>Técnico</th>
-                <th>Data/Hr</th>
-                </tr>";
-
-                while($row = $result->fetch_assoc()) {
-                    
-                    echo "<tr>";
-                    echo "<td><a href='fo.php?procura_fo={$row['N_SERIE']}&nick={$nick}'>{$row['cliente_nome']}</a></td>";
-                    echo "<td><a href='fo.php?procura_fo={$row['N_SERIE']}&nick={$nick}'>{$row['tecnico_nick']}</a></td>";
-                    echo "<td><a href='fo.php?procura_fo={$row['N_SERIE']}&nick={$nick}'>{$row['CRIACAO_DATA']}</a></td>";
-                    echo "</tr>";
-                }
-
-            echo "</table>";
-
-            } else {
-
-                throw new Exception("[Erro] na consulta ao banco de dados.");
-
-            }
-        
-        ?>
-        </div>
-    </section>
-    <script>
-
-    var nick = '<?php echo $nick; ?>';
-    
-    function redirect() {
-        
-        window.location.href = 'fo.php?nick=' + nick;
-    }
-
-    </script>
-
-</body>
-</html>
+#bt_back:hover {
+    background-color: rgb(255, 255, 255);
+    border: 3px solid rgb(0, 170, 255);
+    color:rgb(0, 170, 255);
+}
