@@ -26,9 +26,13 @@
             $id = $_POST['formid'];
         }
 
+        if(isset($_POST['formnick'])) {
+            $nick = $_POST['formnick'];
+        }
+
     } elseif ($_SERVER["REQUEST_METHOD"] == "GET") {
 
-        if(isset($_GET['nick'])){
+        if(isset($_GET['nick']) && isset($_GET['id_cat'])){
             $nick = $_GET['nick'];
             $id = $_GET['id_cat'];
         }
@@ -36,6 +40,10 @@
         if(isset($_GET['formnick']) && isset($_GET['formid'])){
             $nick = $_GET['formnick'];
             $id = $_GET['formid'];
+        }
+
+        if(isset($_GET['nick'])) {
+            $nick = $_GET['nick'];
         }
 
     }
@@ -60,7 +68,7 @@
     
         if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
-            if(isset($_GET['nick'])) {
+            if(isset($_GET['nick']) && isset($_GET['id_cat'])) {
 
                 $nick = $_GET['nick'];
                 $id = $_GET['id_cat'];
@@ -92,7 +100,7 @@
             $sql = ("SELECT * FROM TAB_CATALOGO WHERE ID = '$id'");
             $result = $conn->query($sql);
 
-            if ($result) {
+            if ($result->num_rows > 0) {
 
                 $nick = $_POST['formnick'];
                 $id = $_POST['formid'];
@@ -105,6 +113,24 @@
                                         SET NOME = ?, PRECO = ?, DESCRICAO = ?
                                         WHERE ID = ?");
                 $stmt->bind_param('sisi', $nome, $preco, $descricao, $id);
+                $result = $stmt->execute();
+
+                if ($result) {
+
+                    repasseNick($nick, 'catalogo.php');
+
+                }
+
+            } else {
+
+                $nick = $_POST['formnick'];
+
+                $nome = $_POST['nome_mat'];
+                $preco = $_POST['preco_mat'];
+                $descricao = $_POST['desc_mat'];
+
+                $stmt = $conn->prepare("INSERT INTO TAB_CATALOGO (NOME, PRECO, DESCRICAO) VALUES (?, ?, ?)");
+                $stmt->bind_param('sis', $nome, $preco, $descricao);
                 $result = $stmt->execute();
 
                 if ($result) {
