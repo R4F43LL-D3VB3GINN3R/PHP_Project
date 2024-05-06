@@ -15,11 +15,9 @@
         <form action="" id="form_left">
 
             <div class="div_procura">
-                <label for="txt_ticket">Ticket Nº</label>
-                <select type="text" name="txt_ticket" id="ticket">
-                <option value="a"></option>
-                </select>
-                <button type="button" id="bt_pesquisar">Procurar</button><br>
+                <label for="txt_ticket">FO Nº / Cliente</label>
+                <input type="txt_ticket" name="txt_ticket" id="ticket" readonly="true">
+                <input type="text" name="txt_cli" id="cli" readonly="true">
             </div>
 
             <?php //Controlador de Tempo?>
@@ -39,28 +37,178 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td><input type="text" name="txt_cliente1" id="cliente1"></td>
-                            <td><input type="date" name="dt_cliente1" id="cliente1"></td>
+                            <td><select name="dd_tecnico1" id="tecnico1">          
+
+                                <?php 
+                                
+                                    include 'conexao.php';
+
+                                    $sql = ("SELECT NICK FROM TAB_TECNICO");
+                                    $result = $conn->query($sql);
+
+                                    if ($result->num_rows > 0) {
+
+                                        echo '<option value="' . " " . '">' . " " . '</option>';
+
+                                        while ($row = $result->fetch_assoc()) {
+
+                                            echo '<option value="' . $row['NICK'] . '">' . $row['NICK'] . '</option>';
+
+                                        }
+
+                                    }
+
+                                    $conn->close();
+                                
+                                ?>
+
+                            </select></td>
+                            <td><input type="date" name="dt_tecnico1" id="dt_tecnico1"></td>
                         </tr>
                         <tr>
-                            <td><input type="text" name="txt_cliente2" id="cliente2"></td>
-                            <td><input type="date" name="dt_cliente2" id="cliente2"></td>
+                        <td><select name="dd_tecnico2" id="tecnico2">
+
+                            <?php 
+
+                                include 'conexao.php';
+
+                                $sql = ("SELECT NICK FROM TAB_TECNICO");
+                                $result = $conn->query($sql);
+
+                                if ($result->num_rows > 0) {
+
+                                    echo '<option value="' . " " . '">' . " " . '</option>';
+
+                                    while ($row = $result->fetch_assoc()) {
+
+                                        echo '<option value="' . $row['NICK'] . '">' . $row['NICK'] . '</option>';
+
+                                    }
+
+                                }
+
+                                $conn->close();
+
+                            ?>
+
+                            </select></td>
+                            <td><input type="date" name="dt_tecnico3" id="dt_tecnico3"></td>
                         </tr>
                         <tr>
-                            <td><input type="text" name="txt_cliente3" id="cliente3"></td>
-                            <td><input type="date" name="dt_cliente3" id="cliente3"></td>
+                        <td><select name="dd_tecnico3" id="dd_tecnico3">
+
+                            <?php 
+
+                                include 'conexao.php';
+
+                                $sql = ("SELECT NICK FROM TAB_TECNICO");
+                                $result = $conn->query($sql);
+
+                                if ($result->num_rows > 0) {
+
+                                    echo '<option value="' . " " . '">' . " " . '</option>';
+
+                                    while ($row = $result->fetch_assoc()) {
+
+                                        echo '<option value="' . $row['NICK'] . '">' . $row['NICK'] . '</option>';
+
+                                    }
+
+                                }
+
+                                $conn->close();
+
+                            ?>
+
+                            </select></td>
+                            <td><input type="date" name="dt_tecnico3" id="tecnico3"></td>
                         </tr>
                         <tr>
-                            <td><input type="text" name="txt_cliente4" id="cliente4"></td>
-                            <td><input type="date" name="dt_cliente4" id="cliente4"></td>
+                        <td><select name="dd_tecnico4" id="dd_tecnico4">
+
+                            <?php 
+
+                                include 'conexao.php';
+
+                                $sql = ("SELECT NICK FROM TAB_TECNICO");
+                                $result = $conn->query($sql);
+
+                                if ($result->num_rows > 0) {
+
+                                    echo '<option value="' . " " . '">' . " " . '</option>';
+
+                                    while ($row = $result->fetch_assoc()) {
+
+                                        echo '<option value="' . $row['NICK'] . '">' . $row['NICK'] . '</option>';
+
+                                    }
+
+                                }
+
+                                $conn->close();
+
+                            ?>
+
+                            </select></td>
+                            <td><input type="date" name="dt_tecnico4" id="tecnico4"></td>
                         </tr>
                         <tr>
-                            <td><input type="text" name="txt_cliente5" id="cliente5"></td>
-                            <td><input type="date" name="dt_cliente5" id="cliente5"></td>
+                        <td><select name="dd_tecnico5" id="dd_tecnico5">
+
+                            <?php 
+
+                                include 'conexao.php';
+
+                                $sql = ("SELECT NICK FROM TAB_TECNICO");
+                                $result = $conn->query($sql);
+
+                                if ($result->num_rows > 0) {
+
+                                    echo '<option value="' . " " . '">' . " " . '</option>';
+
+                                    while ($row = $result->fetch_assoc()) {
+
+                                        echo '<option value="' . $row['NICK'] . '">' . $row['NICK'] . '</option>';
+
+                                    }
+
+                                }
+
+                                $conn->close();
+
+                            ?>
+
+                            </select></td>
+                            <td><input type="date" name="dt_tecnico5" id="tecnico5"></td>
                         </tr>
                         <tr>
-                            <td><input type="text" name="txt_cliente6" id="cliente6"></td>
-                            <td><input type="date" name="dt_cliente6" id="cliente6"></td>
+                        <td><select name="dd_tecnico6" id="dd_tecnico6">
+
+                            <?php 
+
+                                include 'conexao.php';
+
+                                $sql = ("SELECT NICK FROM TAB_TECNICO");
+                                $result = $conn->query($sql);
+
+                                if ($result->num_rows > 0) {
+
+                                    echo '<option value="' . " " . '">' . " " . '</option>';
+
+                                    while ($row = $result->fetch_assoc()) {
+
+                                        echo '<option value="' . $row['NICK'] . '">' . $row['NICK'] . '</option>';
+
+                                    }
+
+                                }
+
+                                $conn->close();
+
+                            ?>
+
+                            </select></td>
+                            <td><input type="date" name="dd_tecnico6" id="dd_tecnico6"></td>
                         </tr>
                     </tbody>
                 </table>
@@ -136,10 +284,10 @@
             <div class="time_footer"> <?php //Footer das Tabelas 1 e 2?>
 
                 <h2>Totais:</h2>
-                <input type="text" value="0">
-                <input type="text" value="0">
-                <input type="text" value="0">
-                <input type="text" value="0">
+                <input type="text" name="txt_tot1" id="tot1" value="0">
+                <input type="text" name="txt_tot2" id="tot2" value="0">
+                <input type="text" name="txt_tot3" id="tot3" value="0">
+                <input type="text" name="txt_tot4" id="tot4" value="0">
                 
             </div>
 
@@ -245,8 +393,6 @@
                 <textarea name="trabEfetuados" id="trabEfetuados" cols="70" rows="5"></textarea>
             </div>
 
-            <input type="submit" name="bt_submit" id="submit" value="Gravar">
-
         </form> <?php //Encerra o Formulário?>
     </div> <?php //Encerra a div .left?>
 
@@ -261,6 +407,7 @@
                 <button type="button" id="bt_cat">Catálogo</button>
                 <button type="button" id="bt_voltar">Voltar</button>
                 <button type="button" id="bt_imprimir">Imprimir</button>
+                <button type="button" id="bt_salvar">Salvar</button>
 
             </div>
 
@@ -270,11 +417,11 @@
             <div class="div_menuright1">
                 
                 <h3>TX(Transmissão)</h3>
-                <label for="txt_pot">Pot(W):</label>
+                <label for="txt_pot">Potência(W)</label>
                 <input type="text" name="txt_pot" id="pot">
-                <label for="txt_pot">Modelação(KHZ):</label>
+                <label for="txt_pot">Modelação(KHZ)</label>
                 <input type="text" name="txt_mod" id="mod">
-                <label for="txt_pot">Des. Freq:</label>
+                <label for="txt_pot">Descarga Frequência</label>
                 <input type="text" name="txt_freq" id="freq">
 
             </div>
@@ -286,13 +433,13 @@
                     <h3>TX(Alimentação)</h3>
                     <label for="dd_bat">Est. Bateria</label>
                     <select name="dd_bat" id="bat">
-                        <option value="S">Sim</option>
                         <option value="N">N/A</option>
+                        <option value="S">Sim</option>
                     </select>
                     <label for="dd_alimentacao">Alimentação (12V)</label>
                     <select name="dd_alimentacao" id="alimentacao">
-                        <option value="S">Sim</option>
                         <option value="N">N/A</option>
+                        <option value="S">Sim</option>
                     </select>
 
                 </div>
@@ -304,8 +451,8 @@
                     <input type="text" name="txt_sens" id="sens">
                     <label for="dd_audio">Áudio</label>
                     <select name="dd_audio" id="audio">
-                        <option value="S">Sim</option>
                         <option value="N">N/A</option>
+                        <option value="S">Sim</option>
                     </select>
 
                 </div>
@@ -323,18 +470,18 @@
                     <h3>Hardware</h3>
                     <label for="dd_teste_funcional">Teste Funcional</label>
                     <select name="dd_teste_funcional" id="teste_funcional">
-                        <option value="S">Sim</option>
                         <option value="N">N/A</option>
+                        <option value="S">Sim</option>
                     </select>
                     <label for="dd_aval_funcionamento">Aval. de Funcionamento</label>
                     <select name="dd_aval_funcionamento" id="aval_funcionamento">
-                        <option value="S">Sim</option>
                         <option value="N">N/A</option>
+                        <option value="S">Sim</option>
                     </select>
                     <label for="dd_circuito_de_alimentacao">Circuito de Alimentação</label>
                     <select name="dd_circuito_de_alimentacao" id="circuito_de_alimentacao">
-                        <option value="S">Sim</option>
                         <option value="N">N/A</option>
+                        <option value="S">Sim</option>
                     </select>
 
                 </div>
@@ -344,23 +491,23 @@
                     <h3>Software</h3>
                     <label for="dd_inicia_corretamente">Inicia Corretamente</label>
                     <select name="dd_inicia_Corretamente" id="inicia_corretamente">
-                        <option value="S">Sim</option>
                         <option value="N">N/A</option>
+                        <option value="S">Sim</option>
                     </select>
                     <label for="dd_HWSW">Interactividade (HW/SW)</label>
                     <select name="dd_HWSW" id="HWSW">
-                        <option value="S">Sim</option>
                         <option value="N">N/A</option>
+                        <option value="S">Sim</option>
                     </select>
                     <label for="dd_actualizacaoSW">Actualização(SW)</label>
                     <select name="dd_actualizacaoSW" id="actualizacaoSW">
-                        <option value="S">Sim</option>
                         <option value="N">N/A</option>
+                        <option value="S">Sim</option>
                     </select>
                     <label for="dd_resultado_esperado">Resultado Esperado</label>
                     <select name="dd_resultado_esperado" id="resultado_esperado">
-                        <option value="S">Sim</option>
                         <option value="N">N/A</option>
+                        <option value="S">Sim</option>
                     </select>
 
                 </div>
@@ -388,6 +535,36 @@
         </form>
 
     </div>
+
+    <?php 
+
+    $nick = '';
+
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        
+        if(isset($_POST['nick'])){
+
+            $nick = $_POST['nick'];
+
+        }
+
+    } elseif ($_SERVER["REQUEST_METHOD"] == "GET") {
+        
+        if(isset($_GET['nick'])){
+
+            $nick = $_GET['nick'];
+            $num_serie = $_GET['txt_numero_serie'];
+            $cliente = $_GET['dd_cliente'];
+            $id = $_GET['procura_fo'];
+
+            echo "<script>document.getElementById('ticket').value = '$id';</script>";
+            echo "<script>document.getElementById('cli').value = '$cliente';</script>";
+
+        }
+
+    }
+
+    ?>
 
 </body>
 </html>
