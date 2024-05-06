@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="../imgs/ipicon.jpg" type="image/x-icon">
     <link rel="stylesheet" href="../style/messagebox.css">
-    <title>Clientes</title>
+    <title>Folhas de Obras</title>
 </head>
 <body>
 
@@ -32,6 +32,9 @@
                 $ticket = $_GET['txt_ticket'];
                 $requisicao = $_GET['txt_requerimento'];
                 $num_serie = $_GET['txt_numero_serie'];
+                $gt = $_GET['txt_gt'];
+                $faturacao = $_GET['txt_faturacao'];
+                $proposta = $_GET['txt_proposta'];
                 $nick = $_GET['nick'];
 
                 //Consulta a linha referente ao número do cliente...
@@ -80,9 +83,9 @@
                         //Insere na tabela...
 
                         $stmt = $conn->prepare("UPDATE TAB_FO
-                                                SET ID_CLIENTE = ?, ID_TECNICO = ?, ID_TIPO = ?, ID_MARCA = ?, ID_MODELO = ?, ID_ESTADO = ?, AVARIA_SERVICOS = ?, ACESSORIOS = ?, OBSERVACOES = ?, ESTADO_AVALIACAO = ?, FATURACAO = ?
+                                                SET ID_CLIENTE = ?, ID_TECNICO = ?, ID_TIPO = ?, ID_MARCA = ?, ID_MODELO = ?, ID_ESTADO = ?, AVARIA_SERVICOS = ?, ACESSORIOS = ?, OBSERVACOES = ?, ESTADO_AVALIACAO = ?, GUIA_TRANSPORTE = ?, FATURACAO = ?, PROPOSTAS = ?
                                                 WHERE ID = ?");
-                                                $stmt->bind_param('iiiiiissssii', $cliente_id, $tecnico_id, $tipo_id, $marca_id, $modelo_id, $estado_id, $avaria, $acessorios, $observacoes, $estado_aval, $orcamento, $id);
+                                                $stmt->bind_param('iiiiiisssssisi', $cliente_id, $tecnico_id, $tipo_id, $marca_id, $modelo_id, $estado_id, $avaria, $acessorios, $observacoes, $estado_aval, $gt, $faturacao, $proposta, $id);
                                                 $result = $stmt->execute();            
 
                         if ($result > 0) {
