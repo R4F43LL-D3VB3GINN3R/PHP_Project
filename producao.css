@@ -67,6 +67,12 @@ input, select, textarea {
     height: 20px;
 }
 
+.tab1, select {
+    height: 20px;
+    width: 180px;
+    text-align: center;
+}
+
 .tab2 {
     height: 100%;
     width: 80%;
@@ -96,8 +102,24 @@ input, select, textarea {
 }
 
 .time_footer input {
-    width: 50px;
+    width: 75px;
     text-align: center;
+}
+
+#tot1 {
+    margin-right: -2px;
+}
+
+#tot2 {
+    margin-right: 6px;
+}
+
+#tot3 {
+    margin-right: -2px;
+}
+
+.time_footer h2 {
+    margin-left: 315px;
 }
 
 .div_mat {
@@ -234,24 +256,28 @@ input, select, textarea {
     height: 200px;
     gap: 5px;
     width: 50%;
+    text-align: center;
 }
 
 .div_menuright3 {
     height: 200px;
     gap: 5px;
     width: 50%;
+    text-align: center;
 }
 
 .div_menuright4 {
     height: 350px;
     gap: 5px;
     width: 50%;
+    text-align: center;
 }
 
 .div_menuright5 {
     height: 350px;
     gap: 5px;
     width: 50%;
+    text-align: center;
 }
 
 .div_menuright6 {
@@ -259,6 +285,7 @@ input, select, textarea {
     gap: 5px;
     width: 100%;
     justify-content: center;
+    text-align: center;
 }
 
 .div_menuright2 select {
@@ -267,6 +294,21 @@ input, select, textarea {
 }
 
 .div_menuright3 select {
+    width: 100px;
+    text-align: center;
+}
+
+.div_menuright4 select {
+    width: 100px;
+    text-align: center;
+}
+
+.div_menuright5 select {
+    width: 100px;
+    text-align: center;
+}
+
+.div_menuright6 select {
     width: 100px;
     text-align: center;
 }
@@ -320,16 +362,13 @@ body {
 }
 
 .div_procura input {
-    width: 20px;
-    border: 1px solid rgb(120, 102, 102);
-}
-
-#ticket {
-    margin-top: 10px;
-    width: 100px;
+    width: 200px;
     height: 30px;
+    margin: 5px;
+    border: 1px solid rgb(120, 102, 102);
     border-radius: 5px;
-}
+    text-align: center;
+}   
 
 .div_tempo, .div_mat {
     backdrop-filter: blur(16px) saturate(180%);
@@ -451,3 +490,8 @@ button:hover, #submit:hover {
 h2 {
     color: rgb(255, 255, 255);
 }
+
+
+
+
+
