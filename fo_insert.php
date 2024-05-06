@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="../imgs/ipicon.jpg" type="image/x-icon">
     <link rel="stylesheet" href="../style/messagebox.css">
-    <title>Clientes</title>
+    <title>Folhas de Obras</title>
 </head>
 <body>
 
@@ -17,6 +17,7 @@
 
             if ($_SERVER["REQUEST_METHOD"] === "GET") {
 
+                $id = $_GET['procura_fo'];
                 $cliente = $_GET['dd_cliente'];
                 $tecnico = $_GET['dd_tecnico'];
                 $orcamento = $_GET['dd_orcamento'];
@@ -31,11 +32,14 @@
                 $ticket = $_GET['txt_ticket'];
                 $requisicao = $_GET['txt_requerimento'];
                 $num_serie = $_GET['txt_numero_serie'];
+                $gt = $_GET['txt_gt'];
+                $faturacao = $_GET['txt_faturacao'];
+                $proposta = $_GET['txt_proposta'];
                 $nick = $_GET['nick'];
 
                 //Consulta a linha referente ao número do cliente...
 
-                $sql = "SELECT N_SERIE FROM TAB_FO WHERE N_SERIE = '$num_serie'";
+                $sql = "SELECT ID FROM TAB_FO WHERE ID = '$id'";
                 $result = $conn->query($sql);
 
                 //Se ele encontrar o número do cliente na tabela...
@@ -44,7 +48,7 @@
                 if ($result->num_rows > 0) {
 
                     echo "<div>
-                                <h2>Folha de Obra $num_serie já existe em nosso sistema</h2>
+                                <h2>Folha de Obra Nº $id já existe em nosso sistema</h2>
                                 <button type='button' onclick='redirect()'>Ok</button>
                         </div>";
 
@@ -80,9 +84,9 @@
 
                         $estado_id = 1;
 
-                        $stmt = $conn->prepare("INSERT INTO TAB_FO (ID_CLIENTE, ID_TECNICO, CRIACAO_DATA, REQUISICAO, TICKET, ID_TIPO, ID_MARCA, ID_MODELO, ID_ESTADO, N_SERIE, AVARIA_SERVICOS, ACESSORIOS, OBSERVACOES, ESTADO_AVALIACAO, FATURACAO)
-                        VALUES (?, ?, NOW(), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-                        $stmt->bind_param('iisiiiissssssi', $cliente_id, $tecnico_id, $requisicao, $ticket, $tipo_id, $marca_id, $modelo_id, $estado_id, $num_serie, $avaria, $acessorios, $observacoes, $estado_aval, $faturacao);
+                        $stmt = $conn->prepare("INSERT INTO TAB_FO (ID_CLIENTE, ID_TECNICO, CRIACAO_DATA, REQUISICAO, TICKET, ID_TIPO, ID_MARCA, ID_MODELO, ID_ESTADO, N_SERIE, AVARIA_SERVICOS, ACESSORIOS, OBSERVACOES, ESTADO_AVALIACAO, GUIA_TRANSPORTE, FATURACAO, PROPOSTAS)
+                        VALUES (?, ?, NOW(), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                        $stmt->bind_param('iisiiiisssssssis', $cliente_id, $tecnico_id, $requisicao, $ticket, $tipo_id, $marca_id, $modelo_id, $estado_id, $num_serie, $avaria, $acessorios, $observacoes, $estado_aval, $gt, $faturacao, $proposta);
                         $result = $stmt->execute();
 
                         if ($result > 0) {
@@ -90,7 +94,7 @@
                             if ($result) {
 
                                 echo "<div>
-                                            <h2>Folha de Obra $num_serie criada com sucesso</h2>
+                                            <h2>Folha de Obra Nº $id criada com sucesso</h2>
                                             <button type='button' onclick='redirect()'>Ok</button>
                                     </div>";
                                 
