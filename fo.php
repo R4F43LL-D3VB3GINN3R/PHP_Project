@@ -45,7 +45,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <button type="button" onclick='redirect_tecnicos()' id="bt_tecnicos">Técnicos</button>
         <h2>Equipamento</h2>
         <button type="button" onclick='redirect_equipamento()' id="bt_gerenciar">Gerenciar</button>
-        <button id="bt_catalogo">Catálogo</button>
+        <button type="button" onclick='redirect_catalogo()' id="bt_catalogo">Catálogo</button>
     </form>
 </div>
 
@@ -257,6 +257,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div> 
 
     <div class="subdiv5">
+        <form action="fo2.php" method="post" id="form_subdiv5">
+            <label for="txt_gt">Guia Transporte:</label>
+            <input type="text" name="txt_gt" id="gt">
+            <label for="txt_faturacao">Faturação:</label>
+            <input type="txt" name="txt_faturacao" id="faturacao">
+            <label for="txt_proposta">Proposta:</label>
+            <input type="text" name="txt_proposta" id="proposta">
+        </form>
+    </div> 
+
+    <div class="subdiv5">
         <button id="enviarTodos">Inserir</button>   
         <button id="enviarTodos_editar">Alterar</button>  
         <button id="enviarTodos_producao">Produção</button>       
@@ -312,7 +323,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 echo "<script>document.getElementById('avaria_servicos').value = '" . $dados['AVARIA_SERVICOS'] . "';</script>";
                 echo "<script>document.getElementById('acessorios').value = '" . $dados['ACESSORIOS'] . "';</script>";
                 echo "<script>document.getElementById('observacoes').value = '" . $dados['OBSERVACOES'] . "';</script>";
-                echo "<script>document.getElementById('equip_estado').value = '" . $dados['ESTADO_AVALIACAO'] . "';</script>";              
+                echo "<script>document.getElementById('equip_estado').value = '" . $dados['ESTADO_AVALIACAO'] . "';</script>";
+                echo "<script>document.getElementById('gt').value = '" . $dados['GUIA_TRANSPORTE'] . "';</script>";
+                echo "<script>document.getElementById('faturacao').value = '" . $dados['FATURACAO'] . "';</script>";
+                echo "<script>document.getElementById('proposta').value = '" . $dados['GUIA_TRANSPORTE'] . "';</script>";              
 
                 $sql = "SELECT c.NOME AS cliente_nome, t.NICK AS tecnico_nome, tipo.NOME AS tipo_nome, marca.NOME AS marca_nome, modelo.NOME AS modelo_nome, estado.NOME AS estado_nome
                 FROM TAB_CLIENTE c
@@ -551,6 +565,10 @@ var nick = '<?php echo $nick; ?>';
 
     function redirect_dashboard() {
         window.location.href = 'dashboard.php?nick=' + nick;
+    }
+
+    function redirect_catalogo() {
+        window.location.href = 'catalogo.php?nick=' + nick;
     }
 
 </script>
