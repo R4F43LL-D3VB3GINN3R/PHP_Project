@@ -48,7 +48,7 @@
         <?php //Menu de Adicionar e Remover...?>
 
         <div class="name3">  
-            <form action="catalogo_gerenciamento.php" id="form_name3" method="post" name="form3" class="form3">
+            <form action="catalogo_gerenciamento.php" id="form_name3" method="get" name="form3" class="form3">
 
                 <table>
                     <thead>
@@ -73,18 +73,22 @@
 
                                 while ($row = $result->fetch_assoc()) {
 
+
                                     echo "<tr>";
                                     echo "<td>" . $row['ID'] . "</td>";
                                     echo "<td>" . $row['NOME'] . "</td>";
                                     echo "<td>" . $row['DESCRICAO'] . "</td>";
                                     echo "<td>" . $row['PRECO'] . "</td>";
-                                    echo "<td><input type='submit' value='Editar' id='managecat'></td>";
-                                    echo "<input type='hidden' name='nick' value='" . $nick . "'></td>";
+                                    echo "<td><form action='catalogo_gerenciamento.php' method='get'><input type='hidden' name='id_cat' value='" . $row['ID'] . "'><input type='submit' value='Editar' id='managecat'></form></td>";
                                     echo "</tr>";
 
                                 }
 
+                                echo "<input type='hidden' name='nick' value='" . $nick . "'></td>";    
+
                             }
+
+                            $conn->close();
 
                         ?>
 
