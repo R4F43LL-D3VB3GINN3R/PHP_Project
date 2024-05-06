@@ -50,8 +50,8 @@
             <input type="text" name="preco_mat" id="preco">
             <label for="desc_mat">Descrição</label>
             <textarea name="desc_mat" id="descricao" cols="20" rows="5"></textarea>
-            <input type="hidden" name="formid" value=<?php echo $id; ?>>
-            <input type="hidden" name="formnick" value=<?php echo $nick; ?>>
+            <input type="hidden" name="formid" value="<?php echo $id; ?>">
+            <input type="hidden" name="formnick" value="<?php echo $nick; ?>">
             <input type="submit" value="Gravar" id="submit">
         </form>
     </div>
@@ -59,19 +59,26 @@
     <?php 
     
         if ($_SERVER["REQUEST_METHOD"] == "GET") {
-            
-            include 'conexao.php';
 
-            $sql = ("SELECT * FROM TAB_CATALOGO WHERE ID = '$id'");
-            $result = $conn->query($sql);
+            if(isset($_GET['nick'])) {
 
-            if ($result) {
+                $nick = $_GET['nick'];
+                $id = $_GET['id_cat'];
+                
+                include 'conexao.php';
 
-                $dados = $result->fetch_assoc();
+                $sql = ("SELECT * FROM TAB_CATALOGO WHERE ID = '$id'");
+                $result = $conn->query($sql);
 
-                echo "<script>document.getElementById('nome').value = '" . $dados['NOME'] . "';</script>";
-                echo "<script>document.getElementById('preco').value = '" . $dados['PRECO'] ."'</script>";
-                echo "<script>document.getElementById('descricao').value = '" . $dados['DESCRICAO'] . "'</script>";
+                if ($result) {
+
+                    $dados = $result->fetch_assoc();
+
+                    echo "<script>document.getElementById('nome').value = '" . $dados['NOME'] . "';</script>";
+                    echo "<script>document.getElementById('preco').value = '" . $dados['PRECO'] ."'</script>";
+                    echo "<script>document.getElementById('descricao').value = '" . $dados['DESCRICAO'] . "'</script>";
+
+                }
 
             }
 
@@ -86,6 +93,9 @@
             $result = $conn->query($sql);
 
             if ($result) {
+
+                $nick = $_POST['formnick'];
+                $id = $_POST['formid'];
 
                 $nome = $_POST['nome_mat'];
                 $preco = $_POST['preco_mat'];
