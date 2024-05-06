@@ -73,9 +73,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     while($row = $result->fetch_assoc()) {
                         
                         echo "<tr>";
-                        echo "<td><a href='fo.php?procura_fo={$row['N_SERIE']}&nick={$nick}'>{$row['cliente_nome']}</a></td>";
-                        echo "<td><a href='fo.php?procura_fo={$row['N_SERIE']}&nick={$nick}'>{$row['tecnico_nick']}</a></td>";
-                        echo "<td><a href='fo.php?procura_fo={$row['N_SERIE']}&nick={$nick}'>{$row['CRIACAO_DATA']}</a></td>";
+                        echo "<td><a href='fo.php?procura_fo={$row['ID']}&nick={$nick}'>{$row['cliente_nome']}</a></td>";
+                        echo "<td><a href='fo.php?procura_fo={$row['ID']}&nick={$nick}'>{$row['tecnico_nick']}</a></td>";
+                        echo "<td><a href='fo.php?procura_fo={$row['ID']}&nick={$nick}'>{$row['CRIACAO_DATA']}</a></td>";
                         echo "</tr>";
                     }
 
@@ -180,9 +180,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 while($row = $result->fetch_assoc()) {
                     
                     echo "<tr>";
-                    echo "<td><a href='fo.php?procura_fo={$row['N_SERIE']}&nick={$nick}'>{$row['cliente_nome']}</a></td>";
-                    echo "<td><a href='fo.php?procura_fo={$row['N_SERIE']}&nick={$nick}'>{$row['tecnico_nick']}</a></td>";
-                    echo "<td><a href='fo.php?procura_fo={$row['N_SERIE']}&nick={$nick}'>{$row['CRIACAO_DATA']}</a></td>";
+                    echo "<td><a href='fo.php?procura_fo={$row['ID']}&nick={$nick}'>{$row['cliente_nome']}</a></td>";
+                    echo "<td><a href='fo.php?procura_fo={$row['ID']}&nick={$nick}'>{$row['tecnico_nick']}</a></td>";
+                    echo "<td><a href='fo.php?procura_fo={$row['ID']}&nick={$nick}'>{$row['CRIACAO_DATA']}</a></td>";
                     echo "</tr>";
                 }
 
@@ -232,9 +232,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 while($row = $result->fetch_assoc()) {
                     
                     echo "<tr>";
-                    echo "<td><a href='fo.php?procura_fo={$row['N_SERIE']}&nick={$nick}'>{$row['cliente_nome']}</a></td>";
-                    echo "<td><a href='fo.php?procura_fo={$row['N_SERIE']}&nick={$nick}'>{$row['tecnico_nick']}</a></td>";
-                    echo "<td><a href='fo.php?procura_fo={$row['N_SERIE']}&nick={$nick}'>{$row['CRIACAO_DATA']}</a></td>";
+                    echo "<td><a href='fo.php?procura_fo={$row['ID']}&nick={$nick}'>{$row['cliente_nome']}</a></td>";
+                    echo "<td><a href='fo.php?procura_fo={$row['ID']}&nick={$nick}'>{$row['tecnico_nick']}</a></td>";
+                    echo "<td><a href='fo.php?procura_fo={$row['ID']}&nick={$nick}'>{$row['CRIACAO_DATA']}</a></td>";
                     echo "</tr>";
                 }
 
@@ -284,9 +284,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 while($row = $result->fetch_assoc()) {
                     
                     echo "<tr>";
-                    echo "<td><a href='fo.php?procura_fo={$row['N_SERIE']}&nick={$nick}'>{$row['cliente_nome']}</a></td>";
-                    echo "<td><a href='fo.php?procura_fo={$row['N_SERIE']}&nick={$nick}'>{$row['tecnico_nick']}</a></td>";
-                    echo "<td><a href='fo.php?procura_fo={$row['N_SERIE']}&nick={$nick}'>{$row['CRIACAO_DATA']}</a></td>";
+                    echo "<td><a href='fo.php?procura_fo={$row['ID']}&nick={$nick}'>{$row['cliente_nome']}</a></td>";
+                    echo "<td><a href='fo.php?procura_fo={$row['ID']}&nick={$nick}'>{$row['tecnico_nick']}</a></td>";
+                    echo "<td><a href='fo.php?procura_fo={$row['ID']}&nick={$nick}'>{$row['CRIACAO_DATA']}</a></td>";
                     echo "</tr>";
                 }
 
@@ -336,9 +336,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 while($row = $result->fetch_assoc()) {
                     
                     echo "<tr>";
-                    echo "<td><a href='fo.php?procura_fo={$row['N_SERIE']}&nick={$nick}'>{$row['cliente_nome']}</a></td>";
-                    echo "<td><a href='fo.php?procura_fo={$row['N_SERIE']}&nick={$nick}'>{$row['tecnico_nick']}</a></td>";
-                    echo "<td><a href='fo.php?procura_fo={$row['N_SERIE']}&nick={$nick}'>{$row['CRIACAO_DATA']}</a></td>";
+                    echo "<td><a href='fo.php?procura_fo={$row['ID']}&nick={$nick}'>{$row['cliente_nome']}</a></td>";
+                    echo "<td><a href='fo.php?procura_fo={$row['ID']}&nick={$nick}'>{$row['tecnico_nick']}</a></td>";
+                    echo "<td><a href='fo.php?procura_fo={$row['ID']}&nick={$nick}'>{$row['CRIACAO_DATA']}</a></td>";
                     echo "</tr>";
                 }
 
