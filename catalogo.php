@@ -81,8 +81,17 @@
                                     echo "<td>" . $row['PRECO'] . "</td>";
                                     echo "<td><form action='catalogo_gerenciamento.php' method='get'><input type='hidden' name='id_cat' value='" . $row['ID'] . "'><input type='submit' value='Editar' id='managecat'><input type='hidden' name='nick' value='" . $nick . "'></form></td>";
                                     echo "</tr>";
+                                    
 
                                 } 
+
+                                echo "<tr>";
+                                    echo "<td>" . "--" . "</td>";
+                                    echo "<td>" . "--" . "</td>";
+                                    echo "<td>" . "--" . "</td>";
+                                    echo "<td>" . "--" . "</td>";
+                                echo "<td><form action='catalogo_gerenciamento.php' method='get'><input type='submit' value='+' id='managecat'><input type='hidden' name='nick' value='" . $nick . "'></form></td>";
+                                
 
                             }
 
