@@ -264,13 +264,13 @@
             <div class="time_footer"> <?php //Footer das Tabelas 1 e 2?>
 
                 <label for="txt_tot_hrs">Tot.Hrs</label>
-                <input type="time" name="txt_tot_hrs" id="tot1_hrs" readonly="true">
+                <input type="text" name="txt_tot_hrs" id="tot1_hrs" readonly="true">
                 <label for="txt_tot_viagens">Tot.Hrs.Viagens</label>
-                <input type="time" name="txt_tot_viagens" id="tot_viagens" readonly="true">
+                <input type="text" name="txt_tot_viagens" id="tot_viagens" readonly="true">
                 <label for="txt_contr_horas">Tot.Hrs.Contr</label>
-                <input type="time" name="txt_contr_horas" id="contr_horas" readonly="true">
+                <input type="text" name="txt_contr_horas" id="contr_horas" readonly="true">
                 <label for="txt_tot_extras">Tot.Hrs.Extras</label>
-                <input type="time" name="txt_tot_extras" id="tot_extras" readonly="true">
+                <input type="text" name="txt_tot_extras" id="tot_extras" readonly="true">
                 
             </div>
 
@@ -604,6 +604,34 @@
             }
         }
 
+        function processarTecnico2(id_ini, id_fim, id_hrs_trab) {
+            var hora_ini = document.getElementById(id_ini).value;
+            var hora_fim = document.getElementById(id_fim).value;
+
+            if (hora_ini && hora_fim) {
+                var ini = new Date("01/01/2000 " + hora_ini);
+                var fim = new Date("01/01/2000 " + hora_fim);
+
+                var diferenca = fim - ini;
+
+                // Calcular horas e minutos separadamente
+                var horas = Math.floor(diferenca / 1000 / 60 / 60);
+                diferenca -= horas * 1000 * 60 * 60;
+                var minutos = Math.floor(diferenca / 1000 / 60);
+
+                // Verificar se excede 24 horas
+                if (horas >= 24) {
+                    var diasExtras = Math.floor(horas / 24);
+                    horas %= 24; // Reduzir para menos de 24 horas
+                    horas += diasExtras * 24; // Adicionar dias extras em horas
+                }
+
+                var total_horas = pad(horas, 2) + ":" + pad(minutos, 2);
+
+                document.getElementById(id_hrs_trab).value = total_horas;
+            }
+        }
+
         function gerenciar_horas() {
 
             processarTecnico('hora_ini1', 'hora_fim1', 'hrs_trab1');
@@ -626,8 +654,14 @@
 
             if (total_horas_trabalhadas > tempo_contrato) {
 
-                // Atualizar o campo 'tot_extras' com o total de horas extras
-                processarTecnico('contr_horas', 'tot1_hrs', 'tot_extras');
+                alert("O tempo de contrado do cliente expirou, qualquer serviço após isso será contabilizado nas horas extras.")
+
+                document.getElementById('tot1_hrs').value = total_horas_trabalhadas;
+
+                var total_horas_extras = sumarizarHoras2('tot1_hrs', 'contr_horas');
+
+                document.getElementById('tot_extras').value = total_horas_extras;
+
 
             } else {
                 // Se não houver horas extras, defina o campo 'tot_extras' como 0
@@ -713,6 +747,45 @@
 
             // Retornar o total formatado
             return pad(totalHoras, 2) + ':' + pad(totalMinutos, 2);
+        }
+
+        function sumarizarHoras2(id1, id2) {
+
+            var horas1 = document.getElementById(id1).value.split(':');
+            var horas2 = document.getElementById(id2).value.split(':');
+
+            var totalHoras, totalMinutos;
+
+            if (horas1[0] && horas1[1]) {
+
+                totalHoras = parseInt(horas1[0]);
+                totalMinutos = parseInt(horas1[1]);
+
+            } else {
+
+                totalHoras = 0;
+                totalMinutos = 0;
+
+            }
+
+            if (horas2[0] && horas2[1]) {
+
+                totalHoras -= parseInt(horas2[0]);
+                totalMinutos -= parseInt(horas2[1]);
+
+            }
+
+            // Se os minutos passarem de 60, adicionamos uma hora e ajustamos os minutos
+            if (totalMinutos >= 60) {
+
+                totalHoras += Math.floor(totalMinutos / 60);
+                totalMinutos %= 60;
+
+            }
+
+            // Retornar o total formatado
+            return pad(totalHoras, 2) + ':' + pad(totalMinutos, 2);
+
         }
 
     </script>
