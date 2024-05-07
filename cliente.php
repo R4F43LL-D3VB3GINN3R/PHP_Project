@@ -174,17 +174,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <option value="Tipo1">Tipo1</option>
                 <option value="Tipo2">Tipo2</option>
             </select>
-            <label for="txt_tempoTotalCliente">Tempo Total: </label>
-            <input type="number" name="txt_tempoTotalCliente" id="tempoTotalCliente" readonly="true">
-            <label for="txt_tempoExtraCliente">Tempo Extra:</label>
-            <input type="number" name="txt_tempoExtraCliente" id="tempoExtraCliente" readonly="true">  
             <label for="dd_deslocacaoCliente" id="deslocacaoCliente">Deslocação:</label>
             <select name="dd_deslocacaoCliente" id="dd_deslocacaoCliente" disabled>
                 <option value="Sim">Sim</option>
                 <option value="Não">Não</option>
             </select>
+            
         </form>
     </div> 
+
+    <div class="subdiv5" id="contratoFields2">
+        <form action="fo2.php" method="post" id="form_subdiv5">
+            <label for="txt_tempoTotalCliente">Tempo Total: </label>
+            <input type="number" name="txt_tempoTotalCliente" id="tempoTotalCliente" readonly="true">
+            <label for="txt_tempoConsumidoCliente">Tempo Consumido:</label>
+            <input type="time" name="txt_tempoConsumidoCliente" id="tempoConsumidoCliente" readonly="true">  
+            <label for="txt_tempoExtraCliente">Tempo Extra:</label>
+            <input type="time" name="txt_tempoExtraCliente" id="tempoExtraCliente" readonly="true">  
+        </form>
+    </div> 
+    
 
     <div class="subdiv6">
         <button id="enviarTodos">Cadastrar</button> 
@@ -284,15 +293,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 var selects = contratoFields.querySelectorAll('select');
 
                                 if (contratoSelect.value === 'Sim') {
-                                        inputs.forEach(function(input) {
+                                    inputs.forEach(function(input) {
                                         input.removeAttribute('readonly');
                                     });
 
                                     selects.forEach(function(select) {
                                         select.removeAttribute('disabled');
                                     });
+                                } else {
+                                    inputs.forEach(function(input) {
+                                        input.setAttribute('readonly', 'true');
+                                    });
+
+                                    selects.forEach(function(select) {
+                                        select.setAttribute('disabled', 'true');
+                                    });
                                 }
-                            </script>";   
+                            </script>"; 
 
                             //Inserimos os campos da tabela contrato nos inputs...
                             
@@ -468,20 +485,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         var contratoSelect = document.getElementById("dd_contratoCliente");
         var contratoFields = document.getElementById("contratoFields");
+        var contratoFields2 = document.getElementById("contratoFields2");
         var inputs = contratoFields.querySelectorAll("input");
         var selects = contratoFields.querySelectorAll("select");
+        var inputs2 = contratoFields2.querySelectorAll("input");
 
         if (contratoSelect.value === "Sim") {
 
-            inputs.forEach(function(input) 
-            {
+            inputs.forEach(function(input) {
+
                 input.removeAttribute("readonly");
 
             });
 
-            selects.forEach(function(select) 
-            {
+            selects.forEach(function(select) {
+
                 select.removeAttribute("disabled");
+
+            });
+
+            inputs2.forEach(function(input) {
+
+                input.removeAttribute("readonly");
 
             });
 
@@ -493,15 +518,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             });
 
-            selects.forEach(function(select) 
-            {
+            selects.forEach(function(select) {
+
                 select.setAttribute("disabled", "true");
+
+            });
+
+            inputs2.forEach(function(input) {
+
+                input.setAttribute("readonly", "true");
 
             });
 
         }
 
-    }
+    }   
 
 </script>
 </body>
