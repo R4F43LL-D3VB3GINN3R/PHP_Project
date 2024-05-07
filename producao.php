@@ -564,7 +564,9 @@
 
             $sql = "SELECT c.TEMPO_TOTAL AS tempo_contrato
                     FROM TAB_CONTRATO c
-                    JOIN TAB_CLIENTE a ON a.NIF = c.ID";
+                    JOIN TAB_CLIENTE a ON a.NIF = c.ID
+                    WHERE NOME = '$cliente'";
+                    
             $result = $conn->query($sql);
 
             if ($result->num_rows > 0) {
@@ -603,10 +605,12 @@
                 var total_horas = pad(horas, 2) + ":" + pad(minutos, 2);
 
                 document.getElementById(id_hrs_trab).value = total_horas;
+
             }
+
         }
 
-        function gerenciar_horas() {
+        function gerenciar_horas() { 
 
             //Chama a função que calcula a diferença entre a hora inicial e a hora final do serviço... 
             processarTecnico('hora_ini1', 'hora_fim1', 'hrs_trab1');
@@ -618,13 +622,13 @@
 
             var tempo_contrato = "<?php echo $tempo_contrato; ?>"; // Recebe o tempo de contrato do cliente...
                 
-            // Calcular o total de horas trabalhadas
+            // Calcular o total de horas trabalhadas...
             var total_horas_trabalhadas = sumarizarHoras('hrs_trab1', 'hrs_trab2', 'hrs_trab3', 'hrs_trab4', 'hrs_trab5', 'hrs_trab6');
             
-            // Atualizar o campo 'tot1_hrs' com o total de horas trabalhadas
+            // Atualizar o campo 'tot1_hrs' com o total de horas trabalhadas...
             document.getElementById('tot1_hrs').value = total_horas_trabalhadas;
             
-            // Calcular as horas extras
+            // Calcular as horas extras...
             var horas_extras = 0; 
 
             if (total_horas_trabalhadas > tempo_contrato) { //Se o tempo total de tabalho exceder o contrato...
@@ -642,9 +646,10 @@
                 document.getElementById('tot_extras').value = total_horas_extras;
 
 
-            } else { // Se não houver horas extras, defina o campo 'tot_extras' como 0
+            } else { // Se não houver horas extras, defina o campo 'tot_extras' como 0...
                 
                 document.getElementById('tot_extras').value = "00:00";
+                
             }
 
         }
