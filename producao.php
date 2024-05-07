@@ -558,28 +558,27 @@
 
     ?>
 
-    <?php
-    
-        //Exibir as horas de contrato do cliente no devido campo...
-    
-        include 'conexao.php';
+        <?php
 
-        $sql = "SELECT c.TEMPO_TOTAL AS tempo_contrato
-        FROM TAB_CONTRATO c
-        JOIN TAB_CLIENTE a ON a.NIF = c.ID";
-        $result = $conn->query($sql);
+            include 'conexao.php';
 
-        if ($result->num_rows > 0) {
+            $sql = "SELECT c.TEMPO_TOTAL AS tempo_contrato
+                    FROM TAB_CONTRATO c
+                    JOIN TAB_CLIENTE a ON a.NIF = c.ID";
+            $result = $conn->query($sql);
 
-            $cliente = $result->fetch_assoc();
+            if ($result->num_rows > 0) {
+                $cliente = $result->fetch_assoc();
+                
+                // Formatando o tempo total em horas no formato de horas:minutos
+                $tempo_contrato = sprintf("%02d:00", $cliente['tempo_contrato']);
 
-            echo "<script>document.getElementById('contr_horas').value = '" . $cliente['tempo_contrato'] . "';</script>";
+                echo "<script>document.getElementById('contr_horas').value = '" . $tempo_contrato . "';</script>";
+            }
 
-        }
+            $conn->close();
 
-        $conn->close();
-    
-    ?>
+        ?>
 
     <script>
 
@@ -613,12 +612,27 @@
             processarTecnico('hora_ini4', 'hora_fim4', 'hrs_trab4');
             processarTecnico('hora_ini5', 'hora_fim5', 'hrs_trab5');
             processarTecnico('hora_ini6', 'hora_fim6', 'hrs_trab6');
+
+            var tempo_contrato = "<?php echo $tempo_contrato; ?>";
                 
             // Calcular o total de horas trabalhadas
             var total_horas_trabalhadas = sumarizarHoras('hrs_trab1', 'hrs_trab2', 'hrs_trab3', 'hrs_trab4', 'hrs_trab5', 'hrs_trab6');
             
             // Atualizar o campo 'tot1_hrs' com o total de horas trabalhadas
             document.getElementById('tot1_hrs').value = total_horas_trabalhadas;
+            
+            // Calcular as horas extras
+            var horas_extras = 0;
+
+            if (total_horas_trabalhadas > tempo_contrato) {
+
+                // Atualizar o campo 'tot_extras' com o total de horas extras
+                processarTecnico('contr_horas', 'tot1_hrs', 'tot_extras');
+
+            } else {
+                // Se não houver horas extras, defina o campo 'tot_extras' como 0
+                document.getElementById('tot_extras').value = "00:00";
+            }
 
         }
 
