@@ -242,17 +242,17 @@
                             <td><input type="time" name="time_hrs_trab3" id="hrs_trab3"></td>
                         </tr>
                         <tr>
-                            <td><input type="time" name="time_hora_ini4" id="hora_ini4"><input type="time" name="time_hora_fim4" id="hora_fim1"></td>
+                            <td><input type="time" name="time_hora_ini4" id="hora_ini4"><input type="time" name="time_hora_fim4" id="hora_fim4"></td>
                             <td><input type="time" name="time_viag_ini4" id="ini_viag4" value="0"><input type="time" name="time_viag_fim14" id="fim_viag4" value="0"></td>
                             <td><input type="time" name="time_hrs_trab4" id="hrs_trab4"></td>
                         </tr>
                         <tr>
-                            <td><input type="time" name="time_hora_ini5" id="hora_ini5"><input type="time" name="time_hora_fim5" id="hora_fim1"></td>
+                            <td><input type="time" name="time_hora_ini5" id="hora_ini5"><input type="time" name="time_hora_fim5" id="hora_fim5"></td>
                             <td><input type="time" name="time_viag_ini5" id="ini_viag5" value="0"><input type="time" name="time_viag_fim15" id="fim_viag5" value="0"></td>
                             <td><input type="time" name="time_hrs_trab5" id="hrs_trab5"></td>
                         </tr>
                         <tr>
-                            <td><input type="time" name="time_hora_ini6" id="hora_ini6"><input type="time" name="time_hora_fim6" id="hora_fim1"></td>
+                            <td><input type="time" name="time_hora_ini6" id="hora_ini6"><input type="time" name="time_hora_fim6" id="hora_fim6"></td>
                             <td><input type="time" name="time_viag_ini6" id="ini_viag6" value="0"><input type="time" name="time_viag_fim16" id="fim_viag6" value="0"></td>
                             <td><input type="time" name="time_hrs_trab6" id="hrs_trab6"></td>
                         </tr>
@@ -611,12 +611,14 @@
             processarTecnico('hora_ini2', 'hora_fim2', 'hrs_trab2');
             processarTecnico('hora_ini3', 'hora_fim3', 'hrs_trab3');
             processarTecnico('hora_ini4', 'hora_fim4', 'hrs_trab4');
+            processarTecnico('hora_ini5', 'hora_fim5', 'hrs_trab5');
+            processarTecnico('hora_ini6', 'hora_fim6', 'hrs_trab6');
                 
-                // Calcular o total de horas trabalhadas
-                var total_horas_trabalhadas = sumarizarHoras('hrs_trab1', 'hrs_trab2', 'hrs_trab3', 'hrs_trab4');
-                
-                // Atualizar o campo 'tot1_hrs' com o total de horas trabalhadas
-                document.getElementById('tot1_hrs').value = total_horas_trabalhadas;
+            // Calcular o total de horas trabalhadas
+            var total_horas_trabalhadas = sumarizarHoras('hrs_trab1', 'hrs_trab2', 'hrs_trab3', 'hrs_trab4', 'hrs_trab5', 'hrs_trab6');
+            
+            // Atualizar o campo 'tot1_hrs' com o total de horas trabalhadas
+            document.getElementById('tot1_hrs').value = total_horas_trabalhadas;
 
         }
 
@@ -629,12 +631,14 @@
 
         }
 
-        function sumarizarHoras(id1, id2, id3, id4) {
+        function sumarizarHoras(id1, id2, id3, id4, id5, id6) {
 
             var horas1 = document.getElementById(id1).value.split(':');
             var horas2 = document.getElementById(id2).value.split(':');
             var horas3 = document.getElementById(id3).value.split(':');
             var horas4 = document.getElementById(id4).value.split(':');
+            var horas5 = document.getElementById(id5).value.split(':');
+            var horas6 = document.getElementById(id6).value.split(':');
 
             var totalHoras, totalMinutos;
 
@@ -668,6 +672,20 @@
 
                 totalHoras += parseInt(horas4[0]);
                 totalMinutos += parseInt(horas4[1]);
+
+            }
+
+            if (horas5[0] && horas5[1]) {
+
+                totalHoras += parseInt(horas5[0]);
+                totalMinutos += parseInt(horas5[1]);
+
+            }
+
+            if (horas6[0] && horas6[1]) {
+
+                totalHoras += parseInt(horas6[0]);
+                totalMinutos += parseInt(horas6[1]);
 
             }
 
