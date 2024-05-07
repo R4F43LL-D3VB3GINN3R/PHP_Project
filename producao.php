@@ -218,6 +218,7 @@
                         <tr>
                             <th>Horas</th>
                             <th>Tempo Dis.</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -227,27 +228,33 @@
                         </tr>
                         <tr>
                             <td><input type="time" name="time_hora_ini1" id="hora_ini1"><input type="time" name="time_hora_fim1" id="hora_fim1"></td>
-                            <td><input type="time" name="time_viag_ini1" id="ini_viag1" value="0"><input type="time" name="time_viag_fim11" id="fim_viag1" value="0"></td>
+                            <td><input type="time" name="time_viag_ini1" id="ini_viag1" value="0"><input type="time" name="time_viag_fim11" id="fim_viag1"></td>
+                            <td><input type="time" name="time_hrs_trab1" id="hrs_trab1"></td>
                         </tr>
                         <tr>
                             <td><input type="time" name="time_hora_ini2" id="hora_ini2"><input type="time" name="time_hora_fim2" id="hora_fim2"></td>
                             <td><input type="time" name="time_viag_ini2" id="ini_viag2" value="0"><input type="time" name="time_viag_fim12" id="fim_viag2" value="0"></td>
+                            <td><input type="time" name="time_hrs_trab2" id="hrs_trab2"></td>
                         </tr>
                         <tr>
                             <td><input type="time" name="time_hora_ini3" id="hora_ini3"><input type="time" name="time_hora_fim3" id="hora_fim3"></td>
                             <td><input type="time" name="time_viag_ini3" id="ini_viag1" value="0"><input type="time" name="time_viag_fim13" id="fim_viag3" value="0"></td>
+                            <td><input type="time" name="time_hrs_trab3" id="hrs_trab3"></td>
                         </tr>
                         <tr>
                             <td><input type="time" name="time_hora_ini4" id="hora_ini4"><input type="time" name="time_hora_fim4" id="hora_fim1"></td>
                             <td><input type="time" name="time_viag_ini4" id="ini_viag4" value="0"><input type="time" name="time_viag_fim14" id="fim_viag4" value="0"></td>
+                            <td><input type="time" name="time_hrs_trab4" id="hrs_trab4"></td>
                         </tr>
                         <tr>
                             <td><input type="time" name="time_hora_ini5" id="hora_ini5"><input type="time" name="time_hora_fim5" id="hora_fim1"></td>
                             <td><input type="time" name="time_viag_ini5" id="ini_viag5" value="0"><input type="time" name="time_viag_fim15" id="fim_viag5" value="0"></td>
+                            <td><input type="time" name="time_hrs_trab5" id="hrs_trab5"></td>
                         </tr>
                         <tr>
                             <td><input type="time" name="time_hora_ini6" id="hora_ini6"><input type="time" name="time_hora_fim6" id="hora_fim1"></td>
                             <td><input type="time" name="time_viag_ini6" id="ini_viag6" value="0"><input type="time" name="time_viag_fim16" id="fim_viag6" value="0"></td>
+                            <td><input type="time" name="time_hrs_trab6" id="hrs_trab6"></td>
                         </tr>
                     </tbody>
                 </table>
@@ -256,10 +263,12 @@
 
             <div class="time_footer"> <?php //Footer das Tabelas 1 e 2?>
 
-                <label for="txt_tot_hrs">Tot.Horas</label>
+                <label for="txt_tot_hrs">Tot.Hrs</label>
                 <input type="time" name="txt_tot_hrs" id="tot1_hrs" readonly="true">
                 <label for="txt_tot_viagens">Tot.Hrs.Viagens</label>
                 <input type="time" name="txt_tot_viagens" id="tot_viagens" readonly="true">
+                <label for="txt_contr_horas">Tot.Hrs.Contr</label>
+                <input type="time" name="txt_contr_horas" id="contr_horas" readonly="true">
                 <label for="txt_tot_extras">Tot.Hrs.Extras</label>
                 <input type="time" name="txt_tot_extras" id="tot_extras" readonly="true">
                 
@@ -270,6 +279,7 @@
             <div class="div_km"> 
                 <label for="txt_desl_km">Deslocação KM:</label>
                 <input type="number" name="txt_desl_km" id="desl_km" >
+                <button type="button" onclick='gerenciar_horas()'>Gerar</button>
             </div>
 
             <div class="div_mat"> <?php //Tabela de materiais?>
@@ -547,6 +557,133 @@
     }
 
     ?>
+
+    <?php
+    
+        //Exibir as horas de contrato do cliente no devido campo...
+    
+        include 'conexao.php';
+
+        $sql = "SELECT c.TEMPO_TOTAL AS tempo_contrato
+        FROM TAB_CONTRATO c
+        JOIN TAB_CLIENTE a ON a.NIF = c.ID";
+        $result = $conn->query($sql);
+
+        if ($result->num_rows > 0) {
+
+            $cliente = $result->fetch_assoc();
+
+            echo "<script>document.getElementById('contr_horas').value = '" . $cliente['tempo_contrato'] . "';</script>";
+
+        }
+
+        $conn->close();
+    
+    ?>
+
+    <script>
+
+        function processarTecnico(id_ini, id_fim, id_hrs_trab) {
+
+            var hora_ini = document.getElementById(id_ini).value;
+            var hora_fim = document.getElementById(id_fim).value;
+
+            if (hora_ini && hora_fim) {
+
+                var ini = new Date("01/01/2000 " + hora_ini);
+                var fim = new Date("01/01/2000 " + hora_fim);
+
+                var diferenca = fim - ini;
+
+                var horas = Math.floor(diferenca / 1000 / 60 / 60);
+                diferenca -= horas * 1000 * 60 * 60;
+                var minutos = Math.floor(diferenca / 1000 / 60);
+
+                var total_horas = pad(horas, 2) + ":" + pad(minutos, 2);
+
+                document.getElementById(id_hrs_trab).value = total_horas;
+            }
+        }
+
+        function gerenciar_horas() {
+
+            processarTecnico('hora_ini1', 'hora_fim1', 'hrs_trab1');
+            processarTecnico('hora_ini2', 'hora_fim2', 'hrs_trab2');
+            processarTecnico('hora_ini3', 'hora_fim3', 'hrs_trab3');
+            processarTecnico('hora_ini4', 'hora_fim4', 'hrs_trab4');
+                
+                // Calcular o total de horas trabalhadas
+                var total_horas_trabalhadas = sumarizarHoras('hrs_trab1', 'hrs_trab2', 'hrs_trab3', 'hrs_trab4');
+                
+                // Atualizar o campo 'tot1_hrs' com o total de horas trabalhadas
+                document.getElementById('tot1_hrs').value = total_horas_trabalhadas;
+
+        }
+
+        function pad(num, size) {
+
+            var s = num + "";
+            while (s.length < size) s = "0" + s;
+
+            return s;
+
+        }
+
+        function sumarizarHoras(id1, id2, id3, id4) {
+
+            var horas1 = document.getElementById(id1).value.split(':');
+            var horas2 = document.getElementById(id2).value.split(':');
+            var horas3 = document.getElementById(id3).value.split(':');
+            var horas4 = document.getElementById(id4).value.split(':');
+
+            var totalHoras, totalMinutos;
+
+            if (horas1[0] && horas1[1]) {
+
+                totalHoras = parseInt(horas1[0]);
+                totalMinutos = parseInt(horas1[1]);
+
+            } else {
+
+                totalHoras = 0;
+                totalMinutos = 0;
+
+            }
+
+            if (horas2[0] && horas2[1]) {
+
+                totalHoras += parseInt(horas2[0]);
+                totalMinutos += parseInt(horas2[1]);
+
+            }
+
+            if (horas3[0] && horas3[1]) {
+
+                totalHoras += parseInt(horas3[0]);
+                totalMinutos += parseInt(horas3[1]);
+
+            }
+
+            if (horas4[0] && horas4[1]) {
+
+                totalHoras += parseInt(horas4[0]);
+                totalMinutos += parseInt(horas4[1]);
+
+            }
+
+            // Se os minutos passarem de 60, adicionamos uma hora e ajustamos os minutos
+            if (totalMinutos >= 60) {
+
+                totalHoras += Math.floor(totalMinutos / 60);
+                totalMinutos %= 60;
+
+            }
+
+            // Retornar o total formatado
+            return pad(totalHoras, 2) + ':' + pad(totalMinutos, 2);
+        }
+
+    </script>
 
 </body>
 </html>
