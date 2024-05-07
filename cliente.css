@@ -222,8 +222,7 @@ form {
     border: 2px solid rgb(255, 255, 255);
 }
 
-.subdiv5 #tempoTotalCliente, #tempoExtraCliente {
-    width: 40px;
+.subdiv5 #tempoTotalCliente, #tempoExtraCliente, #tempoConsumidoCliente {
     text-align: center;
 }
 
