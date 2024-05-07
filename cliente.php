@@ -151,7 +151,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <select name="dd_contratoCliente" id="dd_contratoCliente" onchange="showContratoFields()">
                 <option value="Não">Não</option>
                 <option value="Sim">Sim</option>
-
             </select>
         </form>
     </div>
@@ -285,7 +284,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 var selects = contratoFields.querySelectorAll('select');
 
                                 if (contratoSelect.value === 'Sim') {
-                                    inputs.forEach(function(input) {
+                                        inputs.forEach(function(input) {
                                         input.removeAttribute('readonly');
                                     });
 
