@@ -31,7 +31,7 @@
                             <th id="th">Data</th>
                         </tr>
                         <tr>
-                            <th>Nome</th>
+                            <th>Técnico</th>
                             <th>Data</th>
                         </tr>
                     </thead>
@@ -218,63 +218,36 @@
                         <tr>
                             <th>Horas</th>
                             <th>Tempo Dis.</th>
-                            <th>Tempo Deb.</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <th>Início/Término.</th>
                             <th>Viagem/Trabalho</th>
-                            <th>Normal/Extra</th>
-                            <th>Cód MT</th>
                         </tr>
                         <tr>
                             <td><input type="time" name="time_hora_ini1" id="hora_ini1"><input type="time" name="time_hora_fim1" id="hora_fim1"></td>
-                            <td><input type="number" name="num_viag1" id="viag1" value="0"><input type="number" name="num_trab1" id="trab1" value="0"></td>
-                            <td><input type="number" name="num_normal1" id="normal1" value="0"><input type="number" name="num_extra1" id="extra1" value="0"></td>
-                            <td><select type="number" name="num_codmat1" id="codmat1" value="0">
-                                <option value="">0</option>
-                            </select></td>
+                            <td><input type="time" name="time_viag_ini1" id="ini_viag1" value="0"><input type="time" name="time_viag_fim11" id="fim_viag1" value="0"></td>
                         </tr>
                         <tr>
                             <td><input type="time" name="time_hora_ini2" id="hora_ini2"><input type="time" name="time_hora_fim2" id="hora_fim2"></td>
-                            <td><input type="number" name="num_viag2" id="viag2" value="0"><input type="number" name="num_trab2" id="trab2" value="0"></td>
-                            <td><input type="number" name="num_normal2" id="normal2" value="0"><input type="number" name="num_extra2" id="extra2" value="0"></td>
-                            <td><select type="number" name="num_codmat2" id="codmat2">
-                                <option value="">0</option>
-                            </select></td>
+                            <td><input type="time" name="time_viag_ini2" id="ini_viag2" value="0"><input type="time" name="time_viag_fim12" id="fim_viag2" value="0"></td>
                         </tr>
                         <tr>
                             <td><input type="time" name="time_hora_ini3" id="hora_ini3"><input type="time" name="time_hora_fim3" id="hora_fim3"></td>
-                            <td><input type="number" name="num_viag3" id="viag3" value="0"><input type="number" name="num_trab3" id="trab3" value="0"></td>
-                            <td><input type="number" name="num_normal3" id="normal3" value="0"><input type="number" name="num_extra3" id="extra3" value="0"></td>
-                            <td><select type="number" name="num_codmat3" id="codmat3">
-                                <option value="">0</option>
-                            </select></td>
+                            <td><input type="time" name="time_viag_ini3" id="ini_viag1" value="0"><input type="time" name="time_viag_fim13" id="fim_viag3" value="0"></td>
                         </tr>
                         <tr>
-                            <td><input type="time" name="time_hora_ini4" id="hora_ini4"><input type="time" name="time_hora_fim4" id="hora_fim4"></td>
-                            <td><input type="number" name="num_viag4" id="viag4" value="0"><input type="number" name="num_trab4" id="trab4" value="0"></td>
-                            <td><input type="number" name="num_normal4" id="normal4" value="0"><input type="number" name="num_extra4" id="extra4" value="0"></td>
-                            <td><select type="number" name="num_codmat4" id="codmat4">
-                                <option value="">0</option>
-                            </select></td>
+                            <td><input type="time" name="time_hora_ini4" id="hora_ini4"><input type="time" name="time_hora_fim4" id="hora_fim1"></td>
+                            <td><input type="time" name="time_viag_ini4" id="ini_viag4" value="0"><input type="time" name="time_viag_fim14" id="fim_viag4" value="0"></td>
                         </tr>
                         <tr>
-                            <td><input type="time" name="time_hora_ini5" id="hora_ini5"><input type="time" name="time_hora_fim5" id="hora_fim5"></td>
-                            <td><input type="number" name="num_viag5" id="viag5" value="0"><input type="number" name="num_trab5" id="trab5" value="0"></td>
-                            <td><input type="number" name="num_normal5" id="normal5" value="0"><input type="number" name="num_extra5" id="extra5" value="0"></td>
-                            <td><select type="number" name="num_codmat5" id="codmat5">
-                                <option value="">0</option>
-                            </select></td>
+                            <td><input type="time" name="time_hora_ini5" id="hora_ini5"><input type="time" name="time_hora_fim5" id="hora_fim1"></td>
+                            <td><input type="time" name="time_viag_ini5" id="ini_viag5" value="0"><input type="time" name="time_viag_fim15" id="fim_viag5" value="0"></td>
                         </tr>
                         <tr>
-                            <td><input type="time" name="time_hora_ini6" id="hora_ini6"><input type="time" name="time_hora_fim6" id="hora_fim6"></td>
-                            <td><input type="number" name="num_viag6" id="viag6" value="0"><input type="number" name="num_trab6" id="trab6" value="0"></td>
-                            <td><input type="number" name="num_normal6" id="normal6" value="0"><input type="number" name="num_extra6" id="extra6" value="0"></td>
-                            <td><select type="number" name="num_codmat6" id="codmat6">
-                                <option value="">0</option>
-                            </select></td>
+                            <td><input type="time" name="time_hora_ini6" id="hora_ini6"><input type="time" name="time_hora_fim6" id="hora_fim1"></td>
+                            <td><input type="time" name="time_viag_ini6" id="ini_viag6" value="0"><input type="time" name="time_viag_fim16" id="fim_viag6" value="0"></td>
                         </tr>
                     </tbody>
                 </table>
@@ -283,11 +256,12 @@
 
             <div class="time_footer"> <?php //Footer das Tabelas 1 e 2?>
 
-                <h2>Totais:</h2>
-                <input type="text" name="txt_tot1" id="tot1" value="0">
-                <input type="text" name="txt_tot2" id="tot2" value="0">
-                <input type="text" name="txt_tot3" id="tot3" value="0">
-                <input type="text" name="txt_tot4" id="tot4" value="0">
+                <label for="txt_tot_hrs">Tot.Horas</label>
+                <input type="time" name="txt_tot_hrs" id="tot1_hrs" readonly="true">
+                <label for="txt_tot_viagens">Tot.Hrs.Viagens</label>
+                <input type="time" name="txt_tot_viagens" id="tot_viagens" readonly="true">
+                <label for="txt_tot_extras">Tot.Hrs.Extras</label>
+                <input type="time" name="txt_tot_extras" id="tot_extras" readonly="true">
                 
             </div>
 
@@ -389,7 +363,7 @@
             <?php //Trabalhos Efetuados?>
 
             <div class="div_trabEfetuados">
-                <label for="">Trabalhos Efetuados</label>
+                <label for="">Trabalhos Efectuados</label>
                 <textarea name="trabEfetuados" id="trabEfetuados" cols="70" rows="5"></textarea>
             </div>
 
@@ -519,15 +493,23 @@
             </div>
             <div class="div_menuright6">
 
+                <select name="dd_tipo" id="dd_tipo">
+                    <option value=""></option>
+                    <option value="Garantia">Garantia</option>
+                    <option value="Encomenda">Encomenda</option>
+                    <option value="Manutenção">Manutenção</option>
+                    <option value="Aluguer">Aluguer</option>
+                    <option value="Avença">Avença</option>
+                </select>
                 <label for="dd_facturar">Facturar</label>
                 <select name="dd_avenca" id="avenca">
-                    <option value="S">Sim</option>
                     <option value="N">Não</option>
+                    <option value="S">Sim</option>
                 </select>
                 <label for="dd_deslocacao">Deslocação</label>
                 <select name="dd_deslocacao" id="deslocacao">
-                    <option value="S">Sim</option>
                     <option value="N">Não</option>
+                    <option value="S">Sim</option>
                 </select>
 
             </div>
