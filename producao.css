@@ -50,7 +50,7 @@ input, select, textarea {
 
 .div_tempo {
     height: 700px;
-    width: 890px;
+    width: 640px;
     display: flex;
     flex-direction: row;
     padding: 15px;
@@ -68,7 +68,7 @@ input, select, textarea {
 }
 
 .tab1, select {
-    height: 20px;
+    height: 25px;
     width: 180px;
     text-align: center;
 }
@@ -96,7 +96,7 @@ input, select, textarea {
     flex-direction: row;
     justify-content: center;
     text-align: right;
-    width: 920px;
+    width: 670px;
     height: 40px;
     gap: 2px;
 }
@@ -104,22 +104,6 @@ input, select, textarea {
 .time_footer input {
     width: 75px;
     text-align: center;
-}
-
-#tot1 {
-    margin-right: -2px;
-}
-
-#tot2 {
-    margin-right: 6px;
-}
-
-#tot3 {
-    margin-right: -2px;
-}
-
-.time_footer h2 {
-    margin-left: 315px;
 }
 
 .div_mat {
@@ -174,8 +158,7 @@ input, select, textarea {
 
 .div_km {
     height: 200px;
-    width: 910px;
-    text-align: center;
+    width: 660px;
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -185,8 +168,14 @@ input, select, textarea {
     padding: 5px;
 }
 
-.div_km input {
+.div_km input{
+    margin-top: 20px;
+    margin-right: 65px;
     width: 100px;   
+}
+
+.div_km label{
+    margin-top: 20px; 
 }
 
 .div_trabEfetuados {
@@ -231,7 +220,7 @@ input, select, textarea {
 }
 
 .div_menuright0 {
-    height: 150px;
+    height: 190px;
     justify-content: center;
 }
 
@@ -281,7 +270,7 @@ input, select, textarea {
 }
 
 .div_menuright6 {
-    height: 150px;
+    height: 170px;
     gap: 5px;
     width: 100%;
     justify-content: center;
@@ -490,8 +479,3 @@ button:hover, #submit:hover {
 h2 {
     color: rgb(255, 255, 255);
 }
-
-
-
-
-
