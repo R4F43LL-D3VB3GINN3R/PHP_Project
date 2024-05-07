@@ -582,6 +582,8 @@
 
     <script>
 
+        //Função para contabilizar as horas trabalhadas pelo técnico durante o dia.
+
         function processarTecnico(id_ini, id_fim, id_hrs_trab) {
 
             var hora_ini = document.getElementById(id_ini).value;
@@ -604,36 +606,9 @@
             }
         }
 
-        function processarTecnico2(id_ini, id_fim, id_hrs_trab) {
-            var hora_ini = document.getElementById(id_ini).value;
-            var hora_fim = document.getElementById(id_fim).value;
-
-            if (hora_ini && hora_fim) {
-                var ini = new Date("01/01/2000 " + hora_ini);
-                var fim = new Date("01/01/2000 " + hora_fim);
-
-                var diferenca = fim - ini;
-
-                // Calcular horas e minutos separadamente
-                var horas = Math.floor(diferenca / 1000 / 60 / 60);
-                diferenca -= horas * 1000 * 60 * 60;
-                var minutos = Math.floor(diferenca / 1000 / 60);
-
-                // Verificar se excede 24 horas
-                if (horas >= 24) {
-                    var diasExtras = Math.floor(horas / 24);
-                    horas %= 24; // Reduzir para menos de 24 horas
-                    horas += diasExtras * 24; // Adicionar dias extras em horas
-                }
-
-                var total_horas = pad(horas, 2) + ":" + pad(minutos, 2);
-
-                document.getElementById(id_hrs_trab).value = total_horas;
-            }
-        }
-
         function gerenciar_horas() {
 
+            //Chama a função que calcula a diferença entre a hora inicial e a hora final do serviço... 
             processarTecnico('hora_ini1', 'hora_fim1', 'hrs_trab1');
             processarTecnico('hora_ini2', 'hora_fim2', 'hrs_trab2');
             processarTecnico('hora_ini3', 'hora_fim3', 'hrs_trab3');
@@ -641,7 +616,7 @@
             processarTecnico('hora_ini5', 'hora_fim5', 'hrs_trab5');
             processarTecnico('hora_ini6', 'hora_fim6', 'hrs_trab6');
 
-            var tempo_contrato = "<?php echo $tempo_contrato; ?>";
+            var tempo_contrato = "<?php echo $tempo_contrato; ?>"; // Recebe o tempo de contrato do cliente...
                 
             // Calcular o total de horas trabalhadas
             var total_horas_trabalhadas = sumarizarHoras('hrs_trab1', 'hrs_trab2', 'hrs_trab3', 'hrs_trab4', 'hrs_trab5', 'hrs_trab6');
@@ -650,27 +625,31 @@
             document.getElementById('tot1_hrs').value = total_horas_trabalhadas;
             
             // Calcular as horas extras
-            var horas_extras = 0;
+            var horas_extras = 0; 
 
-            if (total_horas_trabalhadas > tempo_contrato) {
+            if (total_horas_trabalhadas > tempo_contrato) { //Se o tempo total de tabalho exceder o contrato...
 
+                //Exibe o alerta ao técnico...
                 alert("O tempo de contrado do cliente expirou, qualquer serviço após isso será contabilizado nas horas extras.")
 
+                //Redefine o campo de horas totais trabalhadas...
                 document.getElementById('tot1_hrs').value = total_horas_trabalhadas;
 
+                //Chama a função para calcular as horas extras...
                 var total_horas_extras = sumarizarHoras2('tot1_hrs', 'contr_horas');
 
+                //Insere finalmente ao campo...
                 document.getElementById('tot_extras').value = total_horas_extras;
 
 
-            } else {
-                // Se não houver horas extras, defina o campo 'tot_extras' como 0
+            } else { // Se não houver horas extras, defina o campo 'tot_extras' como 0
+                
                 document.getElementById('tot_extras').value = "00:00";
             }
 
         }
 
-        function pad(num, size) {
+        function pad(num, size) { //Funcao para ajutar os valores de horas...
 
             var s = num + "";
             while (s.length < size) s = "0" + s;
@@ -679,7 +658,9 @@
 
         }
 
-        function sumarizarHoras(id1, id2, id3, id4, id5, id6) {
+        //As operações aritméticas com horas consistem em separá-las do caractere ":", realizar a conta e depois unir novamente...
+
+        function sumarizarHoras(id1, id2, id3, id4, id5, id6) { //Função para somar as horas...
 
             var horas1 = document.getElementById(id1).value.split(':');
             var horas2 = document.getElementById(id2).value.split(':');
@@ -747,9 +728,10 @@
 
             // Retornar o total formatado
             return pad(totalHoras, 2) + ':' + pad(totalMinutos, 2);
+
         }
 
-        function sumarizarHoras2(id1, id2) {
+        function sumarizarHoras2(id1, id2) { //Função para calcular horas extras...
 
             var horas1 = document.getElementById(id1).value.split(':');
             var horas2 = document.getElementById(id2).value.split(':');
