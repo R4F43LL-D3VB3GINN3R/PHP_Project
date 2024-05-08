@@ -50,7 +50,7 @@ input, select, textarea {
 
 .div_tempo {
     height: 700px;
-    width: 640px;
+    width: 900px;
     display: flex;
     flex-direction: row;
     padding: 15px;
@@ -90,19 +90,21 @@ input, select, textarea {
     text-align: center;
 }
 
-.time_footer {
+.div_tempo_cliente {
+    height: 100%;
+    width: 300px;
     display: flex;
-    align-items: center;
-    flex-direction: row;
     justify-content: center;
-    text-align: right;
-    width: 670px;
-    height: 40px;
-    gap: 2px;
+    flex-direction: column;
+    align-items: center;
+    border: 2px solid white;
+    background-color: rgb(0, 170, 255);
+    border-radius: 5px;
+    font-style: italic;
 }
 
-.time_footer input {
-    width: 75px;
+.div_tempo_cliente input {
+    width: 50px;
     text-align: center;
 }
 
@@ -158,7 +160,7 @@ input, select, textarea {
 
 .div_km {
     height: 200px;
-    width: 660px;
+    width: 920px;
     display: flex;
     flex-direction: row;
     justify-content: center;
