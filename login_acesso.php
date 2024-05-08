@@ -31,8 +31,10 @@
 
             } else {
  
-                header("Location: error.html");
-                exit;
+                echo "<div>
+                        <h2>Tentativa de acesso inválida.</h2>
+                        <button type='button' onclick='redirect()'>Ok</button>
+                    </div>";
 
             }
 
@@ -41,5 +43,11 @@
         $conn->close();
    
     ?>
+
+    <script>
+        function redirect() {
+            window.location.href = 'login.php';
+        }
+    </script>
 </body>
 </html>
