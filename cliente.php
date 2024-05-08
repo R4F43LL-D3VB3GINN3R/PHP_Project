@@ -191,9 +191,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <input type="time" name="txt_tempoConsumidoCliente" id="tempoConsumidoCliente" readonly="true">  
             <label for="txt_tempoExtraCliente">Tempo Extra:</label>
             <input type="time" name="txt_tempoExtraCliente" id="tempoExtraCliente" readonly="true">  
+            <label for="txt_quantViagensCliente">Quant Viagens:</label>
+            <input type="number" name="txt_quantViagensCliente" id="quantViagensCliente">  
         </form>
     </div> 
-    
 
     <div class="subdiv6">
         <button id="enviarTodos">Cadastrar</button> 
