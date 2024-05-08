@@ -192,7 +192,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <label for="txt_tempoExtraCliente">Tempo Extra:</label>
             <input type="time" name="txt_tempoExtraCliente" id="tempoExtraCliente" readonly="true">  
             <label for="txt_quantViagensCliente">Quant Viagens:</label>
-            <input type="number" name="txt_quantViagensCliente" id="quantViagensCliente">  
+            <input type="number" name="txt_quantViagensCliente" id="quantViagensCliente" readonly="true">  
         </form>
     </div> 
 
@@ -288,28 +288,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         //Sendo sim, podemos chamar o corpo da função para habilitar os próximos campos...
 
                         echo "<script>
-                                var contratoSelect = document.getElementById('dd_contratoCliente');
-                                var contratoFields = document.getElementById('contratoFields');
-                                var inputs = contratoFields.querySelectorAll('input');
-                                var selects = contratoFields.querySelectorAll('select');
-
-                                if (contratoSelect.value === 'Sim') {
-                                    inputs.forEach(function(input) {
-                                        input.removeAttribute('readonly');
-                                    });
-
-                                    selects.forEach(function(select) {
-                                        select.removeAttribute('disabled');
-                                    });
-                                } else {
-                                    inputs.forEach(function(input) {
-                                        input.setAttribute('readonly', 'true');
-                                    });
-
-                                    selects.forEach(function(select) {
-                                        select.setAttribute('disabled', 'true');
-                                    });
-                                }
+                                    var contratoSelect = document.getElementById('dd_contratoCliente');
+                                    var contratoFields = document.getElementById('contratoFields');
+                                    var contratoFields2 = document.getElementById('contratoFields2');
+                                    var inputs = contratoFields.querySelectorAll('input');
+                                    var selects = contratoFields.querySelectorAll('select');
+                                    var inputs2 = contratoFields2.querySelectorAll('input');
+                            
+                                    if (contratoSelect.value === 'Sim') {
+                            
+                                        inputs.forEach(function(input) {
+                            
+                                            input.removeAttribute('readonly');
+                            
+                                        });
+                            
+                                        selects.forEach(function(select) {
+                            
+                                            select.removeAttribute('disabled');
+                            
+                                        });
+                            
+                                        inputs2.forEach(function(input) {
+                            
+                                            input.removeAttribute('readonly');
+                            
+                                        });
                             </script>"; 
 
                             //Inserimos os campos da tabela contrato nos inputs...
@@ -320,6 +324,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 echo "<script>document.getElementById('tempoTotalCliente').value = '" . $row['TEMPO_TOTAL'] . "';</script>";
                                 echo "<script>document.getElementById('tempoExtraCliente').value = '" . $row['TEMPO_EXTRA'] . "';</script>";
                                 echo "<script>document.getElementById('dd_deslocacaoCliente').value = '" . $row['DESLOCACAO'] . "';</script>";
+                                echo "<script>document.getElementById('quantViagensCliente').value = '" . $row['QUANT_DESLOCACOES'] . "';</script>";
 
                             }
 
@@ -348,6 +353,42 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </section>
 
 <script>
+
+    // Função para habilitar campos quando a página termina de carregar
+    document.addEventListener('DOMContentLoaded', function() {
+        var contratoSelect = document.getElementById("dd_contratoCliente");
+        var contratoFields = document.getElementById("contratoFields");
+        var contratoFields2 = document.getElementById("contratoFields2");
+        var inputs = contratoFields.querySelectorAll("input");
+        var selects = contratoFields.querySelectorAll("select");
+        var inputs2 = contratoFields2.querySelectorAll("input");
+
+        if (contratoSelect.value === "Sim") {
+            inputs.forEach(function(input) {
+                input.removeAttribute("readonly");
+            });
+
+            selects.forEach(function(select) {
+                select.removeAttribute("disabled");
+            });
+
+            inputs2.forEach(function(input) {
+                input.removeAttribute("readonly");
+            });
+        } else {
+            inputs.forEach(function(input) {
+                input.setAttribute("readonly", "true");
+            });
+
+            selects.forEach(function(select) {
+                select.setAttribute("disabled", "true");
+            });
+
+            inputs2.forEach(function(input) {
+                input.setAttribute("readonly", "true");
+            });
+        }
+    });
 
     //Envio de formulários para inserir clientes...
 
