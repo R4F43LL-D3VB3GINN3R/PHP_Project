@@ -259,20 +259,22 @@
                     </tbody>
                 </table>
 
+                <div class="div_tempo_cliente">
+                    <label for="txt_tot_hrs">TOTAIS</label>
+                    <input type="text" name="txt_tot_hrs" id="tot1_hrs" value="00-00"readonly="true">
+                    <label for="txt_tot_viagens">VIAGENS</label>
+                    <input type="text" name="txt_tot_viagens" id="tot_viagens"  value="00-00" readonly="true">
+                    <label for="txt_contr_horas">CONTRATO</label>
+                    <input type="text" name="txt_contr_horas" id="contr_horas" value="00-00" readonly="true">
+                    <label for="txt_debt_horas">DEBITADAS</label>
+                    <input type="text" name="txt_debt_horas" id="debt_horas" value="00-00" readonly="true">
+                    <label for="txt_tot_extras">EXTRAS</label>
+                    <input type="text" name="txt_tot_extras" id="tot_extras" value="00-00" readonly="true">
+                </div>
+
             </div> <?php //Encerra da div_tempo?>
 
-            <div class="time_footer"> <?php //Footer das Tabelas 1 e 2?>
-
-                <label for="txt_tot_hrs">Tot.Hrs</label>
-                <input type="text" name="txt_tot_hrs" id="tot1_hrs" readonly="true">
-                <label for="txt_tot_viagens">Tot.Hrs.Viagens</label>
-                <input type="text" name="txt_tot_viagens" id="tot_viagens" readonly="true">
-                <label for="txt_contr_horas">Tot.Hrs.Contr</label>
-                <input type="text" name="txt_contr_horas" id="contr_horas" readonly="true">
-                <label for="txt_tot_extras">Tot.Hrs.Extras</label>
-                <input type="text" name="txt_tot_extras" id="tot_extras" readonly="true">
-                
-            </div>
+            
 
             <?php //Deslocação KM?>
 
@@ -624,17 +626,23 @@
                 
             // Calcular o total de horas trabalhadas...
             var total_horas_trabalhadas = sumarizarHoras('hrs_trab1', 'hrs_trab2', 'hrs_trab3', 'hrs_trab4', 'hrs_trab5', 'hrs_trab6');
-            
+
             // Atualizar o campo 'tot1_hrs' com o total de horas trabalhadas...
             document.getElementById('tot1_hrs').value = total_horas_trabalhadas;
-            
-            // Calcular as horas extras...
-            var horas_extras = 0; 
+
+            // Calcular o total de horas debitadas...
+            total_horas_debitadas = 0; //Iniciada como zero para ser redefinida para cada clique do botão...
+
+            var total_horas_debitadas = sumarizarHoras2('contr_horas', 'tot1_hrs'); //Calculo do débito das horas.
+
+            document.getElementById('debt_horas').value = total_horas_debitadas; //Inserir ao campo do débito...
 
             if (total_horas_trabalhadas > tempo_contrato) { //Se o tempo total de tabalho exceder o contrato...
 
+                total_horas_debitadas = 0; //Nova redefinição da variável...
+
                 //Exibe o alerta ao técnico...
-                alert("O tempo de contrado do cliente expirou, qualquer serviço após isso será contabilizado nas horas extras.")
+                alert("O tempo de contrado do cliente expirou, qualquer serviço subsequente será contabilizado nas horas extras.")
 
                 //Redefine o campo de horas totais trabalhadas...
                 document.getElementById('tot1_hrs').value = total_horas_trabalhadas;
