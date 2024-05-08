@@ -120,7 +120,7 @@ body {
     justify-content:center;
     align-items: center;
     flex-direction: row;
-    gap: 20px;
+    gap: 10px;
 }
 
 input {
@@ -285,7 +285,7 @@ form {
 }
 
 #form_subdiv2 {
-    gap: 5px;
+    gap: 20px;
     width: 1100px;
 }
 
