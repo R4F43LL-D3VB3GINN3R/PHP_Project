@@ -67,11 +67,12 @@
                             $tempoExtraCli = $_GET['txt_tempoExtraCliente'];
                             $deslocacaoCli = $_GET['dd_deslocacaoCliente'];
                             $modalidadeCli = $_GET['dd_tipoModalidadeCliente'];
+                            $num_viagensCli = $_GET['txt_quantViagensCliente'];
 
                             $stmt = $conn->prepare("UPDATE TAB_CONTRATO
-                                                    SET ID = ?, TIPO_CONTRATO = ?, TEMPO_TOTAL = ?, TEMPO_EXTRA = ?, DESLOCACAO = ?, MODALIDADE = ? 
+                                                    SET ID = ?, TIPO_CONTRATO = ?, TEMPO_TOTAL = ?, TEMPO_EXTRA = ?, DESLOCACAO = ?, MODALIDADE = ?, QUANT_DESLOCACOES = ? 
                                                     WHERE ID = ?");
-                            $stmt->bind_param('isiisis', $nifCli, $tipoContratoCli, $tempoTotalCli, $tempoExtraCli, $deslocacaoCli, $modalidadeCli, $nifCli);
+                            $stmt->bind_param('isisssii', $nifCli, $tipoContratoCli, $tempoTotalCli, $tempoExtraCli, $deslocacaoCli, $modalidadeCli, $num_viagensCli, $nifCli);
                             $resultContrato = $stmt->execute();
 
                             $stmt = $conn->prepare("UPDATE TAB_CLIENTE
@@ -137,11 +138,12 @@
                             $tempoExtraCli = $_GET['txt_tempoExtraCliente'];
                             $deslocacaoCli = $_GET['dd_deslocacaoCliente'];
                             $modalidadeCli = $_GET['dd_tipoModalidadeCliente'];
+                            $num_viagensCli = $_GET['txt_quantViagensCliente'];
 
                             //Inserimos seu contrato primeiro...
-                            $stmt = $conn->prepare("INSERT INTO TAB_CONTRATO (ID, TIPO_CONTRATO, TEMPO_TOTAL, TEMPO_EXTRA, DESLOCACAO, MODALIDADE)
-                            VALUES (?, ?, ?, ?, ?)");
-                            $stmt->bind_param('isiis', $nifCli, $tipoContratoCli, $tempoTotalCli, $tempoExtraCli, $deslocacaoCli, $modalidadeCli);
+                            $stmt = $conn->prepare("INSERT INTO TAB_CONTRATO (ID, TIPO_CONTRATO, TEMPO_TOTAL, TEMPO_EXTRA, DESLOCACAO, MODALIDADE, QUANT_DESLOCACOES)
+                            VALUES (?, ?, ?, ?, ?, ?, ?)");
+                            $stmt->bind_param('isisssi', $nifCli, $tipoContratoCli, $tempoTotalCli, $tempoExtraCli, $deslocacaoCli, $modalidadeCli, $num_viagensCli);
                             $resultContrato = $stmt->execute(); 
 
                             //Atualizamos o cliente para receber o contrato...
