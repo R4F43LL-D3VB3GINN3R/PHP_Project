@@ -217,53 +217,71 @@
                     <thead>
                         <tr>
                             <th>Horas</th>
-                            <th>Tempo Dis.</th>
-                            <th></th>
+                            <th>Horas</th>
+                            <th>Viagem</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <th>Início/Término.</th>
-                            <th>Viagem/Trabalho</th>
+                            <th>Trabalhadas</th>
+                            <th>Quantidade Km</th>
                         </tr>
                         <tr>
                             <td><input type="time" name="time_hora_ini1" id="hora_ini1"><input type="time" name="time_hora_fim1" id="hora_fim1"></td>
-                            <td><input type="time" name="time_viag_ini1" id="ini_viag1" value="0"><input type="time" name="time_viag_fim11" id="fim_viag1"></td>
-                            <td><input type="time" name="time_hrs_trab1" id="hrs_trab1"></td>
+                            <td><input type="text" name="time_hrs_trab1" id="hrs_trab1"></td>
+                            <td><select type="text" name="dd_viag1" id="viag1" value="0">
+                                <option value="2">Não</option>
+                                <option value="1">Sim</option>
+                            </select><input type="number" name="num_km1" id="km1" value="0"><td>                           
                         </tr>
                         <tr>
                             <td><input type="time" name="time_hora_ini2" id="hora_ini2"><input type="time" name="time_hora_fim2" id="hora_fim2"></td>
-                            <td><input type="time" name="time_viag_ini2" id="ini_viag2" value="0"><input type="time" name="time_viag_fim12" id="fim_viag2" value="0"></td>
-                            <td><input type="time" name="time_hrs_trab2" id="hrs_trab2"></td>
+                            <td><input type="text" name="time_hrs_trab2" id="hrs_trab2"></td>
+                            <td><select type="text" name="dd_viag2" id="viag2" value="0">
+                                <option value="2">Não</option>
+                                <option value="1">Sim</option>
+                            </select><input type="number" name="num_km2" id="km2" value="0"><td>                           
                         </tr>
                         <tr>
                             <td><input type="time" name="time_hora_ini3" id="hora_ini3"><input type="time" name="time_hora_fim3" id="hora_fim3"></td>
-                            <td><input type="time" name="time_viag_ini3" id="ini_viag1" value="0"><input type="time" name="time_viag_fim13" id="fim_viag3" value="0"></td>
-                            <td><input type="time" name="time_hrs_trab3" id="hrs_trab3"></td>
+                            <td><input type="text" name="time_hrs_trab3" id="hrs_trab3"></td>
+                            <td><select type="text" name="dd_viag3" id="viag3" value="0">
+                                <option value="2">Não</option>
+                                <option value="1">Sim</option>
+                            </select><input type="number" name="num_km2" id="km3" value="0"><td>                           
                         </tr>
                         <tr>
                             <td><input type="time" name="time_hora_ini4" id="hora_ini4"><input type="time" name="time_hora_fim4" id="hora_fim4"></td>
-                            <td><input type="time" name="time_viag_ini4" id="ini_viag4" value="0"><input type="time" name="time_viag_fim14" id="fim_viag4" value="0"></td>
-                            <td><input type="time" name="time_hrs_trab4" id="hrs_trab4"></td>
+                            <td><input type="text" name="time_hrs_trab4" id="hrs_trab4"></td>
+                            <td><select type="text" name="dd_viag4" id="viag4" value="0">
+                                <option value="2">Não</option>
+                                <option value="1">Sim</option>
+                            </select><input type="number" name="num_km2" id="km4" value="0"><td>                            
                         </tr>
                         <tr>
                             <td><input type="time" name="time_hora_ini5" id="hora_ini5"><input type="time" name="time_hora_fim5" id="hora_fim5"></td>
-                            <td><input type="time" name="time_viag_ini5" id="ini_viag5" value="0"><input type="time" name="time_viag_fim15" id="fim_viag5" value="0"></td>
-                            <td><input type="time" name="time_hrs_trab5" id="hrs_trab5"></td>
+                            <td><input type="text" name="time_hrs_trab5" id="hrs_trab5"></td>
+                            <td><select type="text" name="dd_viag5" id="viag5" value="0">
+                                <option value="2">Não</option>
+                                <option value="1">Sim</option>
+                            </select><input type="number" name="num_km2" id="km5" value="0"><td>                           
                         </tr>
                         <tr>
                             <td><input type="time" name="time_hora_ini6" id="hora_ini6"><input type="time" name="time_hora_fim6" id="hora_fim6"></td>
-                            <td><input type="time" name="time_viag_ini6" id="ini_viag6" value="0"><input type="time" name="time_viag_fim16" id="fim_viag6" value="0"></td>
-                            <td><input type="time" name="time_hrs_trab6" id="hrs_trab6"></td>
+                            <td><input type="text" name="time_hrs_trab6" id="hrs_trab6"></td>
+                            <td><select type="text" name="dd_viag6" id="viag6" value="0">
+                                <option value="2">Não</option>
+                                <option value="1">Sim</option>
+                            </select><input type="number" name="num_km2" id="km6" value="0"><td>
                         </tr>
                     </tbody>
                 </table>
 
                 <div class="div_tempo_cliente">
+                    <h3>Horas Cliente</h3>
                     <label for="txt_tot_hrs">TOTAIS</label>
                     <input type="text" name="txt_tot_hrs" id="tot1_hrs" value="00-00"readonly="true">
-                    <label for="txt_tot_viagens">VIAGENS</label>
-                    <input type="text" name="txt_tot_viagens" id="tot_viagens"  value="00-00" readonly="true">
                     <label for="txt_contr_horas">CONTRATO</label>
                     <input type="text" name="txt_contr_horas" id="contr_horas" value="00-00" readonly="true">
                     <label for="txt_debt_horas">DEBITADAS</label>
@@ -274,13 +292,9 @@
 
             </div> <?php //Encerra da div_tempo?>
 
-            
-
             <?php //Deslocação KM?>
 
-            <div class="div_km"> 
-                <label for="txt_desl_km">Deslocação KM:</label>
-                <input type="number" name="txt_desl_km" id="desl_km" >
+            <div class="div_gen_hrs"> 
                 <button type="button" onclick='gerenciar_horas()'>Gerar</button>
             </div>
 
@@ -564,21 +578,49 @@
 
             include 'conexao.php';
 
-            $sql = "SELECT c.TEMPO_TOTAL AS tempo_contrato
-                    FROM TAB_CONTRATO c
-                    JOIN TAB_CLIENTE a ON a.NIF = c.ID
-                    WHERE NOME = '$cliente'";
+                $sql = "SELECT c.TEMPO_TOTAL AS tempo_contrato
+                        FROM TAB_CONTRATO c
+                        JOIN TAB_CLIENTE a ON a.NIF = c.ID
+                        WHERE NOME = '$cliente'";
+                        
+                $result = $conn->query($sql);
+
+                if ($result->num_rows > 0) {
+                    $cliente = $result->fetch_assoc();
                     
-            $result = $conn->query($sql);
+                    // Formatando o tempo total em horas no formato de horas:minutos
+                    $tempo_contrato = sprintf("%02d:00", $cliente['tempo_contrato']);
 
-            if ($result->num_rows > 0) {
-                $cliente = $result->fetch_assoc();
-                
-                // Formatando o tempo total em horas no formato de horas:minutos
-                $tempo_contrato = sprintf("%02d:00", $cliente['tempo_contrato']);
+                    echo "<script>document.getElementById('contr_horas').value = '" . $tempo_contrato . "';</script>";
 
-                echo "<script>document.getElementById('contr_horas').value = '" . $tempo_contrato . "';</script>";
-            }
+                    $timerun = true;
+
+                } else {
+
+                    $tempo_contrato = "00:00";
+
+                    echo "<script>document.getElementById('contr_horas').value = '" . $tempo_contrato . "';</script>";
+
+                    echo '
+                        <script>
+                            document.addEventListener("DOMContentLoaded", function() {
+                                var divTempo = document.querySelector(".tab2");
+                           
+                                var selectsDivTempo = divTempo.querySelectorAll("select");
+
+                                selectsDivTempo.forEach(function(select) {
+                                    select.setAttribute("disabled", "true");
+                                });
+                            });
+                        </script>
+                        ';
+
+                    $timerun = false;
+
+                }
+
+
+            
 
             $conn->close();
 
@@ -623,35 +665,38 @@
             processarTecnico('hora_ini6', 'hora_fim6', 'hrs_trab6');
 
             var tempo_contrato = "<?php echo $tempo_contrato; ?>"; // Recebe o tempo de contrato do cliente...
+            var timerun = "<?php echo $timerun; ?>"; //Recebe a validação do contrato...
+
+            if (timerun) {
                 
-            // Calcular o total de horas trabalhadas...
-            var total_horas_trabalhadas = sumarizarHoras('hrs_trab1', 'hrs_trab2', 'hrs_trab3', 'hrs_trab4', 'hrs_trab5', 'hrs_trab6');
+                // Calcular o total de horas trabalhadas...
+                var total_horas_trabalhadas = sumarizarHoras('hrs_trab1', 'hrs_trab2', 'hrs_trab3', 'hrs_trab4', 'hrs_trab5', 'hrs_trab6');
 
-            // Atualizar o campo 'tot1_hrs' com o total de horas trabalhadas...
-            document.getElementById('tot1_hrs').value = total_horas_trabalhadas;
-
-            // Calcular o total de horas debitadas...
-            total_horas_debitadas = 0; //Iniciada como zero para ser redefinida para cada clique do botão...
-
-            var total_horas_debitadas = sumarizarHoras2('contr_horas', 'tot1_hrs'); //Calculo do débito das horas.
-
-            document.getElementById('debt_horas').value = total_horas_debitadas; //Inserir ao campo do débito...
-
-            if (total_horas_trabalhadas > tempo_contrato) { //Se o tempo total de tabalho exceder o contrato...
-
-                total_horas_debitadas = 0; //Nova redefinição da variável...
-
-                //Exibe o alerta ao técnico...
-                alert("O tempo de contrado do cliente expirou, qualquer serviço subsequente será contabilizado nas horas extras.")
-
-                //Redefine o campo de horas totais trabalhadas...
+                // Atualizar o campo 'tot1_hrs' com o total de horas trabalhadas...
                 document.getElementById('tot1_hrs').value = total_horas_trabalhadas;
 
-                //Chama a função para calcular as horas extras...
-                var total_horas_extras = sumarizarHoras2('tot1_hrs', 'contr_horas');
+                // Calcular o total de horas debitadas...
+                total_horas_debitadas = 0; //Iniciada como zero para ser redefinida para cada clique do botão...
 
-                //Insere finalmente ao campo...
-                document.getElementById('tot_extras').value = total_horas_extras;
+                var total_horas_debitadas = sumarizarHoras2('contr_horas', 'tot1_hrs'); //Calculo do débito das horas.
+
+                document.getElementById('debt_horas').value = total_horas_debitadas; //Inserir ao campo do débito...
+
+                if (total_horas_trabalhadas > tempo_contrato) { //Se o tempo total de tabalho exceder o contrato...
+
+                    total_horas_debitadas = 0; //Nova redefinição da variável...
+
+                    //Exibe o alerta ao técnico...
+                    alert("O tempo de contrado do cliente expirou, qualquer serviço subsequente será contabilizado nas horas extras.")
+
+                    //Redefine o campo de horas totais trabalhadas...
+                    document.getElementById('tot1_hrs').value = total_horas_trabalhadas;
+
+                    //Chama a função para calcular as horas extras...
+                    var total_horas_extras = sumarizarHoras2('tot1_hrs', 'contr_horas');
+
+                    //Insere finalmente ao campo...
+                    document.getElementById('tot_extras').value = total_horas_extras;
 
 
             } else { // Se não houver horas extras, defina o campo 'tot_extras' como 0...
@@ -659,6 +704,8 @@
                 document.getElementById('tot_extras').value = "00:00";
                 
             }
+
+        }
 
         }
 
