@@ -833,5 +833,38 @@
 
     </script>
 
+    <script>
+
+        //Envio de formulários para inserir clientes...
+
+        var nick = '<?php echo $nick; ?>';
+
+        document.getElementById("bt_salvar").addEventListener("click", function() {
+
+        var forms = document.querySelectorAll("form"); 
+        var formData = new FormData(); 
+
+        forms.forEach(function(form) {
+
+            var inputs = form.querySelectorAll("input, select, textarea"); 
+
+            inputs.forEach(function(input) {
+
+                formData.append(input.name, input.value); 
+
+            });
+
+        });
+
+        var serializedFormData = new URLSearchParams(formData).toString();
+
+        var url = "producao_insert.php?" + serializedFormData + "&nick=" + nick;
+
+        window.location.href = url;
+
+});
+
+    </script>
+
 </body>
 </html>
