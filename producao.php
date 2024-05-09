@@ -92,7 +92,7 @@
                             ?>
 
                             </select></td>
-                            <td><input type="date" name="dt_tecnico3" id="dt_tecnico3"></td>
+                            <td><input type="date" name="dt_tecnico2" id="dt_tecnico2"></td>
                         </tr>
                         <tr>
                         <td><select name="dd_tecnico3" id="dd_tecnico3">
@@ -208,7 +208,7 @@
                             ?>
 
                             </select></td>
-                            <td><input type="date" name="dd_tecnico6" id="dd_tecnico6"></td>
+                            <td><input type="date" name="dt_tecnico6" id="tecnico6"></td>
                         </tr>
                     </tbody>
                 </table>
@@ -231,49 +231,49 @@
                             <td><input type="time" name="time_hora_ini1" id="hora_ini1"><input type="time" name="time_hora_fim1" id="hora_fim1"></td>
                             <td><input type="text" name="time_hrs_trab1" id="hrs_trab1"></td>
                             <td><select type="text" name="dd_viag1" id="viag1" value="0">
-                                <option value="2">Não</option>
-                                <option value="1">Sim</option>
+                                <option value="N">Não</option>
+                                <option value="S">Sim</option>
                             </select><input type="number" name="num_km1" id="km1" value="0"><td>                           
                         </tr>
                         <tr>
                             <td><input type="time" name="time_hora_ini2" id="hora_ini2"><input type="time" name="time_hora_fim2" id="hora_fim2"></td>
                             <td><input type="text" name="time_hrs_trab2" id="hrs_trab2"></td>
                             <td><select type="text" name="dd_viag2" id="viag2" value="0">
-                                <option value="2">Não</option>
-                                <option value="1">Sim</option>
+                                <option value="N">Não</option>
+                                <option value="S">Sim</option>
                             </select><input type="number" name="num_km2" id="km2" value="0"><td>                           
                         </tr>
                         <tr>
                             <td><input type="time" name="time_hora_ini3" id="hora_ini3"><input type="time" name="time_hora_fim3" id="hora_fim3"></td>
                             <td><input type="text" name="time_hrs_trab3" id="hrs_trab3"></td>
                             <td><select type="text" name="dd_viag3" id="viag3" value="0">
-                                <option value="2">Não</option>
-                                <option value="1">Sim</option>
-                            </select><input type="number" name="num_km2" id="km3" value="0"><td>                           
+                                <option value="N">Não</option>
+                                <option value="S">Sim</option>
+                            </select><input type="number" name="num_km3" id="km3" value="0"><td>                           
                         </tr>
                         <tr>
                             <td><input type="time" name="time_hora_ini4" id="hora_ini4"><input type="time" name="time_hora_fim4" id="hora_fim4"></td>
                             <td><input type="text" name="time_hrs_trab4" id="hrs_trab4"></td>
                             <td><select type="text" name="dd_viag4" id="viag4" value="0">
-                                <option value="2">Não</option>
-                                <option value="1">Sim</option>
-                            </select><input type="number" name="num_km2" id="km4" value="0"><td>                            
+                                <option value="N">Não</option>
+                                <option value="S">Sim</option>
+                            </select><input type="number" name="num_km4" id="km4" value="0"><td>                            
                         </tr>
                         <tr>
                             <td><input type="time" name="time_hora_ini5" id="hora_ini5"><input type="time" name="time_hora_fim5" id="hora_fim5"></td>
                             <td><input type="text" name="time_hrs_trab5" id="hrs_trab5"></td>
                             <td><select type="text" name="dd_viag5" id="viag5" value="0">
-                                <option value="2">Não</option>
-                                <option value="1">Sim</option>
-                            </select><input type="number" name="num_km2" id="km5" value="0"><td>                           
+                                <option value="N">Não</option>
+                                <option value="S">Sim</option>
+                            </select><input type="number" name="num_km5" id="km5" value="0"><td>                           
                         </tr>
                         <tr>
                             <td><input type="time" name="time_hora_ini6" id="hora_ini6"><input type="time" name="time_hora_fim6" id="hora_fim6"></td>
                             <td><input type="text" name="time_hrs_trab6" id="hrs_trab6"></td>
                             <td><select type="text" name="dd_viag6" id="viag6" value="0">
-                                <option value="2">Não</option>
-                                <option value="1">Sim</option>
-                            </select><input type="number" name="num_km2" id="km6" value="0"><td>
+                                <option value="N">Não</option>
+                                <option value="S">Sim</option>
+                            </select><input type="number" name="num_km6" id="km6" value="0"><td>
                         </tr>
                     </tbody>
                 </table>
@@ -851,7 +851,7 @@
             inputs.forEach(function(input) {
 
                 formData.append(input.name, input.value); 
-
+    
             });
 
         });
@@ -862,7 +862,7 @@
 
         window.location.href = url;
 
-});
+        });
 
     </script>
 
