@@ -578,49 +578,50 @@
 
             include 'conexao.php';
 
-                $sql = "SELECT c.TEMPO_TOTAL AS tempo_contrato
-                        FROM TAB_CONTRATO c
-                        JOIN TAB_CLIENTE a ON a.NIF = c.ID
-                        WHERE NOME = '$cliente'";
-                        
-                $result = $conn->query($sql);
+            //Inicia a consulta procurando o valor total de tempo de contrato do cliente...
 
-                if ($result->num_rows > 0) {
-                    $cliente = $result->fetch_assoc();
+            $sql = "SELECT c.TEMPO_TOTAL AS tempo_contrato
+                    FROM TAB_CONTRATO c
+                    JOIN TAB_CLIENTE a ON a.NIF = c.ID
+                    WHERE NOME = '$cliente'";
                     
-                    // Formatando o tempo total em horas no formato de horas:minutos
-                    $tempo_contrato = sprintf("%02d:00", $cliente['tempo_contrato']);
+            $result = $conn->query($sql);
 
-                    echo "<script>document.getElementById('contr_horas').value = '" . $tempo_contrato . "';</script>";
+            if ($result->num_rows > 0) {
 
-                    $timerun = true;
+                $cliente = $result->fetch_assoc();
+                
+                // Formatando o tempo total em horas no formato de horas:minutos...
+                $tempo_contrato = sprintf("%02d:00", $cliente['tempo_contrato']);
 
-                } else {
+                echo "<script>document.getElementById('contr_horas').value = '" . $tempo_contrato . "';</script>";
 
-                    $tempo_contrato = "00:00";
+                $timerun = true; //Variável que permite a contabilidade do tempo...
 
-                    echo "<script>document.getElementById('contr_horas').value = '" . $tempo_contrato . "';</script>";
+            } else { //Caso não haja tempo de contrato, significa que não há contrato...
 
-                    echo '
-                        <script>
-                            document.addEventListener("DOMContentLoaded", function() {
-                                var divTempo = document.querySelector(".tab2");
-                           
-                                var selectsDivTempo = divTempo.querySelectorAll("select");
+                $tempo_contrato = "00:00"; //Redefine a variável do cronômetro...
 
-                                selectsDivTempo.forEach(function(select) {
-                                    select.setAttribute("disabled", "true");
-                                });
+                echo "<script>document.getElementById('contr_horas').value = '" . $tempo_contrato . "';</script>";
+
+                //Desativa os selects relacionados às viagens...
+                echo '
+                    <script>
+                        document.addEventListener("DOMContentLoaded", function() {
+                            var divTempo = document.querySelector(".tab2");
+                        
+                            var selectsDivTempo = divTempo.querySelectorAll("select");
+
+                            selectsDivTempo.forEach(function(select) {
+                                select.setAttribute("disabled", "true");
                             });
-                        </script>
-                        ';
+                        });
+                    </script>
+                    ';
 
-                    $timerun = false;
+                $timerun = false; //Redefine a variável para permitir que o relógio se mova...
 
-                }
-
-
-            
+            }
 
             $conn->close();
 
@@ -667,7 +668,7 @@
             var tempo_contrato = "<?php echo $tempo_contrato; ?>"; // Recebe o tempo de contrato do cliente...
             var timerun = "<?php echo $timerun; ?>"; //Recebe a validação do contrato...
 
-            if (timerun) {
+            if (timerun) { //Variável que verifica se há contrato...
                 
                 // Calcular o total de horas trabalhadas...
                 var total_horas_trabalhadas = sumarizarHoras('hrs_trab1', 'hrs_trab2', 'hrs_trab3', 'hrs_trab4', 'hrs_trab5', 'hrs_trab6');
