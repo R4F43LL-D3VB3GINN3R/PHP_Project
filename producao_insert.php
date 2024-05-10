@@ -100,40 +100,52 @@
                                 $stmt->bind_param("iisssis", $id_prod['ID'], $id_tec['ID'], ${'data' . $i}, ${'hora_inicio' . $i}, ${'hora_fim' . $i}, ${'quant_km' . $i}, ${'horas_trabalhadas' . $i});
                                 $result = $stmt->execute();
 
-                                if ($result) {
+                                if ($result) { //Se a Query for bem sucedida...
 
+                                    //Selecionamos o nif...
                                     $sql = "SELECT NIF FROM TAB_CLIENTE WHERE NOME = '$cliente'";
                                     $result = $conn->query("$sql");
 
-                                    if ($result->num_rows > 0) {
+                                    if ($result->num_rows > 0) { //Se ele encontrar o nif...
 
-                                        $nif_cliente = $result->fetch_assoc();
-                                        $nifcli = $nif_cliente['NIF'];
+                                        $nif_cliente = $result->fetch_assoc(); //Insere o nif ao array...
+                                        $nifcli = $nif_cliente['NIF'];         //Insere o nif na variável...
 
+                                        //Selecionamos o id do contrato relacionado ao nif...
                                         $sql = "SELECT ID FROM TAB_CONTRATO WHERE ID = '$nifcli'";
                                         $result = $conn->query($sql);
 
-                                        if ($result->num_rows > 0) {
+                                        if ($result->num_rows > 0) { //Se encontrar um contrato...
 
-                                            $id_contrato = $result->fetch_assoc();
-                                            $idcontrato = $id_contrato['ID'];
+                                            $id_contrato = $result->fetch_assoc(); //Passa o id para o array...
+                                            $idcontrato = $id_contrato['ID'];      //Passa o id para a variável...
 
                                             $horas_disponiveis = $_GET['txt_debt_horas']; //Horas disponíveis em contrato...
                                             $horas_extras = $_GET['txt_tot_extras'];      //Horas extras...
-
+                                            
+                                            //Altera na tabela de contratos o tempo consumido de horas e as horas extras...
                                             $stmt = $conn->prepare("UPDATE TAB_CONTRATO
                                                                     SET TEMPO_CONSUMIDO = ?, TEMPO_EXTRA = ?
                                                                     WHERE ID = ?");
                                             $stmt->bind_param('ssi', $horas_disponiveis, $horas_extras, $idcontrato);
                                             $result = $stmt->execute();
 
-                                        }
+                                        }   
 
                                     }
 
                                 }
 
                             }
+
+                        } 
+
+                        if ($result) {
+
+                            echo "<div>
+                                    <h2>Dados da FO $id_fo Inseridos no sistema.</h2>
+                                    <button type='button' onclick='redirect()'>Ok</button>
+                                </div>";
 
                         }
 
