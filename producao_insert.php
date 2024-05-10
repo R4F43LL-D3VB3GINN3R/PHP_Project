@@ -59,9 +59,9 @@
                     $trabalhos_efectuados = $_GET['textarea_trabEfetuados'];
 
                     //Consulta para inserir dados à tabela de produção...
-                    $stmt = $conn->prepare("INSERT INTO TAB_PRODUCAO (ID_FO, KM_TOTAL, TRABALHOS_FEITOS)
-                    VALUES (?, ?, ?)");
-                    $stmt->bind_param('iis', $id_fo, $km_total, $trabalhos_efectuados);
+                    $stmt = $conn->prepare("INSERT INTO TAB_PRODUCAO (ID_FO, KM_TOTAL, HORAS_TOTAIS, TRABALHOS_FEITOS)
+                    VALUES (?, ?, ?, ?)");
+                    $stmt->bind_param('iiss', $id_fo, $km_total, $soma_horas, $trabalhos_efectuados);
                     $result = $stmt->execute();
 
                     //Se a query funcionar...
@@ -91,7 +91,7 @@
                             $result = $conn->query($sql);
 
                             if ($result->num_rows > 0) { // Se houver um técnico selecionado na dropdown... 
-                                
+
                                 $id_tec = $result->fetch_assoc(); // Passa o id para o array...
 
                                 // Insere os dados de trabalho do técnico na tabela de produção...
@@ -100,9 +100,36 @@
                                 $stmt->bind_param("iisssis", $id_prod['ID'], $id_tec['ID'], ${'data' . $i}, ${'hora_inicio' . $i}, ${'hora_fim' . $i}, ${'quant_km' . $i}, ${'horas_trabalhadas' . $i});
                                 $result = $stmt->execute();
 
-                                if ($result->num_rows > 0) {
+                                if ($result) {
 
-                                    $stmt = $conn->prepare("INSERT INTO TAB_CONTRATO");
+                                    $sql = "SELECT NIF FROM TAB_CLIENTE WHERE NOME = '$cliente'";
+                                    $result = $conn->query("$sql");
+
+                                    if ($result->num_rows > 0) {
+
+                                        $nif_cliente = $result->fetch_assoc();
+                                        $nifcli = $nif_cliente['NIF'];
+
+                                        $sql = "SELECT ID FROM TAB_CONTRATO WHERE ID = '$nifcli'";
+                                        $result = $conn->query($sql);
+
+                                        if ($result->num_rows > 0) {
+
+                                            $id_contrato = $result->fetch_assoc();
+                                            $idcontrato = $id_contrato['ID'];
+
+                                            $horas_disponiveis = $_GET['txt_debt_horas']; //Horas disponíveis em contrato...
+                                            $horas_extras = $_GET['txt_tot_extras'];      //Horas extras...
+
+                                            $stmt = $conn->prepare("UPDATE TAB_CONTRATO
+                                                                    SET TEMPO_CONSUMIDO = ?, TEMPO_EXTRA = ?
+                                                                    WHERE ID = ?");
+                                            $stmt->bind_param('ssi', $horas_disponiveis, $horas_extras, $idcontrato);
+                                            $result = $stmt->execute();
+
+                                        }
+
+                                    }
 
                                 }
 
