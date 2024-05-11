@@ -295,7 +295,7 @@
                     <tbody>
                         <tr>
                             <td><input type="number" name="txt_quantMat1" id="quantMat1" value="0"></td>        
-                            <td><input type="text" name="txt_catalogo1" id="catalogo1"></td> 
+                            <td><input type="text" name="txt_catalogo1" id="catalogo1" onclick='redirect_cat()'></td> 
                             <td><input type="text" name="txt_descricao1" id="descricao1"></td>
                             <td><input type="number" name="txt_precUnit1" id="precUnit1" value="0"></td> 
                             <td><input type="number" name="txt_precTot1" id="precTot1" value="0"></td>        
@@ -544,6 +544,7 @@
 
             $nick = $_GET['nick'];          //Recebe o nick do user...
             $cliente = $_GET['dd_cliente']; //Recebe o nome do cliente...
+            $cliente_nome = $cliente;       //Quero guardar o nome do cliente aqui para usar depois...
             $id = $_GET['procura_fo'];      //Recebe o id da fo...
 
             echo "<script>document.getElementById('ticket').value = '$id';</script>";   //Campo recebe o número do id...
@@ -623,10 +624,6 @@
                 }
 
             }
-
-            
-
-
 
         }
 
@@ -926,6 +923,22 @@
         });
 
     </script>
+
+<script>
+
+    // Definindo as variáveis PHP como variáveis JavaScript
+    var nick = '<?php echo $nick; ?>';
+    var cliente = '<?php echo $cliente_nome; ?>';
+    var id_fo = '<?php echo $id; ?>';
+
+    // Função para redirecionar para 'catalogo_producao.php' com os parâmetros
+    function redirect_cat() {
+ 
+        window.open('catalogo_producao.php?nick=' + nick + '&id_fo=' + id_fo + '&cliente=' + cliente, '_blank');
+
+    }
+    
+</script>
 
 </body>
 </html>
