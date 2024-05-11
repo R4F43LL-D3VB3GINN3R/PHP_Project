@@ -284,7 +284,7 @@
                     <input type="text" name="txt_tot_hrs" id="tot1_hrs" value="00-00"readonly="true">
                     <label for="txt_contr_horas">CONTRATO</label>
                     <input type="text" name="txt_contr_horas" id="contr_horas" value="00-00" readonly="true">
-                    <label for="txt_debt_horas">DEBITADAS</label>
+                    <label for="txt_debt_horas">DISPONÍVEIS</label>
                     <input type="text" name="txt_debt_horas" id="debt_horas" value="00-00" readonly="true">
                     <label for="txt_tot_extras">EXTRAS</label>
                     <input type="text" name="txt_tot_extras" id="tot_extras" value="00-00" readonly="true">
@@ -390,7 +390,7 @@
 
             <div class="div_trabEfetuados">
                 <label for="">Trabalhos Efectuados</label>
-                <textarea name="trabEfetuados" id="trabEfetuados" cols="70" rows="5"></textarea>
+                <textarea name="textarea_trabEfetuados" id="trabEfetuados" cols="70" rows="5"></textarea>
             </div>
 
         </form> <?php //Encerra o Formulário?>
@@ -560,13 +560,78 @@
         
         if(isset($_GET['nick'])){
 
-            $nick = $_GET['nick'];
-            $num_serie = $_GET['txt_numero_serie'];
-            $cliente = $_GET['dd_cliente'];
-            $id = $_GET['procura_fo'];
+            $nick = $_GET['nick'];          //Recebe o nick do user...
+            $cliente = $_GET['dd_cliente']; //Recebe o nome do cliente...
+            $id = $_GET['procura_fo'];      //Recebe o id da fo...
 
-            echo "<script>document.getElementById('ticket').value = '$id';</script>";
-            echo "<script>document.getElementById('cli').value = '$cliente';</script>";
+            echo "<script>document.getElementById('ticket').value = '$id';</script>";   //Campo recebe o número do id...
+            echo "<script>document.getElementById('cli').value = '$cliente';</script>"; //Campo recebe o nome do cliente...
+
+            include 'conexao.php';
+
+            $sql = "SELECT NIF FROM TAB_CLIENTE WHERE NOME = '$cliente'"; //Seleciona o nif do cliente...
+            $result = $conn->query($sql);
+
+            if ($result->num_rows > 0) {
+
+                $nifcliente_array = $result->fetch_assoc();
+                $nif_cliente = $nifcliente_array['NIF'];
+
+                //Seleciona os dados do contrato relacionados ao cliente...
+                $sql = "SELECT TEMPO_CONSUMIDO, TEMPO_EXTRA FROM TAB_CONTRATO WHERE ID = '$nif_cliente'";
+                $result = $conn->query($sql);
+
+                if ($result->num_rows > 0) {
+
+                    $array_contrato = $result->fetch_assoc();
+                    $tempo_consumido = $array_contrato['TEMPO_CONSUMIDO'];
+                    $tempo_extra = $array_contrato['TEMPO_EXTRA'];
+
+                    echo "<script>document.getElementById('debt_horas').value = '$tempo_consumido';</script>"; //Campo recebe o tempo restante de contrato...
+                    echo "<script>document.getElementById('tot_extras').value = '$tempo_extra';</script>"; //Campo recebe as horas extras do cliente...
+
+                }
+
+            }
+           
+            $sql = "SELECT * FROM TAB_PRODUCAO WHERE ID_FO = '$id'";
+            $result = $conn->query($sql);
+
+            if ($result->num_rows > 0) {
+
+                $idprod = $result->fetch_assoc();
+                $id_prod = $idprod['ID'];
+                $total_horas = $idprod['HORAS_TOTAIS'];
+                $trabalhos_feitos = $idprod['TRABALHOS_FEITOS'];
+
+                echo "<script>document.getElementById('tot1_hrs').value = '$total_horas';</script>";
+                echo "<script>document.getElementById('trabEfetuados').value = '$trabalhos_feitos';</script>";
+
+                $sql = "SELECT TAB_PROD_TEC_LINHAS.*, TAB_TECNICO.NICK AS nick_tecnico
+                        FROM TAB_PROD_TEC_LINHAS 
+                        JOIN TAB_TECNICO ON TAB_TECNICO.ID = TAB_PROD_TEC_LINHAS.ID_TEC 
+                        WHERE ID_PROD = '$id_prod';";
+                $result = $conn->query($sql);
+
+                $contador = 1;
+
+                if ($result->num_rows > 0) {
+
+                    while ($row = $result->fetch_assoc()) {
+
+                        echo "<script>document.getElementById('tecnico" . $contador . "').value = '" . $row['nick_tecnico'] . "';</script>";
+
+                        $contador = $contador + 1;
+
+                    }
+
+                }
+
+            }
+
+            
+
+
 
         }
 
@@ -838,6 +903,7 @@
         //Envio de formulários para inserir clientes...
 
         var nick = '<?php echo $nick; ?>';
+        var cliente = '<?php echo $nick; ?>';
 
         document.getElementById("bt_salvar").addEventListener("click", function() {
 
