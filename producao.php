@@ -95,7 +95,7 @@
                             <td><input type="date" name="dt_tecnico2" id="dt_tecnico2"></td>
                         </tr>
                         <tr>
-                        <td><select name="dd_tecnico3" id="dd_tecnico3">
+                        <td><select name="dd_tecnico3" id="tecnico3">
 
                             <?php 
 
@@ -121,10 +121,10 @@
                             ?>
 
                             </select></td>
-                            <td><input type="date" name="dt_tecnico3" id="tecnico3"></td>
+                            <td><input type="date" name="dt_tecnico3" id="dt_tecnico3"></td>
                         </tr>
                         <tr>
-                        <td><select name="dd_tecnico4" id="dd_tecnico4">
+                        <td><select name="dd_tecnico4" id="tecnico4">
 
                             <?php 
 
@@ -150,10 +150,10 @@
                             ?>
 
                             </select></td>
-                            <td><input type="date" name="dt_tecnico4" id="tecnico4"></td>
+                            <td><input type="date" name="dt_tecnico4" id="dt_tecnico4"></td>
                         </tr>
                         <tr>
-                        <td><select name="dd_tecnico5" id="dd_tecnico5">
+                        <td><select name="dd_tecnico5" id="tecnico5">
 
                             <?php 
 
@@ -179,10 +179,10 @@
                             ?>
 
                             </select></td>
-                            <td><input type="date" name="dt_tecnico5" id="tecnico5"></td>
+                            <td><input type="date" name="dt_tecnico5" id="dt_tecnico5"></td>
                         </tr>
                         <tr>
-                        <td><select name="dd_tecnico6" id="dd_tecnico6">
+                        <td><select name="dd_tecnico6" id="tecnico6">
 
                             <?php 
 
@@ -208,7 +208,7 @@
                             ?>
 
                             </select></td>
-                            <td><input type="date" name="dt_tecnico6" id="tecnico6"></td>
+                            <td><input type="date" name="dt_tecnico6" id="dt_tecnico6"></td>
                         </tr>
                     </tbody>
                 </table>
@@ -593,7 +593,8 @@
                 }
 
             }
-           
+            
+            //Seleciona os dados da tabela de produção relacionado a fo...
             $sql = "SELECT * FROM TAB_PRODUCAO WHERE ID_FO = '$id'";
             $result = $conn->query($sql);
 
@@ -604,9 +605,11 @@
                 $total_horas = $idprod['HORAS_TOTAIS'];
                 $trabalhos_feitos = $idprod['TRABALHOS_FEITOS'];
 
+                //insere os dados nos campos...
                 echo "<script>document.getElementById('tot1_hrs').value = '$total_horas';</script>";
                 echo "<script>document.getElementById('trabEfetuados').value = '$trabalhos_feitos';</script>";
 
+                //seleciona os dados dos técnicos que trabalharam na fo...
                 $sql = "SELECT TAB_PROD_TEC_LINHAS.*, TAB_TECNICO.NICK AS nick_tecnico
                         FROM TAB_PROD_TEC_LINHAS 
                         JOIN TAB_TECNICO ON TAB_TECNICO.ID = TAB_PROD_TEC_LINHAS.ID_TEC 
@@ -620,6 +623,11 @@
                     while ($row = $result->fetch_assoc()) {
 
                         echo "<script>document.getElementById('tecnico" . $contador . "').value = '" . $row['nick_tecnico'] . "';</script>";
+                        echo "<script>document.getElementById('dt_tecnico" . $contador . "').value = '" . $row['DATA_DIA'] . "';</script>";
+                        echo "<script>document.getElementById('hora_ini" . $contador . "').value = '" . $row['HORA_INICIO'] . "';</script>";
+                        echo "<script>document.getElementById('hora_fim" . $contador . "').value = '" . $row['HORA_FIM'] . "';</script>";
+                        echo "<script>document.getElementById('hrs_trab" . $contador . "').value = '" . $row['TEMPO_TRABALHADO'] . "';</script>";
+                        echo "<script>document.getElementById('km" . $contador . "').value = '" . $row['TOTAL_KM'] . "';</script>";
 
                         $contador = $contador + 1;
 
