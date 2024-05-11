@@ -75,12 +75,12 @@ input, select, textarea {
 
 .tab2 {
     height: 100%;
-    width: 80%;
+    width: 60%;
     text-align: center;
 }
 
 .tab2 input {
-    width: 75px;
+    width: 80px;
     text-align: center;
 }
 
@@ -88,6 +88,22 @@ input, select, textarea {
     width: 60px;
     height: 20px;
     text-align: center;
+}
+
+.tab2 #km1, #km2, #km3, #km4, #km5, #km5, #km6 {
+    margin-left: 3px;
+    width: 70px;
+    height: 20px;
+}
+
+.tab2 #viag1, #viag2, #viag3, #viag4, #viag5, #viag6 {
+    margin-left: -2px;
+    width: 70px;
+    height: 25px;
+}
+
+.tab2 #hrs_trab1, #hrs_trab2, #hrs_trab3, #hrs_trab4, #hrs_trab5, #hrs_trab6 {
+    width: 75px;
 }
 
 .div_tempo_cliente {
@@ -106,6 +122,10 @@ input, select, textarea {
 .div_tempo_cliente input {
     width: 50px;
     text-align: center;
+}
+
+.div_tempo_cliente h3 {
+    margin: 1px;
 }
 
 .div_mat {
@@ -158,26 +178,17 @@ input, select, textarea {
     border-radius: 5px;
 }
 
-.div_km {
-    height: 200px;
-    width: 920px;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
+.div_gen_hrs {
+    width: 930px;
     margin-bottom: 20px;
-    padding: 5px;
+    display: flex;
+    justify-content: center;
+    flex-direction: center;
+    align-items: center;
 }
 
-.div_km input{
-    margin-top: 20px;
-    margin-right: 65px;
-    width: 100px;   
-}
-
-.div_km label{
-    margin-top: 20px; 
+.div_gen_hrs button {
+    margin-bottom: 10px;
 }
 
 .div_trabEfetuados {
@@ -384,7 +395,7 @@ body {
     color: white;
 }
 
-.div_km {
+.div_gen_hrs {
     backdrop-filter: blur(16px) saturate(180%);
     -webkit-backdrop-filter: blur(16px) saturate(180%);
     background-color: rgb(55, 205, 246);
@@ -394,7 +405,7 @@ body {
     color: white;
 }
 
-.div_km input {
+.div_gen_hrs input {
     width: 50px;
     height: 25px;
 }
