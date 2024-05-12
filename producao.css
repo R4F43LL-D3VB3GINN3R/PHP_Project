@@ -130,15 +130,21 @@ input, select, textarea {
 
 .div_mat {
     height: 700px;
-    width: 890px;
+    width: 950px;
     display: flex;
-    flex-direction: row;
+    justify-content: center;
+    align-items: left;
+    flex-direction: column;
     padding: 20px;
     margin-bottom: 20px;
 }
 
 .tab3 {
     height: 180px;
+    text-align: center;
+}
+
+.tab3, #catalogo1, #catalogo2, #catalogo3, #catalogo4, #catalogo5, #catalogo6, #catalogo7, #catalogo8, #catalogo9, #catalogo10 {
     text-align: center;
 }
 
@@ -149,6 +155,7 @@ input, select, textarea {
 
 .tab3, #descricao1, #descricao2, #descricao3, #descricao4, #descricao5, #descricao6, #descricao7, #descricao8, #descricao9, #descricao10 {
     width: 480px;
+    text-align: center;
 } 
 
 .tab3, #precUnit1, #precUnit2, #precUnit3, #precUnit4, #precUnit5, #precUnit6, #precUnit7, #precUnit8, #precUnit9, #precUnit10 {
@@ -159,6 +166,10 @@ input, select, textarea {
 .tab3, #precTot1, #precTot2, #precTot3, #precTot4, #precTot5, #precTot6, #precTot7, #precTot8, #precTot9, #precTot10 {
     width: 60px;
     text-align: center;
+}
+
+.tab3 #bt1_apagar {
+    width: 50px;
 }
 
 .div_procura {
@@ -453,7 +464,7 @@ body {
     color: white;
 }
 
-button {
+button, .bt_remove {
     backdrop-filter: blur(16px) saturate(180%);
     -webkit-backdrop-filter: blur(16px) saturate(180%);
     background-color: rgb(0, 170, 255);
@@ -470,6 +481,14 @@ button:hover, #submit:hover {
     background-color: rgb(255, 255, 255);
     border: 3px solid rgb(0, 170, 255);
     color:rgb(0, 170, 255);
+}
+
+.tab3 .bt_remove {
+    width: 30px;
+    height: 21px;
+    margin-top: 0;
+    border-radius: 5px;
+    text-align: center;
 }
 
 #submit {
