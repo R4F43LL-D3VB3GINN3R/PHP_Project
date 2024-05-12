@@ -302,63 +302,63 @@
                         </tr>
                         <tr>
                             <td><input type="number" name="txt_quantMat2" id="quantMat2" value="0"></td>   
-                            <td><input type="text" name="txt_catalogo2" id="catalogo2"></td>  
+                            <td><input type="text" name="txt_catalogo2" id="catalogo2" onclick='redirect_cat()'></td>  
                             <td><input type="text" name="txt_descricao2" id="descricao2"></td>
                             <td><input type="number" name="txt_precUnit2" id="precUnit2" value="0"></td> 
                             <td><input type="number" name="txt_precTot2" id="precTot2" value="0"></td>  
                         </tr>
                         <tr>
                             <td><input type="number" name="txt_quantMat3" id="quantMat3" value="0"></td> 
-                            <td><input type="text" name="txt_catalogo3" id="catalogo3"></td> 
+                            <td><input type="text" name="txt_catalogo3" id="catalogo3" onclick='redirect_cat()'></td> 
                             <td><input type="text" name="txt_descricao3" id="descricao3"></td>  
                             <td><input type="number" name="txt_precUnit3" id="precUnit3" value="0"></td>  
                             <td><input type="number" name="txt_precTot3" id="precTot3" value="0"></td>  
                         </tr>
                         <tr>
                             <td><input type="number" name="txt_quantMat4" id="quantMat4" value="0"></td> 
-                            <td><input type="text" name="txt_catalogo4" id="catalogo4"></td> 
+                            <td><input type="text" name="txt_catalogo4" id="catalogo4" onclick='redirect_cat()'></td> 
                             <td><input type="text" name="txt_descricao4" id="descricao4"></td>
                             <td><input type="number" name="txt_precUnit4" id="precUnit4" value="0"></td> 
                             <td><input type="number" name="txt_precTot4" id="precTot4" value="0"></td>     
                         </tr>
                         <tr>
                             <td><input type="number" name="txt_quantMat5" id="quantMat5" value="0"></td> 
-                            <td><input type="text" name="txt_catalogo5" id="catalogo5"></td>  
+                            <td><input type="text" name="txt_catalogo5" id="catalogo5" onclick='redirect_cat()'></td>  
                             <td><input type="text" name="txt_descricao5" id="descricao5"></td>  
                             <td><input type="number" name="txt_precUnit5" id="precUnit5" value="0"></td> 
                             <td><input type="number" name="txt_precTot5" id="precTot5" value="0"></td>  
                         </tr>
                         <tr>
                             <td><input type="number" name="txt_quantMat6" id="quantMat6" value="0"></td> 
-                            <td><input type="text" name="txt_catalogo6" id="catalogo6"></td>  
+                            <td><input type="text" name="txt_catalogo6" id="catalogo6" onclick='redirect_cat()'></td>  
                             <td><input type="text" name="txt_descricao6" id="descricao6"></td> 
                             <td><input type="number" name="txt_precUnit6" id="precUnit6" value="0"></td> 
                             <td><input type="number" name="txt_precTot6" id="precTot6" value="0"></td>   
                         </tr>
                         <tr>
                             <td><input type="number" name="txt_quantMat7" id="quantMat7" value="0"></td> 
-                            <td><input type="text" name="txt_catalogo7" id="catalogo7"></td>  
+                            <td><input type="text" name="txt_catalogo7" id="catalogo7" onclick='redirect_cat()'></td>  
                             <td><input type="text" name="txt_descricao7" id="descricao7"></td>  
                             <td><input type="number" name="txt_precUnit7" id="precUnit7" value="0"></td> 
                             <td><input type="number" name="txt_precTot7" id="precTot7" value="0"></td>  
                         </tr>
                         <tr>
                             <td><input type="number" name="txt_quantMat8" id="quantMat8" value="0"></td>  
-                            <td><input type="text" name="txt_catalogo8" id="catalogo8"></td>  
+                            <td><input type="text" name="txt_catalogo8" id="catalogo8" onclick='redirect_cat()'></td>  
                             <td><input type="text" name="txt_descricao8" id="descricao8"></td> 
                             <td><input type="number" name="txt_precUnit8" id="precUnit8" value="0"></td>  
                             <td><input type="number" name="txt_precTot8" id="precTot8" value="0"></td> 
                         </tr>
                         <tr>
                             <td><input type="number" name="txt_quantMat9" id="quantMat9" value="0"></td>  
-                            <td><input type="text" name="txt_catalogo9" id="catalogo9"></td>  
+                            <td><input type="text" name="txt_catalogo9" id="catalogo9" onclick='redirect_cat()'></td>  
                             <td><input type="text" name="txt_descricao9" id="descricao9"></td> 
                             <td><input type="number" name="txt_precUnit9" id="precUnit9" value="0"></td>  
                             <td><input type="number" name="txt_precTot9" id="precTot9" value="0"></td> 
                         </tr>
                         <tr>
                             <td><input type="number" name="txt_quantMat10" id="quantMat10" value="0"></td> 
-                            <td><input type="text" name="txt_catalogo10" id="catalogo10"></td> 
+                            <td><input type="text" name="txt_catalogo10" id="catalogo10" onclick='redirect_cat()'></td> 
                             <td><input type="text" name="txt_descricao10" id="descricao10"></td>  
                             <td><input type="number" name="txt_precUnit10" id="precUnit10" value="0"></td>  
                             <td><input type="number" name="txt_precTot10" id="precTot10" value="0"></td>  
@@ -630,22 +630,92 @@
 
                     }
 
-                    if(isset($_GET['id_material'])) {
-                        $id_material = $_GET['id_material'];
-                        echo "ID do Material: " . $id_material . "<br>";
-                    } else {
-                        echo "ID do Material não foi passado.";
+                }
+
+                //Se for enviado algum id de materiais...
+                if(isset($_GET['id_material'])) {
+
+                    $id_material = $_GET['id_material'];
+
+                    $sql = "SELECT * FROM TAB_CATALOGO WHERE ID = ?";
+                    $stmt = $conn->prepare($sql);
+                    $stmt->bind_param('i', $id_material);
+                    $stmt->execute();
+                    $result = $stmt->get_result();
+
+                    if ($result->num_rows > 0) {
+
+                        $mat_array = $result->fetch_assoc();   
+                        
+                        $sql = "SELECT COUNT(ID_PROD) AS NUM
+                                FROM TAB_PROD_CAT_LINHAS 
+                                WHERE ID_PROD = '$id_prod'";
+                        $result = $conn->query($sql);
+
+                        if ($result->num_rows > 0) {
+
+                            $count_array = $result->fetch_assoc();
+                            $count = $count_array['NUM'] + 1;
+
+                            echo "<script>";
+
+                                echo "var cat = document.getElementById('catalogo$count').value;";
+                                echo "var quant = " . $_GET['quantidade'] . ";"; 
+                                echo "var total_mat = " . $mat_array['PRECO'] . " * quant;"; 
+
+                                $quant_mat = $_GET['quantidade'];
+                                $quant_preco = $_GET['quantidade'] * $mat_array['PRECO'];
+
+                                echo "if (cat == '') {";
+
+                                $stmt_insert = $conn->prepare("INSERT INTO TAB_PROD_CAT_LINHAS (ID_PROD, ID_CAT, QUANTIDADE, TOTAL) 
+                                VALUES (?, ?, ?, ?)");
+                                $stmt_insert->bind_param('iiii', $id_prod, $id_material, $quant_mat, $quant_preco);
+                                $result_insert = $stmt_insert->execute();
+                                
+                                echo "}";
+
+                            echo "</script>";
+
+                        }
+
                     }
 
+                }
+
+                $sql = "SELECT NOME, DESCRICAO, PRECO, TOTAL, QUANTIDADE, TOTAL 
+                FROM TAB_CATALOGO 
+                JOIN TAB_PROD_CAT_LINHAS ON TAB_CATALOGO.ID = TAB_PROD_CAT_LINHAS.ID_CAT
+                WHERE ID_PROD = '$id_prod';";
+                $result = $conn->query($sql);
+
+                if ($result->num_rows > 0) {
+
+                    $i = 1; 
+
+                    while ($row = $result->fetch_assoc()) {
+                        echo "<script>";
+                        echo "document.getElementById('quantMat$i').value = " . $row['QUANTIDADE'] . ";";
+                        echo "document.getElementById('catalogo$i').value = '" . $row['NOME'] . "';";
+                        echo "document.getElementById('descricao$i').value = '" . $row['DESCRICAO'] . "';";
+                        echo "document.getElementById('precUnit$i').value = " . $row['PRECO'] . ";";
+                        echo "document.getElementById('precTot$i').value = " . $row['TOTAL'] . ";"; 
+                        echo "</script>";
+                        
+                        $i++; // Incrementar o índice dentro do loop
+                    }
 
                 }
 
             }
-
-        }
+                    
+        } 
 
     }
 
+    
+
+    
     ?>
 
         <?php
