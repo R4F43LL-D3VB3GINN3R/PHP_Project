@@ -12,19 +12,26 @@
     <?php 
 
     $nick = '';
+    $id_fo = '';
+    $cliente = '';
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Verifica se o nick foi enviado por POST
         if(isset($_POST['nick'])){
+
             $nick = $_POST['nick'];
+
         }
     } elseif ($_SERVER["REQUEST_METHOD"] == "GET") {
         // Verifica se o nick foi enviado por GET
         if(isset($_GET['nick'])){
+
             $nick = $_GET['nick'];
-            $id_fo = $GET['id_fo'];
-            $cliente = $GET['cliente'];
+            $id_fo = $_GET['id_fo'];
+            $cliente = $_GET['cliente'];
+
         }
+
     }
 
     ?>
@@ -34,7 +41,7 @@
         <?php //Menu de Adicionar e Remover...?>
 
         <div class="name3">  
-            <form action="catalogo_gerenciamento.php" id="form_name3" method="get" name="form3" class="form3">
+            <form id="form_name3" name="form3" class="form3">
 
                 <table>
                     <thead>
@@ -67,7 +74,7 @@
                                     echo "<td>" . $row['NOME'] . "</td>";
                                     echo "<td>" . $row['DESCRICAO'] . "</td>";
                                     echo "<td>" . $row['PRECO'] . "</td>";
-                                    echo "<td><form action='catalogo_gerenciamento.php' method='get'><input type='hidden' name='id_cat' value='" . $row['ID'] . "'><input type='submit' value='Escolher' id='managecat'><input type='hidden' name='nick' value='" . $nick . "'></form></td>";
+                                    echo "<td><button type='button' onclick=\"sendData(" . $row['ID'] . ")\">Escolher</button></td>";
                                     echo "</tr>";
                                     
                                 } 
@@ -85,6 +92,22 @@
         </div>
 
     </section>  
+
+    <script>
+
+        function sendData(idMaterial) {
+            
+            var nick = '<?php echo htmlspecialchars($nick); ?>';
+            var id_fo = '<?php echo htmlspecialchars($id_fo); ?>';
+            var cliente = '<?php echo htmlspecialchars($cliente); ?>';
+
+            var url = 'producao.php?id_material=' + encodeURIComponent(idMaterial) + '&nick=' + encodeURIComponent(nick) + '&procura_fo=' + encodeURIComponent(id_fo) + '&dd_cliente=' + encodeURIComponent(cliente);
+
+            window.location.href = url;
+
+        }
+
+    </script>
 
 </body>
 </html>
