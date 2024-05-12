@@ -387,7 +387,7 @@
             <div class="div_menuright0"> <?php //Menu botões.?>
 
                 <button type="button" id="bt_cat">Catálogo</button>
-                <button type="button" id="bt_voltar">Voltar</button>
+                <button type="button" id="bt_voltar" onclick='redirect()'>Voltar</button>
                 <button type="button" id="bt_imprimir">Imprimir</button>
                 <button type="button" id="bt_salvar">Salvar</button>
 
@@ -613,11 +613,11 @@
                         WHERE ID_PROD = '$id_prod';";
                 $result = $conn->query($sql);
 
-                $contador = 1;
+                $contador = 1; //Um contador é iniciado
 
-                if ($result->num_rows > 0) {
+                if ($result->num_rows > 0) { //Se ele achar algo na consulta...
 
-                    while ($row = $result->fetch_assoc()) {
+                    while ($row = $result->fetch_assoc()) { //Carrega os dados do cliente e preenche os campos...
 
                         echo "<script>document.getElementById('tecnico" . $contador . "').value = '" . $row['nick_tecnico'] . "';</script>";
                         echo "<script>document.getElementById('dt_tecnico" . $contador . "').value = '" . $row['DATA_DIA'] . "';</script>";
@@ -626,7 +626,7 @@
                         echo "<script>document.getElementById('hrs_trab" . $contador . "').value = '" . $row['TEMPO_TRABALHADO'] . "';</script>";
                         echo "<script>document.getElementById('km" . $contador . "').value = '" . $row['TOTAL_KM'] . "';</script>";
 
-                        $contador = $contador + 1;
+                        $contador = $contador + 1; //Incrementa o contador...
 
                     }
 
@@ -635,43 +635,44 @@
                 //Se for enviado algum id de materiais...
                 if(isset($_GET['id_material'])) {
 
-                    $id_material = $_GET['id_material'];
+                    $id_material = $_GET['id_material']; //Define a variável...
 
-                    $sql = "SELECT * FROM TAB_CATALOGO WHERE ID = ?";
+                    $sql = "SELECT * FROM TAB_CATALOGO WHERE ID = ?"; //Usa a variável para pesquisar as informações no catálogo...
                     $stmt = $conn->prepare($sql);
                     $stmt->bind_param('i', $id_material);
                     $stmt->execute();
                     $result = $stmt->get_result();
 
-                    if ($result->num_rows > 0) {
+                    if ($result->num_rows > 0) { //Se o material for encontrado...
 
-                        $mat_array = $result->fetch_assoc();   
+                        $mat_array = $result->fetch_assoc(); //Insere o resultado da consulta no array...
                         
-                        $sql = "SELECT COUNT(ID_PROD) AS NUM
+                        //Conta quantos materiais de produção existem...
+                        $sql = "SELECT COUNT(ID_PROD) AS NUM 
                                 FROM TAB_PROD_CAT_LINHAS 
                                 WHERE ID_PROD = '$id_prod'";
                         $result = $conn->query($sql);
 
-                        if ($result->num_rows > 0) {
+                        if ($result->num_rows > 0) { //Se for achado algum material...
 
-                            $count_array = $result->fetch_assoc();
-                            $count = $count_array['NUM'] + 1;
+                            $count_array = $result->fetch_assoc(); //Passa o resultado da consulta pro array...
+                            $count = $count_array['NUM'] + 1;      //Passa o resultado para a variável...
 
                             echo "<script>";
 
+                                //Variáveis javascript recebem o valor do campo sendo o campo decidido pela variável do contador...
                                 echo "var cat = document.getElementById('catalogo$count').value;";
-                                echo "var quant = " . $_GET['quantidade'] . ";"; 
-                                echo "var total_mat = " . $mat_array['PRECO'] . " * quant;"; 
 
                                 $quant_mat = $_GET['quantidade'];
                                 $quant_preco = $_GET['quantidade'] * $mat_array['PRECO'];
 
-                                echo "if (cat == '') {";
+                                echo "if (cat == '') {"; //Se o campo estiver vazio...
 
-                                $stmt_insert = $conn->prepare("INSERT INTO TAB_PROD_CAT_LINHAS (ID_PROD, ID_CAT, QUANTIDADE, TOTAL) 
-                                VALUES (?, ?, ?, ?)");
-                                $stmt_insert->bind_param('iiii', $id_prod, $id_material, $quant_mat, $quant_preco);
-                                $result_insert = $stmt_insert->execute();
+                                        //Insere os dados do material na tabela...
+                                        $stmt_insert = $conn->prepare("INSERT INTO TAB_PROD_CAT_LINHAS (ID_PROD, ID_CAT, QUANTIDADE, TOTAL) 
+                                        VALUES (?, ?, ?, ?)");
+                                        $stmt_insert->bind_param('iiii', $id_prod, $id_material, $quant_mat, $quant_preco);
+                                        $result_insert = $stmt_insert->execute();
                                 
                                 echo "}";
 
@@ -683,17 +684,18 @@
 
                 }
 
+                //Seleciona as informações do material relacionados a produção...
                 $sql = "SELECT NOME, DESCRICAO, PRECO, TOTAL, QUANTIDADE, TOTAL 
                 FROM TAB_CATALOGO 
                 JOIN TAB_PROD_CAT_LINHAS ON TAB_CATALOGO.ID = TAB_PROD_CAT_LINHAS.ID_CAT
                 WHERE ID_PROD = '$id_prod';";
                 $result = $conn->query($sql);
 
-                if ($result->num_rows > 0) {
+                if ($result->num_rows > 0) { //Se encontrar algum...
 
-                    $i = 1; 
+                    $i = 1; //Iniciaiza um contador...
 
-                    while ($row = $result->fetch_assoc()) {
+                    while ($row = $result->fetch_assoc()) { //Os campos são preenchidos de acordo com os valores encontrados...
                         echo "<script>";
                         echo "document.getElementById('quantMat$i').value = " . $row['QUANTIDADE'] . ";";
                         echo "document.getElementById('catalogo$i').value = '" . $row['NOME'] . "';";
@@ -712,8 +714,6 @@
         } 
 
     }
-
-    
 
     
     ?>
@@ -1023,6 +1023,10 @@
  
         window.location.href = 'catalogo_producao.php?nick=' + encodeURIComponent(nick) + '&id_fo=' + encodeURIComponent(id_fo) + '&cliente=' + encodeURIComponent(cliente);
 
+    }
+
+    function redirect() {
+        window.location.href = 'fo.php?nick=' + nick;
     }
     
 </script>
