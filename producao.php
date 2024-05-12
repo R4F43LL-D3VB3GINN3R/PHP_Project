@@ -535,6 +535,15 @@
         if(isset($_POST['nick'])){
 
             $nick = $_POST['nick'];
+            $id_fo = $_POST['procura_fo'];
+            $cliente = $_POST['dd_cliente'];
+            $id_material = $_POST['id_material'];
+
+            // Exemplo de uso dos dados (você pode substituir por sua lógica de processamento)
+            echo "Nick: " . $nick . "<br>";
+            echo "ID FO: " . $id_fo . "<br>";
+            echo "Cliente: " . $cliente . "<br>";
+            echo "ID Material: " . $id_material . "<br>";
 
         }
 
@@ -620,6 +629,14 @@
                         $contador = $contador + 1;
 
                     }
+
+                    if(isset($_GET['id_material'])) {
+                        $id_material = $_GET['id_material'];
+                        echo "ID do Material: " . $id_material . "<br>";
+                    } else {
+                        echo "ID do Material não foi passado.";
+                    }
+
 
                 }
 
@@ -934,7 +951,7 @@
     // Função para redirecionar para 'catalogo_producao.php' com os parâmetros
     function redirect_cat() {
  
-        window.open('catalogo_producao.php?nick=' + nick + '&id_fo=' + id_fo + '&cliente=' + cliente, '_blank');
+        window.location.href = 'catalogo_producao.php?nick=' + encodeURIComponent(nick) + '&id_fo=' + encodeURIComponent(id_fo) + '&cliente=' + encodeURIComponent(cliente);
 
     }
     
