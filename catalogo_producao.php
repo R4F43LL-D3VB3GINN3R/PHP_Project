@@ -50,6 +50,7 @@
                             <th>Nome</th>
                             <th>Descrição</th>
                             <th>Preço</th>
+                            <th>Quant</th>
                             <th>Gerenciar</th>
                         </tr>
                     </thead>
@@ -74,6 +75,7 @@
                                     echo "<td>" . $row['NOME'] . "</td>";
                                     echo "<td>" . $row['DESCRICAO'] . "</td>";
                                     echo "<td>" . $row['PRECO'] . "</td>";
+                                    echo "<td><input type='number' name='num_prod' id='quantidade_" . $row['ID'] . "'></td>";
                                     echo "<td><button type='button' onclick=\"sendData(" . $row['ID'] . ")\">Escolher</button></td>";
                                     echo "</tr>";
                                     
@@ -101,7 +103,13 @@
             var id_fo = '<?php echo htmlspecialchars($id_fo); ?>';
             var cliente = '<?php echo htmlspecialchars($cliente); ?>';
 
-            var url = 'producao.php?id_material=' + encodeURIComponent(idMaterial) + '&nick=' + encodeURIComponent(nick) + '&procura_fo=' + encodeURIComponent(id_fo) + '&dd_cliente=' + encodeURIComponent(cliente);
+            var quantidade = document.getElementById('quantidade_' + idMaterial).value;
+
+            var url = 'producao.php?id_material=' + encodeURIComponent(idMaterial) + 
+              '&nick=' + encodeURIComponent(nick) + 
+              '&procura_fo=' + encodeURIComponent(id_fo) + 
+              '&dd_cliente=' + encodeURIComponent(cliente) + 
+              '&quantidade=' + encodeURIComponent(quantidade);
 
             window.location.href = url;
 
