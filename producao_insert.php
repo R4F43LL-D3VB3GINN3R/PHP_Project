@@ -52,6 +52,10 @@
 
                 if ($result->num_rows > 0) {
 
+                    //----------------------------------------------------------------------------------------------
+                    //INÍCIO DA ATUALIZAÇÃO DOS DOS TÉCNICOS
+                    //----------------------------------------------------------------------------------------------
+
                     $stmt = $conn->prepare("UPDATE TAB_PRODUCAO
                                             SET KM_TOTAL = ?, HORAS_TOTAIS = ?, TRABALHOS_FEITOS = ?
                                             WHERE ID_FO = ?");
@@ -69,11 +73,13 @@
                             $id_prod = $result->fetch_assoc(); //Passar o ID da produção para o vetor...
                             $prod_id = $id_prod['ID'];
 
+                            //Removemos os dados dos antigos técnicos...
                             $sql = "DELETE FROM TAB_PROD_TEC_LINHAS WHERE ID_PROD = '$prod_id'";
                             $result = $conn->query($sql);
 
                             if ($result) {
 
+                                //Agora vamos atualizar os dados inserindo os dados dos técnicos novos...
                                 // Pegamos os dados dos técnicos 1 ao 6...
                                 for ($i = 1; $i <= 6; $i++) {
 
@@ -103,13 +109,15 @@
                                             $sql = "SELECT NIF FROM TAB_CLIENTE WHERE NOME = '$cliente'";
                                             $result = $conn->query("$sql");
 
-                                            $nif_cliente = $result->fetch_assoc(); //Insere o nif ao array...
-                                            $nifcli = $nif_cliente['NIF'];         //Insere o nif na variável...
+                                            if ($result->num_rows > 0) { //Se ele encontrar o nif...
 
-                                            //Selecionamos as informacoesdo contrato relacionado ao nif do cliente...
-                                            $sql = "SELECT ID, QUANT_DESLOCACOES FROM TAB_CONTRATO WHERE ID = '$nifcli'";
-                                            $result = $conn->query($sql);
-
+                                                $nif_cliente = $result->fetch_assoc(); //Insere o nif ao array...
+                                                $nifcli = $nif_cliente['NIF'];         //Insere o nif na variável...
+        
+                                                //Selecionamos as informacoesdo contrato relacionado ao nif do cliente...
+                                                $sql = "SELECT ID, QUANT_DESLOCACOES FROM TAB_CONTRATO WHERE ID = '$nifcli'";
+                                                $result = $conn->query($sql);
+        
                                                 if ($result->num_rows > 0) { //Se encontrar um contrato...
 
                                                     $info_contrato = $result->fetch_assoc();                  //Passa o id para o array...
@@ -122,37 +130,75 @@
                                                     if ($quant_deslocacoes != 0) { //Se o cliente tiver direito a dislocações...
 
                                                         $quant_deslocacoes = $quant_deslocacoes - 1; //Decrementamos o valor da deslocação...
-
+        
                                                     } else { 
-
+        
                                                         $quant_deslocacoes = 0; //Definimos como zero e sempre vamos inserir este número...
+        
+                                                    }     
 
-                                                    }                                           
-                                                
                                                     //Altera na tabela de contratos o tempo consumido de horas e as horas extras...
                                                     $stmt = $conn->prepare("UPDATE TAB_CONTRATO
-                                                                            SET TEMPO_CONSUMIDO = ?, TEMPO_EXTRA = ?, QUANT_DESLOCACOES = ?
-                                                                            WHERE ID = ?");
+                                                    SET TEMPO_CONSUMIDO = ?, TEMPO_EXTRA = ?, QUANT_DESLOCACOES = ?
+                                                    WHERE ID = ?");
                                                     $stmt->bind_param('ssii', $horas_disponiveis, $horas_extras, $quant_deslocacoes, $idcontrato);
                                                     $result = $stmt->execute();
 
-                                                }   
+                                                    //------------------------------------------------------------------------------------------
+                                                    //FIM DA ATUALIZAÇÃO DOS TÉCNICOS
+                                                    //------------------------------------------------------------------------------------------
+
+                                                    //------------------------------------------------------------------------------------------
+                                                    //INÍCIO DA ATUALIZAÇÃO DOS DADOS INFORMÁTICOS
+                                                    //------------------------------------------------------------------------------------------
+
+                                                    $potencia = $_GET['txt_pot'];
+                                                    $modelacao = $_GET['txt_mod'];
+                                                    $frequencia = $_GET['txt_freq'];
+                                                    $sensibilidade = $_GET['txt_sens'];
+                                                    $audio = $_GET['dd_audio'];
+                                                    $bateria = $_GET['dd_bat'];
+                                                    $alimentacao = $_GET['dd_alimentacao'];
+
+                                                    $stmt = $conn->prepare("UPDATE TAB_PROD_RADIO
+                                                                            SET POTENCIA = ?, MODELACAO = ?, FREQUENCIA = ?, SENSIBILIDADE = ?, AUDIO = ?, BATERIA = ?, ALIMENTACAO = ?
+                                                                            WHERE ID_PROD = ?");
+                                                    $stmt->bind_param('sssssssi', $potencia, $modelacao, $frequencia, $sensibilidade, $audio, $bateria, $alimentacao, $prod_id);
+                                                    $result = $stmt->execute();
+
+                                                    if ($result) {
+
+                                                        
+
+                                                    }
+
+                                                }
 
                                             }
 
                                         }
-                                    
-                                    }
+                                        
+                                    }    
 
                                 }
 
                             }
 
-                        }
+                        }   
 
                     }
 
+                    echo "<div>
+                                <h2>Dados da FO $id_fo registados no sistema.</h2>
+                                <button type='button' onclick='redirect()'>Ok</button>
+                            </div>";
+
+
                 } else {
+
+                    //----------------------------------------------------------------------------------------------
+                    //INÍCIO DA INSERÇÃO DOS DOS TÉCNICOS
+                    //----------------------------------------------------------------------------------------------
 
                     //Consulta para inserir dados à tabela de produção...
                     $stmt = $conn->prepare("INSERT INTO TAB_PRODUCAO (ID_FO, KM_TOTAL, HORAS_TOTAIS, TRABALHOS_FEITOS)
@@ -237,6 +283,37 @@
                                             $stmt->bind_param('ssii', $horas_disponiveis, $horas_extras, $quant_deslocacoes, $idcontrato);
                                             $result = $stmt->execute();
 
+                                            //----------------------------------------------------------------------------------------------
+                                            //FIM DA INSERÇÃO DOS DADOS TÉCNICOS
+                                            //----------------------------------------------------------------------------------------------
+
+                                            //----------------------------------------------------------------------------------------------
+                                            //INÍCIO DA INSERÇÃO DOS DADOS INFORMÁTICOS
+                                            //----------------------------------------------------------------------------------------------
+
+                                            $potencia = $_GET['txt_pot'];
+                                            $modelacao = $_GET['txt_mod'];
+                                            $frequencia = $_GET['txt_freq'];
+                                            $sensibilidade = $_GET['txt_sens'];
+                                            $audio = $_GET['dd_audio'];
+                                            $bateria = $_GET['dd_bat'];
+                                            $alimentacao = $_GET['dd_alimentacao'];
+
+                                            $stmt = $conn->prepare("INSERT INTO TAB_PROD_RADIO (ID_PROD, POTENCIA, MODELACAO, FREQUENCIA, SENSIBILIDADE, AUDIO, BATERIA, ALIMENTACAO)
+                                            VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+                                            $stmt->bind_param('isssssss', $id_prod['ID'], $potencia, $modelacao, $frequencia, $sensibilidade, $audio, $bateria, $alimentacao);
+                                            $result = $stmt->execute();
+                                            
+                                            if ($result) {
+
+                                                echo "sucesso";
+
+                                            } else {
+
+                                                echo "falha;";
+
+                                            }
+
                                         }   
 
                                     }
@@ -250,7 +327,7 @@
                         if ($result) {
 
                             echo "<div>
-                                    <h2>Dados da FO $id_fo Inseridos no sistema.</h2>
+                                    <h2>Dados da FO $id_fo registados no sistema.</h2>
                                     <button type='button' onclick='redirect()'>Ok</button>
                                 </div>";
 
