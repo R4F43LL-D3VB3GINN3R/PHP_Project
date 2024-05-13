@@ -437,13 +437,13 @@
                     <h3>TX(Alimentação)</h3>
                     <label for="dd_bat">Est. Bateria</label>
                     <select name="dd_bat" id="bat">
-                        <option value="N">N/A</option>
-                        <option value="S">Sim</option>
+                        <option value="N/A">N/A</option>
+                        <option value="Sim">Sim</option>
                     </select>
                     <label for="dd_alimentacao">Alimentação (12V)</label>
                     <select name="dd_alimentacao" id="alimentacao">
-                        <option value="N">N/A</option>
-                        <option value="S">Sim</option>
+                        <option value="N/A">N/A</option>
+                        <option value="Sim">Sim</option>
                     </select>
 
                 </div>
@@ -455,8 +455,8 @@
                     <input type="text" name="txt_sens" id="sens">
                     <label for="dd_audio">Áudio</label>
                     <select name="dd_audio" id="audio">
-                        <option value="N">N/A</option>
-                        <option value="S">Sim</option>
+                        <option value="N/A">N/A</option>
+                        <option value="Sim">Sim</option>
                     </select>
 
                 </div>
@@ -730,6 +730,30 @@
                     }
 
                 }
+
+                $sql = "SELECT * FROM TAB_PROD_RADIO WHERE ID_PROD = '$id_prod'";
+                $result = $conn->query($sql);
+
+                if ($result->num_rows > 0) {
+
+                    while ($row = $result->fetch_assoc()) {
+
+                        echo "<script>";
+                        echo "document.getElementById('pot').value = '" . $row['POTENCIA'] . "';";
+                        echo "document.getElementById('mod').value = '" . $row['MODELACAO'] . "';";
+                        echo "document.getElementById('freq').value = '" . $row['FREQUENCIA'] . "';";
+                        echo "document.getElementById('sens').value = '" . $row['SENSIBILIDADE'] . "';";
+                        echo "document.getElementById('audio').value = '" . $row['AUDIO'] . "';";
+                        echo "document.getElementById('bat').value = '" . $row['BATERIA'] . "';";
+                        echo "document.getElementById('alimentacao').value = '" . $row['ALIMENTACAO'] . "';";
+                        echo "</script>";
+
+                    }
+
+                }
+
+                
+                          
 
             }
                     
