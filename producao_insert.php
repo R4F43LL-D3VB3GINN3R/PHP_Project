@@ -144,31 +144,52 @@
                                                     $stmt->bind_param('ssii', $horas_disponiveis, $horas_extras, $quant_deslocacoes, $idcontrato);
                                                     $result = $stmt->execute();
 
-                                                    //------------------------------------------------------------------------------------------
-                                                    //FIM DA ATUALIZAÇÃO DOS TÉCNICOS
-                                                    //------------------------------------------------------------------------------------------
-
-                                                    //------------------------------------------------------------------------------------------
-                                                    //INÍCIO DA ATUALIZAÇÃO DOS DADOS INFORMÁTICOS
-                                                    //------------------------------------------------------------------------------------------
-
-                                                    $potencia = $_GET['txt_pot'];
-                                                    $modelacao = $_GET['txt_mod'];
-                                                    $frequencia = $_GET['txt_freq'];
-                                                    $sensibilidade = $_GET['txt_sens'];
-                                                    $audio = $_GET['dd_audio'];
-                                                    $bateria = $_GET['dd_bat'];
-                                                    $alimentacao = $_GET['dd_alimentacao'];
-
-                                                    $stmt = $conn->prepare("UPDATE TAB_PROD_RADIO
-                                                                            SET POTENCIA = ?, MODELACAO = ?, FREQUENCIA = ?, SENSIBILIDADE = ?, AUDIO = ?, BATERIA = ?, ALIMENTACAO = ?
-                                                                            WHERE ID_PROD = ?");
-                                                    $stmt->bind_param('sssssssi', $potencia, $modelacao, $frequencia, $sensibilidade, $audio, $bateria, $alimentacao, $prod_id);
-                                                    $result = $stmt->execute();
-
                                                     if ($result) {
 
-                                                        
+                                                        //---------------------------------------------------------------------------------------
+                                                        //FIM DA ATUALIZAÇÃO DOS TÉCNICOS
+                                                        //---------------------------------------------------------------------------------------
+
+                                                        //---------------------------------------------------------------------------------------
+                                                        //INÍCIO DA ATUALIZAÇÃO DOS DADOS INFORMÁTICOS
+                                                        //---------------------------------------------------------------------------------------
+
+                                                        $potencia = $_GET['txt_pot'];
+                                                        $modelacao = $_GET['txt_mod'];
+                                                        $frequencia = $_GET['txt_freq'];
+                                                        $sensibilidade = $_GET['txt_sens'];
+                                                        $audio = $_GET['dd_audio'];
+                                                        $bateria = $_GET['dd_bat'];
+                                                        $alimentacao = $_GET['dd_alimentacao'];
+
+                                                        $stmt = $conn->prepare("UPDATE TAB_PROD_RADIO
+                                                                                SET POTENCIA = ?, MODELACAO = ?, FREQUENCIA = ?, SENSIBILIDADE = ?, AUDIO = ?, BATERIA = ?, ALIMENTACAO = ?
+                                                                                WHERE ID_PROD = ?");
+                                                        $stmt->bind_param('sssssssi', $potencia, $modelacao, $frequencia, $sensibilidade, $audio, $bateria, $alimentacao, $prod_id);
+                                                        $result = $stmt->execute();
+
+                                                        if ($result) {
+
+                                                            $teste_funcional = $_GET['dd_teste_funcional'];
+                                                            $aval_funcionamento = $_GET['dd_aval_funcionamento'];
+                                                            $circuito_alimentacao = $_GET['dd_circuito_de_alimentacao'];
+                                                            $inicia_corretamente = $_GET['dd_inicia_Corretamente'];
+                                                            $interactividade = $_GET['dd_HWSW'];
+                                                            $actualizacao = $_GET['dd_actualizacaoSW'];
+                                                            $resultado_esperado = $_GET['dd_resultado_esperado'];
+
+                                                            $stmt = $conn->prepare("INSERT INTO TAB_PROD_INFORMATICA
+                                                                                    (ID_PROD, TESTE_FUNCIONAL, FUNCIONAMENTO, ALIMENTACAO, INICIA_CORRETAMENTE, INTERATIVIDADE_HW_SW, ACTUALIZACAO_SQ, RESULTADO_ESPERADO)");
+                                                            $stmt->bind_param('isssssss', $id_prod['ID'], $teste_funcional, $aval_funcionamento, $circuito_alimentacao, $inicia_corretamente, $interactividade, $actualizacao, $resultado_esperado);
+                                                            $result = $stmt->execute();
+
+                                                            if ($result) {
+
+                                                                echo 'sucesso';
+
+                                                            }
+
+                                                        }
 
                                                     }
 
