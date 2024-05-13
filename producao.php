@@ -8,13 +8,23 @@
     <title>Folhas de Obras</title>
 </head>
 <body>
+    <?php 
+
+        if(isset($_GET['nick'])){
+
+            $nick = $_GET['nick'];  
+        
+        }
+
+    ?>
 
     <?php //Main left principal?>
 
     <div class="left">
-        <form action="" id="form_left">
+        <form action="producao_delete.php" id="form_left" method="get">
 
             <div class="div_procura">
+                <input type="hidden" name="nick" value="<?php echo isset($nick) ? htmlspecialchars($nick) : ''; ?>">
                 <label for="txt_ticket">FO Nº / Cliente</label>
                 <input type="txt_ticket" name="txt_ticket" id="ticket" readonly="true">
                 <input type="text" name="txt_cli" id="cli" readonly="true">
@@ -295,84 +305,84 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td><input type="number" name="txt_quantMat1" id="quantMat1" value="0"></td>        
+                            <td><input type="text" name="txt_quantMat1" id="quantMat1" value="0"></td>        
                             <td><input type="text" name="txt_catalogo1" id="catalogo1" onclick='redirect_cat()'></td> 
                             <td><input type="text" name="txt_descricao1" id="descricao1"></td>
-                            <td><input type="number" name="txt_precUnit1" id="precUnit1" value="0"></td> 
-                            <td><input type="number" name="txt_precTot1" id="precTot1" value="0"></td> 
+                            <td><input type="text" name="txt_precUnit1" id="precUnit1" value="0"></td> 
+                            <td><input type="text" name="txt_precTot1" id="precTot1" value="0"></td> 
+                            <input type="hidden" name="material_name_1" value="Nome do Material 1">
                             <td><input type="submit" name="bt_remove1" class="bt_remove" id=bt_remove1 value="-"></td>
-   
                         </tr>
                         <tr>
-                            <td><input type="number" name="txt_quantMat2" id="quantMat2" value="0"></td>   
+                            <td><input type="text" name="txt_quantMat2" id="quantMat2" value="0"></td>   
                             <td><input type="text" name="txt_catalogo2" id="catalogo2" onclick='redirect_cat()'></td>  
                             <td><input type="text" name="txt_descricao2" id="descricao2"></td>
-                            <td><input type="number" name="txt_precUnit2" id="precUnit2" value="0"></td> 
-                            <td><input type="number" name="txt_precTot2" id="precTot2" value="0"></td>  
+                            <td><input type="text" name="txt_precUnit2" id="precUnit2" value="0"></td> 
+                            <td><input type="text" name="txt_precTot2" id="precTot2" value="0" step="0.01"></td>  
                             <td><input type="submit" name="bt_remove2" class="bt_remove" id=bt_remove2 value="-"></td>
                         </tr>
                         <tr>
-                            <td><input type="number" name="txt_quantMat3" id="quantMat3" value="0"></td> 
+                            <td><input type="text" name="txt_quantMat3" id="quantMat3" value="0"></td> 
                             <td><input type="text" name="txt_catalogo3" id="catalogo3" onclick='redirect_cat()'></td> 
                             <td><input type="text" name="txt_descricao3" id="descricao3"></td>  
-                            <td><input type="number" name="txt_precUnit3" id="precUnit3" value="0"></td>  
-                            <td><input type="number" name="txt_precTot3" id="precTot3" value="0"></td> 
+                            <td><input type="text" name="txt_precUnit3" id="precUnit3" value="0"></td>  
+                            <td><input type="text" name="txt_precTot3" id="precTot3" value="0"></td> 
                             <td><input type="submit" name="bt_remove3" class="bt_remove" id=bt_remove3 value="-"></td> 
                         </tr>
                         <tr>
-                            <td><input type="number" name="txt_quantMat4" id="quantMat4" value="0"></td> 
+                            <td><input type="text" name="txt_quantMat4" id="quantMat4" value="0"></td> 
                             <td><input type="text" name="txt_catalogo4" id="catalogo4" onclick='redirect_cat()'></td> 
                             <td><input type="text" name="txt_descricao4" id="descricao4"></td>
-                            <td><input type="number" name="txt_precUnit4" id="precUnit4" value="0"></td> 
-                            <td><input type="number" name="txt_precTot4" id="precTot4" value="0"></td>    
+                            <td><input type="text" name="txt_precUnit4" id="precUnit4" value="0"></td> 
+                            <td><input type="text" name="txt_precTot4" id="precTot4" value="0"></td>    
                             <td><input type="submit" name="bt_remove4" class="bt_remove" id=bt_remove4 value="-"></td> 
                         </tr>
                         <tr>
-                            <td><input type="number" name="txt_quantMat5" id="quantMat5" value="0"></td> 
+                            <td><input type="text" name="txt_quantMat5" id="quantMat5" value="0"></td> 
                             <td><input type="text" name="txt_catalogo5" id="catalogo5" onclick='redirect_cat()'></td>  
                             <td><input type="text" name="txt_descricao5" id="descricao5"></td>  
-                            <td><input type="number" name="txt_precUnit5" id="precUnit5" value="0"></td> 
-                            <td><input type="number" name="txt_precTot5" id="precTot5" value="0"></td> 
+                            <td><input type="text" name="txt_precUnit5" id="precUnit5" value="0"></td> 
+                            <td><input type="text" name="txt_precTot5" id="precTot5" value="0"></td> 
                             <td><input type="submit" name="bt_remove5" class="bt_remove" id=bt_remove5 value="-"></td> 
                         </tr>
                         <tr>
-                            <td><input type="number" name="txt_quantMat6" id="quantMat6" value="0"></td> 
+                            <td><input type="text" name="txt_quantMat6" id="quantMat6" value="0"></td> 
                             <td><input type="text" name="txt_catalogo6" id="catalogo6" onclick='redirect_cat()'></td>  
                             <td><input type="text" name="txt_descricao6" id="descricao6"></td> 
-                            <td><input type="number" name="txt_precUnit6" id="precUnit6" value="0"></td> 
-                            <td><input type="number" name="txt_precTot6" id="precTot6" value="0"></td>   
+                            <td><input type="text" name="txt_precUnit6" id="precUnit6" value="0"></td> 
+                            <td><input type="text" name="txt_precTot6" id="precTot6" value="0"></td>   
                             <td><input type="submit" name="bt_remove6" class="bt_remove" id=bt_remove6 value="-"></td>
                         </tr>
                         <tr>
-                            <td><input type="number" name="txt_quantMat7" id="quantMat7" value="0"></td> 
+                            <td><input type="text" name="txt_quantMat7" id="quantMat7" value="0"></td> 
                             <td><input type="text" name="txt_catalogo7" id="catalogo7" onclick='redirect_cat()'></td>  
                             <td><input type="text" name="txt_descricao7" id="descricao7"></td>  
-                            <td><input type="number" name="txt_precUnit7" id="precUnit7" value="0"></td> 
-                            <td><input type="number" name="txt_precTot7" id="precTot7" value="0"></td>  
+                            <td><input type="text" name="txt_precUnit7" id="precUnit7" value="0"></td> 
+                            <td><input type="text" name="txt_precTot7" id="precTot7" value="0"></td>  
                             <td><input type="submit" name="bt_remove7" class="bt_remove" id=bt_remove7 value="-"></td>
                         </tr>
                         <tr>
-                            <td><input type="number" name="txt_quantMat8" id="quantMat8" value="0"></td>  
+                            <td><input type="text" name="txt_quantMat8" id="quantMat8" value="0"></td>  
                             <td><input type="text" name="txt_catalogo8" id="catalogo8" onclick='redirect_cat()'></td>  
                             <td><input type="text" name="txt_descricao8" id="descricao8"></td> 
-                            <td><input type="number" name="txt_precUnit8" id="precUnit8" value="0"></td>  
-                            <td><input type="number" name="txt_precTot8" id="precTot8" value="0"></td> 
+                            <td><input type="text" name="txt_precUnit8" id="precUnit8" value="0"></td>  
+                            <td><input type="text" name="txt_precTot8" id="precTot8" value="0"></td> 
                             <td><input type="submit" name="bt_remove8" class="bt_remove" id=bt_remove8 value="-"></td>
                         </tr>
                         <tr>
-                            <td><input type="number" name="txt_quantMat9" id="quantMat9" value="0"></td>  
+                            <td><input type="text" name="txt_quantMat9" id="quantMat9" value="0"></td>  
                             <td><input type="text" name="txt_catalogo9" id="catalogo9" onclick='redirect_cat()'></td>  
                             <td><input type="text" name="txt_descricao9" id="descricao9"></td> 
-                            <td><input type="number" name="txt_precUnit9" id="precUnit9" value="0"></td>  
-                            <td><input type="number" name="txt_precTot9" id="precTot9" value="0"></td> 
+                            <td><input type="text" name="txt_precUnit9" id="precUnit9" value="0"></td>  
+                            <td><input type="text" name="txt_precTot9" id="precTot9" value="0"></td> 
                             <td><input type="submit" name="bt_remove9" class="bt_remove" id=bt_remove9 value="-"></td>
                         </tr>
                         <tr>
-                            <td><input type="number" name="txt_quantMat10" id="quantMat10" value="0"></td> 
+                            <td><input type="text" name="txt_quantMat10" id="quantMat10" value="0"></td> 
                             <td><input type="text" name="txt_catalogo10" id="catalogo10" onclick='redirect_cat()'></td> 
                             <td><input type="text" name="txt_descricao10" id="descricao10"></td>  
-                            <td><input type="number" name="txt_precUnit10" id="precUnit10" value="0"></td>  
-                            <td><input type="number" name="txt_precTot10" id="precTot10" value="0"></td>  
+                            <td><input type="text" name="txt_precUnit10" id="precUnit10" value="0"></td>  
+                            <td><input type="text" name="txt_precTot10" id="precTot10" value="0"></td>  
                             <td><input type="submit" name="bt_remove10" class="bt_remove" id=bt_remove10 value="-"></td>
                         </tr>
                     </tbody>
