@@ -474,18 +474,18 @@
                     <h3>Hardware</h3>
                     <label for="dd_teste_funcional">Teste Funcional</label>
                     <select name="dd_teste_funcional" id="teste_funcional">
-                        <option value="N">N/A</option>
-                        <option value="S">Sim</option>
+                        <option value="N/A">N/A</option>
+                        <option value="Sim">Sim</option>
                     </select>
                     <label for="dd_aval_funcionamento">Aval. de Funcionamento</label>
                     <select name="dd_aval_funcionamento" id="aval_funcionamento">
-                        <option value="N">N/A</option>
-                        <option value="S">Sim</option>
+                        <option value="N/A">N/A</option>
+                        <option value="Sim">Sim</option>
                     </select>
                     <label for="dd_circuito_de_alimentacao">Circuito de Alimentação</label>
                     <select name="dd_circuito_de_alimentacao" id="circuito_de_alimentacao">
-                        <option value="N">N/A</option>
-                        <option value="S">Sim</option>
+                        <option value="N/A">N/A</option>
+                        <option value="Sim">Sim</option>
                     </select>
 
                 </div>
@@ -495,23 +495,23 @@
                     <h3>Software</h3>
                     <label for="dd_inicia_corretamente">Inicia Corretamente</label>
                     <select name="dd_inicia_Corretamente" id="inicia_corretamente">
-                        <option value="N">N/A</option>
-                        <option value="S">Sim</option>
+                        <option value="N/A">N/A</option>
+                        <option value="Sim">Sim</option>
                     </select>
                     <label for="dd_HWSW">Interactividade (HW/SW)</label>
                     <select name="dd_HWSW" id="HWSW">
-                        <option value="N">N/A</option>
-                        <option value="S">Sim</option>
+                        <option value="N/A">N/A</option>
+                        <option value="Sim">Sim</option>
                     </select>
                     <label for="dd_actualizacaoSW">Actualização(SW)</label>
                     <select name="dd_actualizacaoSW" id="actualizacaoSW">
-                        <option value="N">N/A</option>
-                        <option value="S">Sim</option>
+                        <option value="N/A">N/A</option>
+                        <option value="Sim">Sim</option>
                     </select>
                     <label for="dd_resultado_esperado">Resultado Esperado</label>
                     <select name="dd_resultado_esperado" id="resultado_esperado">
-                        <option value="N">N/A</option>
-                        <option value="S">Sim</option>
+                        <option value="N/A">N/A</option>
+                        <option value="Sim">Sim</option>
                     </select>
 
                 </div>
@@ -731,6 +731,7 @@
 
                 }
 
+                //Verifica se há algo na tabela...
                 $sql = "SELECT * FROM TAB_PROD_RADIO WHERE ID_PROD = '$id_prod'";
                 $result = $conn->query($sql);
 
@@ -752,8 +753,27 @@
 
                 }
 
-                
-                          
+                //Verifica se há algo na tabela...
+                $sql = "SELECT * FROM TAB_PROD_INFORMATICA WHERE ID_PROD = '$id_prod'";
+                $result = $conn->query($sql);
+
+                if ($result) {
+
+                    while ($row = $result->fetch_assoc()) {
+
+                        echo "<script>";
+                        echo "document.getElementById('teste_funcional').value = '" . $row['TESTE_FUNCIONAL'] . "';";
+                        echo "document.getElementById('aval_funcionamento').value = '" . $row['FUNCIONAMENTO'] . "';";
+                        echo "document.getElementById('circuito_de_alimentacao').value = '" . $row['ALIMENTACAO'] . "';";
+                        echo "document.getElementById('inicia_corretamente').value = '" . $row['INICIA_CORRETAMENTE'] . "';";
+                        echo "document.getElementById('HWSW').value = '" . $row['INTERATIVIDADE_HW_SW'] . "';";
+                        echo "document.getElementById('actualizacaoSW').value = '" . $row['ACTUALIZACAO_SQ'] . "';";
+                        echo "document.getElementById('resultado_esperado').value = '" . $row['RESULTADO_ESPERADO'] . "';";
+                        echo "</script>";
+
+                    }
+
+                }
 
             }
                     
