@@ -168,6 +168,23 @@
                                                         $stmt->bind_param('sssssssi', $potencia, $modelacao, $frequencia, $sensibilidade, $audio, $bateria, $alimentacao, $prod_id);
                                                         $result = $stmt->execute();
 
+                                                        if ($result) {
+
+                                                            $teste_funcional = $_GET['dd_teste_funcional'];
+                                                            $aval_funcionamento = $_GET['dd_aval_funcionamento'];
+                                                            $circuito_alimentacao = $_GET['dd_circuito_de_alimentacao'];
+                                                            $inicia_corretamente = $_GET['dd_inicia_Corretamente'];
+                                                            $interactividade = $_GET['dd_HWSW'];
+                                                            $actualizacao = $_GET['dd_actualizacaoSW'];
+                                                            $resultado_esperado = $_GET['dd_resultado_esperado'];
+
+                                                            $stmt = $conn->prepare("UPDATE TAB_PROD_INFORMATICA
+                                                                                    SET TESTE_FUNCIONAL = ?, FUNCIONAMENTO = ?, ALIMENTACAO = ?, INICIA_CORRETAMENTE = ?, INTERATIVIDADE_HW_SW = ?, ACTUALIZACAO_SQ = ?, RESULTADO_ESPERADO = ? WHERE ID_PROD = ?");
+                                                            $stmt->bind_param('sssssssi', $teste_funcional, $aval_funcionamento, $circuito_alimentacao, $inicia_corretamente, $interactividade, $actualizacao, $resultado_esperado, $prod_id);
+                                                            $result = $stmt->execute();
+
+                                                        }
+
                                                     }
 
                                                 }
