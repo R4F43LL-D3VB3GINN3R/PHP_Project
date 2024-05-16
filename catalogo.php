@@ -13,17 +13,13 @@
 
     $nick = '';
 
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        // Verifica se o nick foi enviado por POST
-        if(isset($_POST['nick'])){
-            $nick = $_POST['nick'];
-        }
-    } elseif ($_SERVER["REQUEST_METHOD"] == "GET") {
-        // Verifica se o nick foi enviado por GET
-        if(isset($_GET['nick'])){
-            $nick = $_GET['nick'];
-        }
-    }
+    require_once 'classes/main_class.php';
+    require_once 'classes/catalogo_class.php';
+    
+    $Main = new main();
+    $Catalogo = new catalogo();
+
+    $nick = $Main->recebeNick('nick');
 
     ?>
 
@@ -62,40 +58,9 @@
                     </thead>
                     <tbody>
 
-                        <?php 
-                        
-                            include 'conexao.php';
+                        <?php         
 
-                            $sql = "SELECT * FROM TAB_CATALOGO";
-                            $result = $conn->query($sql);
-
-                            if ($result->num_rows > 0) {
-
-                                while ($row = $result->fetch_assoc()) {
-
-
-                                    echo "<tr>";
-                                    echo "<td>" . $row['ID'] . "</td>";
-                                    echo "<td>" . $row['NOME'] . "</td>";
-                                    echo "<td>" . $row['DESCRICAO'] . "</td>";
-                                    echo "<td>" . $row['PRECO'] . "</td>";
-                                    echo "<td><form action='catalogo_gerenciamento.php' method='get'><input type='hidden' name='id_cat' value='" . $row['ID'] . "'><input type='submit' value='Editar' id='managecat'><input type='hidden' name='nick' value='" . $nick . "'></form></td>";
-                                    echo "</tr>";
-                                    
-
-                                } 
-
-                                echo "<tr>";
-                                    echo "<td>" . "--" . "</td>";
-                                    echo "<td>" . "--" . "</td>";
-                                    echo "<td>" . "--" . "</td>";
-                                    echo "<td>" . "--" . "</td>";
-                                echo "<td><form action='catalogo_gerenciamento.php' method='get'><input type='submit' value='+' id='managecat'><input type='hidden' name='nick' value='" . $nick . "'></form></td>";
-                                
-
-                            }
-
-                            $conn->close();
+                            $Catalogo->displayCatalogo($nick);                   
 
                         ?>
 
