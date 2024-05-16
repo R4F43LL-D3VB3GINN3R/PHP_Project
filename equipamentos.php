@@ -11,19 +11,15 @@
 
     <?php 
 
-    $nick = '';
+        $nick = '';
 
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        // Verifica se o nick foi enviado por POST
-        if(isset($_POST['nick'])){
-            $nick = $_POST['nick'];
-        }
-    } elseif ($_SERVER["REQUEST_METHOD"] == "GET") {
-        // Verifica se o nick foi enviado por GET
-        if(isset($_GET['nick'])){
-            $nick = $_GET['nick'];
-        }
-    }
+        require_once 'classes/main_class.php';
+        require_once 'classes/equipamento_class.php';
+
+        $Main = new main();
+        $Equipamento = new equipamento();
+
+        $nick = $Main->recebeNick('nick');
 
     ?>
 
@@ -40,7 +36,7 @@
             <button type="button" onclick='redirect_tecnicos()' id="bt_tecnicos">Técnicos</button>
             <h2>Equipamento</h2>
             <button type="button" onclick='redirect_equipamento()' id="bt_gerenciar">Gerenciar</button>
-            <button id="bt_catalogo">Catálogo</button>
+            <button type="button" onclick='redirect_catalogo()' id="bt_catalogo">Catálogo</button>
             <input type="hidden" name="nick" value="<?php echo $nick; ?>">
         </form>
     </div>
@@ -59,26 +55,7 @@
                     
                 <?php 
                 
-                    echo '<select name="dd_tipo" id="tipo">';
-
-                    include 'conexao.php';
-
-                    $sql = "SELECT NOME FROM TAB_TIPO WHERE STATUS = 'Ativo'";
-                    $result = $conn->query($sql);
-
-                    if ($result->num_rows > 0) {
-
-                        while ($row = $result->fetch_assoc()) {
-
-                            echo '<option value="' . $row['NOME'] . '">' . $row['NOME'] . '</option>';
-
-                        }
-
-                    }
-                    
-                    echo '</select>';
-
-                    $conn->close();
+                    $Equipamento->display_equipamento('TAB_TIPO');
 
                 ?>
 
@@ -94,26 +71,7 @@
                 
                 <?php 
                 
-                    echo '<select name="dd_marca" id="marca">';
-
-                    include 'conexao.php';
-
-                    $sql = "SELECT NOME FROM TAB_MARCA WHERE STATUS = 'Ativo'";
-                    $result = $conn->query($sql);
-
-                    if ($result->num_rows > 0) {
-
-                        while ($row = $result->fetch_assoc()) {
-
-                            echo '<option value="' . $row['NOME'] . '">' . $row['NOME'] . '</option>';
-
-                        }
-
-                    }
-                    
-                    echo '</select>';
-
-                    $conn->close();
+                    $Equipamento->display_equipamento('TAB_MARCA');
 
                 ?>
 
@@ -129,26 +87,7 @@
                 
                 <?php 
                 
-                    echo '<select name="dd_modelo" id="modelo">';
-
-                    include 'conexao.php';
-
-                    $sql = "SELECT NOME FROM TAB_MODELO WHERE STATUS = 'Ativo'";
-                    $result = $conn->query($sql);
-
-                    if ($result->num_rows > 0) {
-
-                        while ($row = $result->fetch_assoc()) {
-
-                            echo '<option value="' . $row['NOME'] . '">' . $row['NOME'] . '</option>';
-
-                        }
-
-                    }
-                    
-                    echo '</select>';
-
-                    $conn->close();
+                    $Equipamento->display_equipamento('TAB_MODELO');
 
                 ?>
 
@@ -185,6 +124,10 @@
 
     function redirect_dashboard() {
         window.location.href = 'dashboard.php?nick=' + nick;
+    }
+
+    function redirect_catalogo() {
+        window.location.href = 'catalogo.php?nick=' + nick;
     }
 
 </script>
