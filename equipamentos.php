@@ -54,8 +54,12 @@
                 <input type="submit" value="+" name="add_tipo" id="add">
                     
                 <?php 
+
+                    echo '<select name="dd_tipo" id="tipo">';
                 
                     $Equipamento->display_equipamento('TAB_TIPO');
+
+                    echo '</select>';
 
                 ?>
 
@@ -70,8 +74,12 @@
                 <input type="submit" value="+" id="add" name="add_marca">
                 
                 <?php 
+
+                    echo '<select name="dd_marca" id="marca">';
                 
                     $Equipamento->display_equipamento('TAB_MARCA');
+
+                    echo '</select>';
 
                 ?>
 
@@ -86,8 +94,12 @@
                 <input type="submit" value="+" id="add" name="add_modelo">
                 
                 <?php 
+
+                    echo '<select name="dd_modelo" id="modelo">';
                 
                     $Equipamento->display_equipamento('TAB_MODELO');
+
+                    echo '</select>';
 
                 ?>
 
