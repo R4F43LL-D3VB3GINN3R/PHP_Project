@@ -11,43 +11,18 @@
 
     <?php 
 
-    $nick = '';
-    $id = '';
+        $nick = '';
+        $id = '';
 
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        require_once 'classes/catalogo_class.php';
 
-        if(isset($_POST['nick'])){
-            $nick = $_POST['nick'];
-            $id = $_POST['id_cat'];
-        }
+        $catalogo = new catalogo();
 
-        if(isset($_POST['formnick']) && isset($_POST['formid'])){
-            $nick = $_POST['formnick'];
-            $id = $_POST['formid'];
-        }
+        $dados = $catalogo->recebeNick_Catalogo($nick, $id);
 
-        if(isset($_POST['formnick'])) {
-            $nick = $_POST['formnick'];
-        }
-
-    } elseif ($_SERVER["REQUEST_METHOD"] == "GET") {
-
-        if(isset($_GET['nick']) && isset($_GET['id_cat'])){
-            $nick = $_GET['nick'];
-            $id = $_GET['id_cat'];
-        }
-
-        if(isset($_GET['formnick']) && isset($_GET['formid'])){
-            $nick = $_GET['formnick'];
-            $id = $_GET['formid'];
-        }
-
-        if(isset($_GET['nick'])) {
-            $nick = $_GET['nick'];
-        }
-
-    }
-
+        $nick = $dados['nick'];
+        $id = $dados['id_cat'];
+        
     ?>
 
     <div>
