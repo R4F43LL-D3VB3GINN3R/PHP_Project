@@ -11,19 +11,13 @@
 
 <?php 
 
-$nick = '';
+    $nick = '';
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Verifica se o nick foi enviado por POST
-    if(isset($_POST['nick'])){
-        $nick = $_POST['nick'];
-    }
-} elseif ($_SERVER["REQUEST_METHOD"] == "GET") {
-    // Verifica se o nick foi enviado por GET
-    if(isset($_GET['nick'])){
-        $nick = $_GET['nick'];
-    }
-}
+    require_once 'classes/main_class.php';
+    
+    $Main = new main();
+
+    $nick = $Main->recebeNick('nick');
 
 ?>
 
@@ -150,7 +144,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 include 'conexao.php';
 
-                $sql = "SELECT NOME FROM TAB_TIPO";
+                $sql = "SELECT NOME FROM TAB_TIPO WHERE STATUS = 'Ativo'";
                 $result = $conn->query($sql);
 
                 if ($result->num_rows > 0) {
@@ -177,7 +171,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 include 'conexao.php';
 
-                $sql = "SELECT NOME FROM TAB_MARCA";
+                $sql = "SELECT NOME FROM TAB_MARCA WHERE STATUS = 'Ativo'";
                 $result = $conn->query($sql);
 
                 if ($result->num_rows > 0) {
@@ -204,7 +198,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 include 'conexao.php';
 
-                $sql = "SELECT NOME FROM TAB_MODELO";
+                $sql = "SELECT NOME FROM TAB_MODELO WHERE STATUS = 'Ativo'";
                 $result = $conn->query($sql);
 
                 if ($result->num_rows > 0) {
