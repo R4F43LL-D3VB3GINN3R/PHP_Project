@@ -4,363 +4,550 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="../imgs/ipicon.jpg" type="image/x-icon">
-    <link rel="stylesheet" href="../style/messagebox.css">
-    <title>Produção</title>
+    <link rel="stylesheet" href="../style/producao.css">
+    <title>Folhas de Obras</title>
 </head>
 <body>
 
-    <?php
+    <?php 
 
-        include 'conexao.php';
+    $nick = '';
 
-        try {
+    require_once 'classes/main_class.php';
+    require_once 'classes/producao_class.php';
 
-            if ($_SERVER["REQUEST_METHOD"] === "GET") {
+    $Main = new main();
+    $Producao = new producao();
 
-                //Soma de km de todos os técnicos em atendimento na fo...
+    $nick = $Main->recebeNick('nick');
 
-                $quant_km1 = $_GET['num_km1']; //Quantidade de km percorrida pelo técnico em atendimento remoto...
-                $quant_km2 = $_GET['num_km2'];
-                $quant_km3 = $_GET['num_km3'];
-                $quant_km4 = $_GET['num_km4'];
-                $quant_km5 = $_GET['num_km5'];
-                $quant_km6 = $_GET['num_km6'];
+    ?>
 
-                $km_total = $quant_km1 + $quant_km2 + $quant_km3 + $quant_km4 + $quant_km5 + $quant_km6;
+    <?php //Main left principal?>
 
-                //Trabalhos efectuados...
-                $trabalhos_efectuados = $_GET['textarea_trabEfetuados'];
+    <div class="left">
+        <form action="producao_delete.php" id="form_left" method="get">
 
-                //Informações da FO...
-                $id_fo = $_GET['txt_ticket']; //ID da fo...
+            <div class="div_procura">
+                <input type="hidden" name="nick" value="<?php echo isset($nick) ? htmlspecialchars($nick) : ''; ?>">
+                <label for="txt_ticket">FO Nº / Cliente</label>
+                <input type="txt_ticket" name="txt_ticket" id="ticket" readonly="true">
+                <input type="text" name="txt_cli" id="cli" readonly="true">
+            </div>
 
-                //Informações do Admin...
-                $nick = $_GET['nick'];
-                $cliente = $_GET['txt_cli'];
+            <?php //Controlador de Tempo?>
 
-                //Informações do Cliente...
+            <div class="div_tempo"> <?php //Tabela 1?>
 
-                $nome_cliente = $_GET['txt_cli'];             //Nome do cliente... 
-                $soma_horas = $_GET['txt_tot_hrs'];           //Horas consumidas...
-                $horas_contrato = $_GET['txt_contr_horas'];   //Horas em contrato...
-                $horas_disponiveis = $_GET['txt_debt_horas']; //Horas disponíveis em contrato...
-                $horas_extras = $_GET['txt_tot_extras'];      //Horas extras...
+                <table class="tab1">
+                    <thead>
+                        <tr>
+                            <th id="th">Nome</th>
+                            <th id="th">Data</th>
+                        </tr>
+                        <tr>
+                            <th>Técnico</th>
+                            <th>Data</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
 
-                //Verifica se a fo já existe...
-                $sql = ("SELECT ID_FO FROM TAB_PRODUCAO WHERE ID_FO = '$id_fo'");
+                            $i = 0;
+
+                            for ($i = 1; $i <= 6; $i++) {
+
+                                echo '<tr>';
+                                    echo '<td><select name="dd_tecnico'.$i.'" id="tecnico'.$i.'">';        
+
+                                        $Producao->display_tableRow('TAB_TECNICO', 'NICK', 'NICK');
+                                        
+                                    echo '</select></td>';
+                                    echo '<td><input type="date" name="dt_tecnico'.$i.'" id="dt_tecnico'.$i.'"></td>';
+                                echo '</tr>';
+
+                            }
+
+                        ?>
+                    </tbody>
+                </table>
+
+                <table class="tab2"> <?php //Tabela 2?>
+                    <thead>
+                        <tr>
+                            <th>Horas</th>
+                            <th>Horas</th>
+                            <th>Viagem</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th>Início/Término.</th>
+                            <th>Trabalhadas</th>
+                            <th>Km</th>
+                        </tr>
+                        <tr>
+                            <td><input type="time" name="time_hora_ini1" id="hora_ini1"><input type="time" name="time_hora_fim1" id="hora_fim1"></td>
+                            <td><input type="text" name="time_hrs_trab1" id="hrs_trab1"></td>
+                            <td><input type="number" name="num_km1" id="km1" value="0"><td>                           
+                        </tr>
+                        <tr>
+                            <td><input type="time" name="time_hora_ini2" id="hora_ini2"><input type="time" name="time_hora_fim2" id="hora_fim2"></td>
+                            <td><input type="text" name="time_hrs_trab2" id="hrs_trab2"></td>
+                            <td><input type="number" name="num_km2" id="km2" value="0"><td>                           
+                        </tr>
+                        <tr>
+                            <td><input type="time" name="time_hora_ini3" id="hora_ini3"><input type="time" name="time_hora_fim3" id="hora_fim3"></td>
+                            <td><input type="text" name="time_hrs_trab3" id="hrs_trab3"></td>
+                            <td><input type="number" name="num_km3" id="km3" value="0"><td>                           
+                        </tr>
+                        <tr>
+                            <td><input type="time" name="time_hora_ini4" id="hora_ini4"><input type="time" name="time_hora_fim4" id="hora_fim4"></td>
+                            <td><input type="text" name="time_hrs_trab4" id="hrs_trab4"></td>
+                            <td><input type="number" name="num_km4" id="km4" value="0"><td>                            
+                        </tr>
+                        <tr>
+                            <td><input type="time" name="time_hora_ini5" id="hora_ini5"><input type="time" name="time_hora_fim5" id="hora_fim5"></td>
+                            <td><input type="text" name="time_hrs_trab5" id="hrs_trab5"></td>
+                            <td><input type="number" name="num_km5" id="km5" value="0"><td>                           
+                        </tr>
+                        <tr>
+                            <td><input type="time" name="time_hora_ini6" id="hora_ini6"><input type="time" name="time_hora_fim6" id="hora_fim6"></td>
+                            <td><input type="text" name="time_hrs_trab6" id="hrs_trab6"></td>
+                            <td><input type="number" name="num_km6" id="km6" value="0"><td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="div_tempo_cliente">
+                    <h3>Horas Cliente</h3>
+                    <label for="txt_tot_hrs">TOTAIS</label>
+                    <input type="text" name="txt_tot_hrs" id="tot1_hrs" value="00-00"readonly="true">
+                    <label for="txt_contr_horas">CONTRATO</label>
+                    <input type="text" name="txt_contr_horas" id="contr_horas" value="00-00" readonly="true">
+                    <label for="txt_debt_horas">DISPONÍVEIS</label>
+                    <input type="text" name="txt_debt_horas" id="debt_horas" value="00-00" readonly="true">
+                    <label for="txt_tot_extras">EXTRAS</label>
+                    <input type="text" name="txt_tot_extras" id="tot_extras" value="00-00" readonly="true">
+                </div>
+
+            </div> <?php //Encerra da div_tempo?>
+
+            <?php //Deslocação KM?>
+
+            <div class="div_gen_hrs"> 
+                <button type="button" onclick='gerenciar_horas()'>Gerar</button>
+            </div>
+
+            <div class="div_mat"> <?php //Tabela de materiais?>
+
+                <table class="tab3"> 
+                    <thead>
+                        <tr>
+                            <th>Quantidade</th>
+                            <th>Nome</th>
+                            <th>Descrição do Material</th>
+                            <th>P.Unit</th>
+                            <th>P.Total</th>
+                            <th>Remover</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><input type="text" name="txt_quantMat1" id="quantMat1" value="0"></td>        
+                            <td><input type="text" name="txt_catalogo1" id="catalogo1" onclick='redirect_cat()'></td> 
+                            <td><input type="text" name="txt_descricao1" id="descricao1"></td>
+                            <td><input type="text" name="txt_precUnit1" id="precUnit1" value="0"></td> 
+                            <td><input type="text" name="txt_precTot1" id="precTot1" value="0"></td> 
+                            <input type="hidden" name="material_name_1" value="Nome do Material 1">
+                            <td><input type="submit" name="bt_remove1" class="bt_remove" id=bt_remove1 value="-"></td>
+                        </tr>
+                        <tr>
+                            <td><input type="text" name="txt_quantMat2" id="quantMat2" value="0"></td>   
+                            <td><input type="text" name="txt_catalogo2" id="catalogo2" onclick='redirect_cat()'></td>  
+                            <td><input type="text" name="txt_descricao2" id="descricao2"></td>
+                            <td><input type="text" name="txt_precUnit2" id="precUnit2" value="0"></td> 
+                            <td><input type="text" name="txt_precTot2" id="precTot2" value="0" step="0.01"></td>  
+                            <td><input type="submit" name="bt_remove2" class="bt_remove" id=bt_remove2 value="-"></td>
+                        </tr>
+                        <tr>
+                            <td><input type="text" name="txt_quantMat3" id="quantMat3" value="0"></td> 
+                            <td><input type="text" name="txt_catalogo3" id="catalogo3" onclick='redirect_cat()'></td> 
+                            <td><input type="text" name="txt_descricao3" id="descricao3"></td>  
+                            <td><input type="text" name="txt_precUnit3" id="precUnit3" value="0"></td>  
+                            <td><input type="text" name="txt_precTot3" id="precTot3" value="0"></td> 
+                            <td><input type="submit" name="bt_remove3" class="bt_remove" id=bt_remove3 value="-"></td> 
+                        </tr>
+                        <tr>
+                            <td><input type="text" name="txt_quantMat4" id="quantMat4" value="0"></td> 
+                            <td><input type="text" name="txt_catalogo4" id="catalogo4" onclick='redirect_cat()'></td> 
+                            <td><input type="text" name="txt_descricao4" id="descricao4"></td>
+                            <td><input type="text" name="txt_precUnit4" id="precUnit4" value="0"></td> 
+                            <td><input type="text" name="txt_precTot4" id="precTot4" value="0"></td>    
+                            <td><input type="submit" name="bt_remove4" class="bt_remove" id=bt_remove4 value="-"></td> 
+                        </tr>
+                        <tr>
+                            <td><input type="text" name="txt_quantMat5" id="quantMat5" value="0"></td> 
+                            <td><input type="text" name="txt_catalogo5" id="catalogo5" onclick='redirect_cat()'></td>  
+                            <td><input type="text" name="txt_descricao5" id="descricao5"></td>  
+                            <td><input type="text" name="txt_precUnit5" id="precUnit5" value="0"></td> 
+                            <td><input type="text" name="txt_precTot5" id="precTot5" value="0"></td> 
+                            <td><input type="submit" name="bt_remove5" class="bt_remove" id=bt_remove5 value="-"></td> 
+                        </tr>
+                        <tr>
+                            <td><input type="text" name="txt_quantMat6" id="quantMat6" value="0"></td> 
+                            <td><input type="text" name="txt_catalogo6" id="catalogo6" onclick='redirect_cat()'></td>  
+                            <td><input type="text" name="txt_descricao6" id="descricao6"></td> 
+                            <td><input type="text" name="txt_precUnit6" id="precUnit6" value="0"></td> 
+                            <td><input type="text" name="txt_precTot6" id="precTot6" value="0"></td>   
+                            <td><input type="submit" name="bt_remove6" class="bt_remove" id=bt_remove6 value="-"></td>
+                        </tr>
+                        <tr>
+                            <td><input type="text" name="txt_quantMat7" id="quantMat7" value="0"></td> 
+                            <td><input type="text" name="txt_catalogo7" id="catalogo7" onclick='redirect_cat()'></td>  
+                            <td><input type="text" name="txt_descricao7" id="descricao7"></td>  
+                            <td><input type="text" name="txt_precUnit7" id="precUnit7" value="0"></td> 
+                            <td><input type="text" name="txt_precTot7" id="precTot7" value="0"></td>  
+                            <td><input type="submit" name="bt_remove7" class="bt_remove" id=bt_remove7 value="-"></td>
+                        </tr>
+                        <tr>
+                            <td><input type="text" name="txt_quantMat8" id="quantMat8" value="0"></td>  
+                            <td><input type="text" name="txt_catalogo8" id="catalogo8" onclick='redirect_cat()'></td>  
+                            <td><input type="text" name="txt_descricao8" id="descricao8"></td> 
+                            <td><input type="text" name="txt_precUnit8" id="precUnit8" value="0"></td>  
+                            <td><input type="text" name="txt_precTot8" id="precTot8" value="0"></td> 
+                            <td><input type="submit" name="bt_remove8" class="bt_remove" id=bt_remove8 value="-"></td>
+                        </tr>
+                        <tr>
+                            <td><input type="text" name="txt_quantMat9" id="quantMat9" value="0"></td>  
+                            <td><input type="text" name="txt_catalogo9" id="catalogo9" onclick='redirect_cat()'></td>  
+                            <td><input type="text" name="txt_descricao9" id="descricao9"></td> 
+                            <td><input type="text" name="txt_precUnit9" id="precUnit9" value="0"></td>  
+                            <td><input type="text" name="txt_precTot9" id="precTot9" value="0"></td> 
+                            <td><input type="submit" name="bt_remove9" class="bt_remove" id=bt_remove9 value="-"></td>
+                        </tr>
+                        <tr>
+                            <td><input type="text" name="txt_quantMat10" id="quantMat10" value="0"></td> 
+                            <td><input type="text" name="txt_catalogo10" id="catalogo10" onclick='redirect_cat()'></td> 
+                            <td><input type="text" name="txt_descricao10" id="descricao10"></td>  
+                            <td><input type="text" name="txt_precUnit10" id="precUnit10" value="0"></td>  
+                            <td><input type="text" name="txt_precTot10" id="precTot10" value="0"></td>  
+                            <td><input type="submit" name="bt_remove10" class="bt_remove" id=bt_remove10 value="-"></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div> <?php //Encerra a tabela de materiais?>  
+
+            <?php //Trabalhos Efetuados?>
+
+            <div class="div_trabEfetuados">
+                <label for="">Trabalhos Efectuados</label>
+                <textarea name="textarea_trabEfetuados" id="trabEfetuados" cols="70" rows="5"></textarea>
+            </div>
+
+        </form> <?php //Encerra o Formulário?>
+    </div> <?php //Encerra a div .left?>
+
+  <?php //Main right principal?>
+    
+    <div class="right">
+
+        <form action="" class="form_menu">
+
+            <div class="div_menuright0"> <?php //Menu botões.?>
+
+                <button type="button" id="bt_cat">Catálogo</button>
+                <button type="button" id="bt_voltar" onclick='redirect()'>Voltar</button>
+                <button type="button" id="bt_imprimir">Imprimir</button>
+                <button type="button" id="bt_salvar">Salvar</button>
+
+            </div>
+
+            <div class="div_title"> <?php //TX.?>
+                <h2>SQG Rádio</h2>
+            </div>
+            <div class="div_menuright1">
+                
+                <h3>TX(Transmissão)</h3>
+                <label for="txt_pot">Potência(W)</label>
+                <input type="text" name="txt_pot" id="pot">
+                <label for="txt_pot">Modelação(KHZ)</label>
+                <input type="text" name="txt_mod" id="mod">
+                <label for="txt_pot">Descarga Frequência</label>
+                <input type="text" name="txt_freq" id="freq">
+
+            </div>
+
+            <div class="div_menuright2_3">
+
+                <div class="div_menuright2">
+                    
+                    <h3>TX(Alimentação)</h3>
+                    <label for="dd_bat">Est. Bateria</label>
+                    <select name="dd_bat" id="bat">
+                        <option value="N/A">N/A</option>
+                        <option value="Sim">Sim</option>
+                    </select>
+                    <label for="dd_alimentacao">Alimentação (12V)</label>
+                    <select name="dd_alimentacao" id="alimentacao">
+                        <option value="N/A">N/A</option>
+                        <option value="Sim">Sim</option>
+                    </select>
+
+                </div>
+
+                <div class="div_menuright3">
+                    
+                    <h3>TX(Recepção)</h3>
+                    <label for="txt_sens">Sensibilidade (μV)</label>
+                    <input type="text" name="txt_sens" id="sens">
+                    <label for="dd_audio">Áudio</label>
+                    <select name="dd_audio" id="audio">
+                        <option value="N/A">N/A</option>
+                        <option value="Sim">Sim</option>
+                    </select>
+
+                </div>
+
+            </div> <?php //Fim TX.?>
+
+            <div class="div_title">
+                <h2>SQG Informática</h2>
+            </div>
+
+            <div class="div_menuright4_5"> <?php //Hardware e Software?>
+
+                <div class="div_menuright4">
+
+                    <h3>Hardware</h3>
+                    <label for="dd_teste_funcional">Teste Funcional</label>
+                    <select name="dd_teste_funcional" id="teste_funcional">
+                        <option value="N/A">N/A</option>
+                        <option value="Sim">Sim</option>
+                    </select>
+                    <label for="dd_aval_funcionamento">Aval. de Funcionamento</label>
+                    <select name="dd_aval_funcionamento" id="aval_funcionamento">
+                        <option value="N/A">N/A</option>
+                        <option value="Sim">Sim</option>
+                    </select>
+                    <label for="dd_circuito_de_alimentacao">Circuito de Alimentação</label>
+                    <select name="dd_circuito_de_alimentacao" id="circuito_de_alimentacao">
+                        <option value="N/A">N/A</option>
+                        <option value="Sim">Sim</option>
+                    </select>
+
+                </div>
+
+                <div class="div_menuright5">
+
+                    <h3>Software</h3>
+                    <label for="dd_inicia_corretamente">Inicia Corretamente</label>
+                    <select name="dd_inicia_Corretamente" id="inicia_corretamente">
+                        <option value="N/A">N/A</option>
+                        <option value="Sim">Sim</option>
+                    </select>
+                    <label for="dd_HWSW">Interactividade (HW/SW)</label>
+                    <select name="dd_HWSW" id="HWSW">
+                        <option value="N/A">N/A</option>
+                        <option value="Sim">Sim</option>
+                    </select>
+                    <label for="dd_actualizacaoSW">Actualização(SW)</label>
+                    <select name="dd_actualizacaoSW" id="actualizacaoSW">
+                        <option value="N/A">N/A</option>
+                        <option value="Sim">Sim</option>
+                    </select>
+                    <label for="dd_resultado_esperado">Resultado Esperado</label>
+                    <select name="dd_resultado_esperado" id="resultado_esperado">
+                        <option value="N/A">N/A</option>
+                        <option value="Sim">Sim</option>
+                    </select>
+
+                </div>
+
+            </div> <?php // Final da div Hardware Software?>
+
+            <div class="div_title"> <?php //TX.?>
+                <h2>Debitar</h2>
+            </div>
+            <div class="div_menuright6">
+
+                <select name="dd_tipo" id="dd_tipo">
+                    <option value=""></option>
+                    <option value="Garantia">Garantia</option>
+                    <option value="Encomenda">Encomenda</option>
+                    <option value="Manutenção">Manutenção</option>
+                    <option value="Aluguer">Aluguer</option>
+                    <option value="Avença">Avença</option>
+                </select>
+                <label for="dd_facturar">Facturar</label>
+                <select name="dd_avenca" id="avenca">
+                    <option value="N">Não</option>
+                    <option value="S">Sim</option>
+                </select>
+                <label for="dd_deslocacao">Deslocação</label>
+                <select name="dd_deslocacao" id="deslocacao">
+                    <option value="N">Não</option>
+                    <option value="S">Sim</option>
+                </select>
+
+            </div>
+
+        </form>
+
+    </div>
+
+    <?php 
+
+    $nick = '';
+
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        
+        if(isset($_POST['nick'])){
+
+            $nick = $_POST['nick'];
+            $id_fo = $_POST['procura_fo'];
+            $cliente = $_POST['dd_cliente'];
+            $id_material = $_POST['id_material'];
+
+            // Exemplo de uso dos dados (você pode substituir por sua lógica de processamento)
+            echo "Nick: " . $nick . "<br>";
+            echo "ID FO: " . $id_fo . "<br>";
+            echo "Cliente: " . $cliente . "<br>";
+            echo "ID Material: " . $id_material . "<br>";
+
+        }
+
+    } elseif ($_SERVER["REQUEST_METHOD"] == "GET") {
+        
+        if(isset($_GET['nick'])){
+
+            $nick = $_GET['nick'];          //Recebe o nick do user...
+            $cliente = $_GET['dd_cliente']; //Recebe o nome do cliente...
+            $cliente_nome = $cliente;       //Quero guardar o nome do cliente aqui para usar depois...
+            $id = $_GET['procura_fo'];      //Recebe o id da fo...
+
+            echo "<script>document.getElementById('ticket').value = '$id';</script>";   //Campo recebe o número do id...
+            echo "<script>document.getElementById('cli').value = '$cliente';</script>"; //Campo recebe o nome do cliente...
+
+            include 'conexao.php';
+
+            $sql = "SELECT NIF FROM TAB_CLIENTE WHERE NOME = '$cliente'"; //Seleciona o nif do cliente...
+            $result = $conn->query($sql);
+
+            if ($result->num_rows > 0) {
+
+                $nifcliente_array = $result->fetch_assoc();
+                $nif_cliente = $nifcliente_array['NIF'];
+
+                //Seleciona os dados do contrato relacionados ao cliente...
+                $sql = "SELECT TEMPO_CONSUMIDO, TEMPO_EXTRA FROM TAB_CONTRATO WHERE ID = '$nif_cliente'";
                 $result = $conn->query($sql);
 
                 if ($result->num_rows > 0) {
 
-                    //----------------------------------------------------------------------------------------------
-                    //INÍCIO DA ATUALIZAÇÃO DOS DOS TÉCNICOS
-                    //----------------------------------------------------------------------------------------------
+                    $array_contrato = $result->fetch_assoc();
+                    $tempo_consumido = $array_contrato['TEMPO_CONSUMIDO'];
+                    $tempo_extra = $array_contrato['TEMPO_EXTRA'];
 
-                    $stmt = $conn->prepare("UPDATE TAB_PRODUCAO
-                                            SET KM_TOTAL = ?, HORAS_TOTAIS = ?, TRABALHOS_FEITOS = ?
-                                            WHERE ID_FO = ?");
-                    $stmt->bind_param('issi', $km_total, $soma_horas, $trabalhos_efectuados, $id_fo);
-                    $result = $stmt->execute();
-
-                    if ($result) {
-
-                        //Pegar a chave da Produção relacionada à FO...
-                        $sql = "SELECT ID FROM TAB_PRODUCAO WHERE ID_FO = '$id_fo'";
-                        $result = $conn->query($sql);
-
-                        if ($result->num_rows > 0) {
-
-                            $id_prod = $result->fetch_assoc(); //Passar o ID da produção para o vetor...
-                            $prod_id = $id_prod['ID'];
-
-                            //Removemos os dados dos antigos técnicos...
-                            $sql = "DELETE FROM TAB_PROD_TEC_LINHAS WHERE ID_PROD = '$prod_id'";
-                            $result = $conn->query($sql);
-
-                            if ($result) {
-
-                                //Agora vamos atualizar os dados inserindo os dados dos técnicos novos...
-                                // Pegamos os dados dos técnicos 1 ao 6...
-                                for ($i = 1; $i <= 6; $i++) {
-
-                                    ${'tecnico' . $i} = $_GET['dd_tecnico' . $i];
-                                    ${'data' . $i} = $_GET['dt_tecnico' . $i];
-                                    ${'hora_inicio' . $i} = $_GET['time_hora_ini' . $i];
-                                    ${'hora_fim' . $i} = $_GET['time_hora_fim' . $i];
-                                    ${'horas_trabalhadas' . $i} = $_GET['time_hrs_trab' . $i];
-
-                                    // Seleciona o id do técnico relacionado ao nome...
-                                    $sql = "SELECT ID FROM TAB_TECNICO WHERE NICK = '${'tecnico' . $i}'";
-                                    $result = $conn->query($sql);
-
-                                    if ($result->num_rows > 0) { // Se houver um técnico selecionado na dropdown... 
-
-                                        $id_tec = $result->fetch_assoc(); // Passa o id para o array...
-
-                                        // Insere os dados de trabalho do técnico na tabela de produção...
-                                        $stmt = $conn->prepare("INSERT INTO TAB_PROD_TEC_LINHAS (ID_PROD, ID_TEC, DATA_DIA, HORA_INICIO, HORA_FIM, TOTAL_KM, TEMPO_TRABALHADO)
-                                        VALUES (?, ?, ?, ?, ?, ?, ?)");
-                                        $stmt->bind_param("iisssis", $id_prod['ID'], $id_tec['ID'], ${'data' . $i}, ${'hora_inicio' . $i}, ${'hora_fim' . $i}, ${'quant_km' . $i}, ${'horas_trabalhadas' . $i});
-                                        $result = $stmt->execute();
-
-                                        if ($result) { //Se a Query for bem sucedida...
-
-                                            //Selecionamos o nif...
-                                            $sql = "SELECT NIF FROM TAB_CLIENTE WHERE NOME = '$cliente'";
-                                            $result = $conn->query("$sql");
-
-                                            if ($result->num_rows > 0) { //Se ele encontrar o nif...
-
-                                                $nif_cliente = $result->fetch_assoc(); //Insere o nif ao array...
-                                                $nifcli = $nif_cliente['NIF'];         //Insere o nif na variável...
-        
-                                                //Selecionamos as informacoesdo contrato relacionado ao nif do cliente...
-                                                $sql = "SELECT ID, QUANT_DESLOCACOES FROM TAB_CONTRATO WHERE ID = '$nifcli'";
-                                                $result = $conn->query($sql);
-        
-                                                if ($result->num_rows > 0) { //Se encontrar um contrato...
-
-                                                    $info_contrato = $result->fetch_assoc();                  //Passa o id para o array...
-                                                    $idcontrato = $info_contrato['ID'];                       //Passa o id para a variável...
-                                                    $quant_deslocacoes = $info_contrato['QUANT_DESLOCACOES']; //Passa a quantidade de deslocacoes...
-
-                                                    $horas_disponiveis = $_GET['txt_debt_horas']; //Horas disponíveis em contrato...
-                                                    $horas_extras = $_GET['txt_tot_extras'];      //Horas extras...
-
-                                                    if ($quant_deslocacoes != 0) { //Se o cliente tiver direito a dislocações...
-
-                                                        $quant_deslocacoes = $quant_deslocacoes - 1; //Decrementamos o valor da deslocação...
-        
-                                                    } else { 
-        
-                                                        $quant_deslocacoes = 0; //Definimos como zero e sempre vamos inserir este número...
-        
-                                                    }     
-
-                                                    //Altera na tabela de contratos o tempo consumido de horas e as horas extras...
-                                                    $stmt = $conn->prepare("UPDATE TAB_CONTRATO
-                                                    SET TEMPO_CONSUMIDO = ?, TEMPO_EXTRA = ?, QUANT_DESLOCACOES = ?
-                                                    WHERE ID = ?");
-                                                    $stmt->bind_param('ssii', $horas_disponiveis, $horas_extras, $quant_deslocacoes, $idcontrato);
-                                                    $result = $stmt->execute();
-
-                                                    if ($result) {
-
-                                                        //---------------------------------------------------------------------------------------
-                                                        //FIM DA ATUALIZAÇÃO DOS TÉCNICOS
-                                                        //---------------------------------------------------------------------------------------
-
-                                                        //---------------------------------------------------------------------------------------
-                                                        //INÍCIO DA ATUALIZAÇÃO DOS DADOS INFORMÁTICOS
-                                                        //---------------------------------------------------------------------------------------
-
-                                                        $potencia = $_GET['txt_pot'];
-                                                        $modelacao = $_GET['txt_mod'];
-                                                        $frequencia = $_GET['txt_freq'];
-                                                        $sensibilidade = $_GET['txt_sens'];
-                                                        $audio = $_GET['dd_audio'];
-                                                        $bateria = $_GET['dd_bat'];
-                                                        $alimentacao = $_GET['dd_alimentacao'];
-
-                                                        $stmt = $conn->prepare("UPDATE TAB_PROD_RADIO
-                                                                                SET POTENCIA = ?, MODELACAO = ?, FREQUENCIA = ?, SENSIBILIDADE = ?, AUDIO = ?, BATERIA = ?, ALIMENTACAO = ?
-                                                                                WHERE ID_PROD = ?");
-                                                        $stmt->bind_param('sssssssi', $potencia, $modelacao, $frequencia, $sensibilidade, $audio, $bateria, $alimentacao, $prod_id);
-                                                        $result = $stmt->execute();
-
-                                                        if ($result) {
-
-                                                            $teste_funcional = $_GET['dd_teste_funcional'];
-                                                            $aval_funcionamento = $_GET['dd_aval_funcionamento'];
-                                                            $circuito_alimentacao = $_GET['dd_circuito_de_alimentacao'];
-                                                            $inicia_corretamente = $_GET['dd_inicia_Corretamente'];
-                                                            $interactividade = $_GET['dd_HWSW'];
-                                                            $actualizacao = $_GET['dd_actualizacaoSW'];
-                                                            $resultado_esperado = $_GET['dd_resultado_esperado'];
-
-                                                            $stmt = $conn->prepare("UPDATE TAB_PROD_INFORMATICA
-                                                                                    SET TESTE_FUNCIONAL = ?, FUNCIONAMENTO = ?, ALIMENTACAO = ?, INICIA_CORRETAMENTE = ?, INTERATIVIDADE_HW_SW = ?, ACTUALIZACAO_SQ = ?, RESULTADO_ESPERADO = ? WHERE ID_PROD = ?");
-                                                            $stmt->bind_param('sssssssi', $teste_funcional, $aval_funcionamento, $circuito_alimentacao, $inicia_corretamente, $interactividade, $actualizacao, $resultado_esperado, $prod_id);
-                                                            $result = $stmt->execute();
-
-                                                            //-----------------------------------------------------------------------------------
-                                                            //FIM DA ATUALIZAÇÃO DOS DADOS INFORMÁTICOS
-                                                            //----------------------------------------------------------------------------------
-
-                                                        }
-
-                                                    }
-
-                                                }
-
-                                            }
-
-                                        }
-                                        
-                                    }    
-
-                                }
-
-                            }
-
-                        }   
-
-                    }
-
-                    echo "<div>
-                                <h2>Dados da FO $id_fo registados no sistema.</h2>
-                                <button type='button' onclick='redirect()'>Ok</button>
-                            </div>";
-
+                    echo "<script>document.getElementById('debt_horas').value = '$tempo_consumido';</script>"; //Campo recebe o tempo restante de contrato...
+                    echo "<script>document.getElementById('tot_extras').value = '$tempo_extra';</script>"; //Campo recebe as horas extras do cliente...
 
                 } else {
 
-                    //----------------------------------------------------------------------------------------------
-                    //INÍCIO DA INSERÇÃO DOS DOS TÉCNICOS
-                    //----------------------------------------------------------------------------------------------
+                    echo "<script>document.getElementById('debt_horas').value = '00:00';</script>"; //Campo recebe o tempo restante de contrato...
+                    echo "<script>document.getElementById('tot_extras').value = '00:00';</script>"; //Campo recebe as horas extras do cliente...
 
-                    //Consulta para inserir dados à tabela de produção...
-                    $stmt = $conn->prepare("INSERT INTO TAB_PRODUCAO (ID_FO, KM_TOTAL, HORAS_TOTAIS, TRABALHOS_FEITOS)
-                    VALUES (?, ?, ?, ?)");
-                    $stmt->bind_param('iiss', $id_fo, $km_total, $soma_horas, $trabalhos_efectuados);
-                    $result = $stmt->execute();
+                }
 
-                    //Se a query funcionar...
-                    if ($result) {
+            }
+            
+            //Seleciona os dados da tabela de produção relacionado a fo...
+            $sql = "SELECT * FROM TAB_PRODUCAO WHERE ID_FO = '$id'";
+            $result = $conn->query($sql);
 
-                        //Pegar a chave da Produção relacionada à FO...
-                        $sql = "SELECT ID FROM TAB_PRODUCAO WHERE ID_FO = '$id_fo'";
+            if ($result->num_rows > 0) {
+
+                $idprod = $result->fetch_assoc();
+                $id_prod = $idprod['ID'];
+                $total_horas = $idprod['HORAS_TOTAIS'];
+                $trabalhos_feitos = $idprod['TRABALHOS_FEITOS'];
+
+                //insere os dados nos campos...
+                echo "<script>document.getElementById('tot1_hrs').value = '$total_horas';</script>";
+                echo "<script>document.getElementById('trabEfetuados').value = '$trabalhos_feitos';</script>";
+
+                //seleciona os dados dos técnicos que trabalharam na fo...
+                $sql = "SELECT TAB_PROD_TEC_LINHAS.*, TAB_TECNICO.NICK AS nick_tecnico
+                        FROM TAB_PROD_TEC_LINHAS 
+                        JOIN TAB_TECNICO ON TAB_TECNICO.ID = TAB_PROD_TEC_LINHAS.ID_TEC 
+                        WHERE ID_PROD = '$id_prod';";
+                $result = $conn->query($sql);
+
+                $contador = 1; //Um contador é iniciado
+
+                if ($result->num_rows > 0) { //Se ele achar algo na consulta...
+
+                    while ($row = $result->fetch_assoc()) { //Carrega os dados do cliente e preenche os campos...
+
+                        echo "<script>document.getElementById('tecnico" . $contador . "').value = '" . $row['nick_tecnico'] . "';</script>";
+                        echo "<script>document.getElementById('dt_tecnico" . $contador . "').value = '" . $row['DATA_DIA'] . "';</script>";
+                        echo "<script>document.getElementById('hora_ini" . $contador . "').value = '" . $row['HORA_INICIO'] . "';</script>";
+                        echo "<script>document.getElementById('hora_fim" . $contador . "').value = '" . $row['HORA_FIM'] . "';</script>";
+                        echo "<script>document.getElementById('hrs_trab" . $contador . "').value = '" . $row['TEMPO_TRABALHADO'] . "';</script>";
+                        echo "<script>document.getElementById('km" . $contador . "').value = '" . $row['TOTAL_KM'] . "';</script>";
+
+                        $contador = $contador + 1; //Incrementa o contador...
+
+                    }
+
+                }
+
+                //Se for enviado algum id de materiais...
+                if(isset($_GET['id_material'])) {
+
+                    $id_material = $_GET['id_material']; //Define a variável...
+
+                    $sql = "SELECT * FROM TAB_CATALOGO WHERE ID = ?"; //Usa a variável para pesquisar as informações no catálogo...
+                    $stmt = $conn->prepare($sql);
+                    $stmt->bind_param('i', $id_material);
+                    $stmt->execute();
+                    $result = $stmt->get_result();
+
+                    if ($result->num_rows > 0) { //Se o material for encontrado...
+
+                        $mat_array = $result->fetch_assoc(); //Insere o resultado da consulta no array...
+                        
+                        //Conta quantos materiais de produção existem...
+                        $sql = "SELECT COUNT(ID_PROD) AS NUM 
+                                FROM TAB_PROD_CAT_LINHAS 
+                                WHERE ID_PROD = '$id_prod'";
                         $result = $conn->query($sql);
 
-                        if ($result->num_rows > 0) {
+                        if ($result->num_rows > 0) { //Se for achado algum material...
 
-                            $id_prod = $result->fetch_assoc(); //Passar o ID da produção para o vetor...
+                            $count_array = $result->fetch_assoc(); //Passa o resultado da consulta pro array...
+                            $count = $count_array['NUM'] + 1;      //Passa o resultado para a variável...
 
-                        }
+                            echo "<script>";
 
-                        // Pegamos os dados dos técnicos 1 ao 6...
-                        for ($i = 1; $i <= 6; $i++) {
+                                //Variáveis javascript recebem o valor do campo sendo o campo decidido pela variável do contador...
+                                echo "var cat = document.getElementById('catalogo$count').value;";
 
-                            ${'tecnico' . $i} = $_GET['dd_tecnico' . $i];
-                            ${'data' . $i} = $_GET['dt_tecnico' . $i];
-                            ${'hora_inicio' . $i} = $_GET['time_hora_ini' . $i];
-                            ${'hora_fim' . $i} = $_GET['time_hora_fim' . $i];
-                            ${'horas_trabalhadas' . $i} = $_GET['time_hrs_trab' . $i];
+                                $quant_mat = $_GET['quantidade'];
+                                $quant_preco = $_GET['quantidade'] * $mat_array['PRECO'];
 
-                            // Seleciona o id do técnico relacionado ao nome...
-                            $sql = "SELECT ID FROM TAB_TECNICO WHERE NICK = '${'tecnico' . $i}'";
-                            $result = $conn->query($sql);
+                                echo "if (cat == '') {"; //Se o campo estiver vazio...
 
-                            if ($result->num_rows > 0) { // Se houver um técnico selecionado na dropdown... 
+                                        //Insere os dados do material na tabela...
+                                        $stmt_insert = $conn->prepare("INSERT INTO TAB_PROD_CAT_LINHAS (ID_PROD, ID_CAT, QUANTIDADE, TOTAL) 
+                                        VALUES (?, ?, ?, ?)");
+                                        $stmt_insert->bind_param('iiii', $id_prod, $id_material, $quant_mat, $quant_preco);
+                                        $result_insert = $stmt_insert->execute();
+                                
+                                echo "}";
 
-                                $id_tec = $result->fetch_assoc(); // Passa o id para o array...
-
-                                // Insere os dados de trabalho do técnico na tabela de produção...
-                                $stmt = $conn->prepare("INSERT INTO TAB_PROD_TEC_LINHAS (ID_PROD, ID_TEC, DATA_DIA, HORA_INICIO, HORA_FIM, TOTAL_KM, TEMPO_TRABALHADO)
-                                VALUES (?, ?, ?, ?, ?, ?, ?)");
-                                $stmt->bind_param("iisssis", $id_prod['ID'], $id_tec['ID'], ${'data' . $i}, ${'hora_inicio' . $i}, ${'hora_fim' . $i}, ${'quant_km' . $i}, ${'horas_trabalhadas' . $i});
-                                $result = $stmt->execute();
-
-                                if ($result) { //Se a Query for bem sucedida...
-
-                                    //Selecionamos o nif...
-                                    $sql = "SELECT NIF FROM TAB_CLIENTE WHERE NOME = '$cliente'";
-                                    $result = $conn->query("$sql");
-
-                                    if ($result->num_rows > 0) { //Se ele encontrar o nif...
-
-                                        $nif_cliente = $result->fetch_assoc(); //Insere o nif ao array...
-                                        $nifcli = $nif_cliente['NIF'];         //Insere o nif na variável...
-
-                                        //Selecionamos as informacoesdo contrato relacionado ao nif do cliente...
-                                        $sql = "SELECT ID, QUANT_DESLOCACOES FROM TAB_CONTRATO WHERE ID = '$nifcli'";
-                                        $result = $conn->query($sql);
-
-                                        if ($result->num_rows > 0) { //Se encontrar um contrato...
-
-                                            $info_contrato = $result->fetch_assoc();                  //Passa o id para o array...
-                                            $idcontrato = $info_contrato['ID'];                       //Passa o id para a variável...
-                                            $quant_deslocacoes = $info_contrato['QUANT_DESLOCACOES']; //Passa a quantidade de deslocacoes...
-
-                                            $horas_disponiveis = $_GET['txt_debt_horas']; //Horas disponíveis em contrato...
-                                            $horas_extras = $_GET['txt_tot_extras'];      //Horas extras...
-
-                                            if ($quant_deslocacoes != 0) { //Se o cliente tiver direito a dislocações...
-
-                                                $quant_deslocacoes = $quant_deslocacoes - 1; //Decrementamos o valor da deslocação...
-
-                                            } else { 
-
-                                                $quant_deslocacoes = 0; //Definimos como zero e sempre vamos inserir este número...
-
-                                            }                                           
-                                            
-                                            //Altera na tabela de contratos o tempo consumido de horas e as horas extras...
-                                            $stmt = $conn->prepare("UPDATE TAB_CONTRATO
-                                                                    SET TEMPO_CONSUMIDO = ?, TEMPO_EXTRA = ?, QUANT_DESLOCACOES = ?
-                                                                    WHERE ID = ?");
-                                            $stmt->bind_param('ssii', $horas_disponiveis, $horas_extras, $quant_deslocacoes, $idcontrato);
-                                            $result = $stmt->execute();
-
-                                            //----------------------------------------------------------------------------------------------
-                                            //FIM DA INSERÇÃO DOS DADOS TÉCNICOS
-                                            //----------------------------------------------------------------------------------------------
-
-                                            //----------------------------------------------------------------------------------------------
-                                            //INÍCIO DA INSERÇÃO DOS DADOS INFORMÁTICOS
-                                            //----------------------------------------------------------------------------------------------
-
-                                            $potencia = $_GET['txt_pot'];
-                                            $modelacao = $_GET['txt_mod'];
-                                            $frequencia = $_GET['txt_freq'];
-                                            $sensibilidade = $_GET['txt_sens'];
-                                            $audio = $_GET['dd_audio'];
-                                            $bateria = $_GET['dd_bat'];
-                                            $alimentacao = $_GET['dd_alimentacao'];
-
-                                            $stmt = $conn->prepare("INSERT INTO TAB_PROD_RADIO (ID_PROD, POTENCIA, MODELACAO, FREQUENCIA, SENSIBILIDADE, AUDIO, BATERIA, ALIMENTACAO)
-                                            VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-                                            $stmt->bind_param('isssssss', $id_prod['ID'], $potencia, $modelacao, $frequencia, $sensibilidade, $audio, $bateria, $alimentacao);
-                                            $result = $stmt->execute();
-                                            
-                                            if ($result) {
-
-                                                $teste_funcional = $_GET['dd_teste_funcional'];
-                                                $aval_funcionamento = $_GET['dd_aval_funcionamento'];
-                                                $circuito_alimentacao = $_GET['dd_circuito_de_alimentacao'];
-                                                $inicia_corretamente = $_GET['dd_inicia_Corretamente'];
-                                                $interactividade = $_GET['dd_HWSW'];
-                                                $actualizacao = $_GET['dd_actualizacaoSW'];
-                                                $resultado_esperado = $_GET['dd_resultado_esperado'];
-
-                                                $stmt = $conn->prepare("INSERT INTO TAB_PROD_INFORMATICA
-                                                                        (ID_PROD, TESTE_FUNCIONAL, FUNCIONAMENTO, ALIMENTACAO, INICIA_CORRETAMENTE, INTERATIVIDADE_HW_SW, ACTUALIZACAO_SQ, RESULTADO_ESPERADO)
-                                                                        VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-                                                $stmt->bind_param('isssssss', $id_prod['ID'], $teste_funcional, $aval_funcionamento, $circuito_alimentacao, $inicia_corretamente, $interactividade, $actualizacao, $resultado_esperado);
-                                                $result = $stmt->execute();
-
-                                                //-----------------------------------------------------------------------------------
-                                                //FIM DA INSERÇÃO DOS DADOS INFORMÁTICOS
-                                                //----------------------------------------------------------------------------------
-
-                                            }
-
-                                        }   
-
-                                    }
-
-                                }
-
-                            }
-
-                        } 
-
-                        if ($result) {
-
-                            echo "<div>
-                                    <h2>Dados da FO $id_fo registados no sistema.</h2>
-                                    <button type='button' onclick='redirect()'>Ok</button>
-                                </div>";
+                            echo "</script>";
 
                         }
 
@@ -368,30 +555,395 @@
 
                 }
 
+                //Seleciona as informações do material relacionados a produção...
+                $sql = "SELECT NOME, DESCRICAO, PRECO, TOTAL, QUANTIDADE, TOTAL 
+                FROM TAB_CATALOGO 
+                JOIN TAB_PROD_CAT_LINHAS ON TAB_CATALOGO.ID = TAB_PROD_CAT_LINHAS.ID_CAT
+                WHERE ID_PROD = '$id_prod';";
+                $result = $conn->query($sql);
+
+                if ($result->num_rows > 0) { //Se encontrar algum...
+
+                    $i = 1; //Iniciaiza um contador...
+
+                    while ($row = $result->fetch_assoc()) { //Os campos são preenchidos de acordo com os valores encontrados...
+                        echo "<script>";
+                        echo "document.getElementById('quantMat$i').value = " . $row['QUANTIDADE'] . ";";
+                        echo "document.getElementById('catalogo$i').value = '" . $row['NOME'] . "';";
+                        echo "document.getElementById('descricao$i').value = '" . $row['DESCRICAO'] . "';";
+                        echo "document.getElementById('precUnit$i').value = " . $row['PRECO'] . ";";
+                        echo "document.getElementById('precTot$i').value = " . $row['TOTAL'] . ";"; 
+                        echo "</script>";
+                        
+                        $i++; // Incrementar o índice dentro do loop
+                    }
+
+                }
+
+                //Verifica se há algo na tabela...
+                $sql = "SELECT * FROM TAB_PROD_RADIO WHERE ID_PROD = '$id_prod'";
+                $result = $conn->query($sql);
+
+                if ($result->num_rows > 0) {
+
+                    while ($row = $result->fetch_assoc()) {
+
+                        echo "<script>";
+                        echo "document.getElementById('pot').value = '" . $row['POTENCIA'] . "';";
+                        echo "document.getElementById('mod').value = '" . $row['MODELACAO'] . "';";
+                        echo "document.getElementById('freq').value = '" . $row['FREQUENCIA'] . "';";
+                        echo "document.getElementById('sens').value = '" . $row['SENSIBILIDADE'] . "';";
+                        echo "document.getElementById('audio').value = '" . $row['AUDIO'] . "';";
+                        echo "document.getElementById('bat').value = '" . $row['BATERIA'] . "';";
+                        echo "document.getElementById('alimentacao').value = '" . $row['ALIMENTACAO'] . "';";
+                        echo "</script>";
+
+                    }
+
+                }
+
+                //Verifica se há algo na tabela...
+                $sql = "SELECT * FROM TAB_PROD_INFORMATICA WHERE ID_PROD = '$id_prod'";
+                $result = $conn->query($sql);
+
+                if ($result) {
+
+                    while ($row = $result->fetch_assoc()) {
+
+                        echo "<script>";
+                        echo "document.getElementById('teste_funcional').value = '" . $row['TESTE_FUNCIONAL'] . "';";
+                        echo "document.getElementById('aval_funcionamento').value = '" . $row['FUNCIONAMENTO'] . "';";
+                        echo "document.getElementById('circuito_de_alimentacao').value = '" . $row['ALIMENTACAO'] . "';";
+                        echo "document.getElementById('inicia_corretamente').value = '" . $row['INICIA_CORRETAMENTE'] . "';";
+                        echo "document.getElementById('HWSW').value = '" . $row['INTERATIVIDADE_HW_SW'] . "';";
+                        echo "document.getElementById('actualizacaoSW').value = '" . $row['ACTUALIZACAO_SQ'] . "';";
+                        echo "document.getElementById('resultado_esperado').value = '" . $row['RESULTADO_ESPERADO'] . "';";
+                        echo "</script>";
+
+                    }
+
+                }
+
+            }
+                    
+        } 
+
+    }
+    
+    ?>
+
+        <?php
+
+            include 'conexao.php';
+
+            //Inicia a consulta procurando o valor total de tempo de contrato do cliente...
+
+            $sql = "SELECT c.TEMPO_TOTAL AS tempo_contrato
+                    FROM TAB_CONTRATO c
+                    JOIN TAB_CLIENTE a ON a.NIF = c.ID
+                    WHERE NOME = '$cliente'";
+                    
+            $result = $conn->query($sql);
+
+            if ($result->num_rows > 0) {
+
+                $cliente = $result->fetch_assoc();
+                
+                // Formatando o tempo total em horas no formato de horas:minutos...
+                $tempo_contrato = sprintf("%02d:00", $cliente['tempo_contrato']);
+
+                echo "<script>document.getElementById('contr_horas').value = '" . $tempo_contrato . "';</script>";
+
+                $timerun = true; //Variável que permite a contabilidade do tempo...
+
+            } else { //Caso não haja tempo de contrato, significa que não há contrato...
+
+                $tempo_contrato = "00:00"; //Redefine a variável do cronômetro...
+
+                echo "<script>document.getElementById('contr_horas').value = '" . $tempo_contrato . "';</script>";
+
+                //Desativa os selects relacionados às viagens...
+                echo '
+                    <script>
+                        document.addEventListener("DOMContentLoaded", function() {
+                            var divTempo = document.querySelector(".tab2");
+                        
+                            var selectsDivTempo = divTempo.querySelectorAll("select");
+
+                            selectsDivTempo.forEach(function(select) {
+                                select.setAttribute("disabled", "true");
+                            });
+                        });
+                    </script>
+                    ';
+
+                $timerun = false; //Redefine a variável para permitir que o relógio se mova...
+
             }
 
-        } catch (Exception $e) {
+            $conn->close();
 
-            throw new Exception("[Erro 400] na Transmissão de Informações Web ");
-
-        $conn->close();
-
-        }
-       
-    ?>
+        ?>
 
     <script>
 
+        //Função para contabilizar as horas trabalhadas pelo técnico durante o dia.
+
+        function processarTecnico(id_ini, id_fim, id_hrs_trab) {
+
+            var hora_ini = document.getElementById(id_ini).value;
+            var hora_fim = document.getElementById(id_fim).value;
+
+            if (hora_ini && hora_fim) {
+
+                var ini = new Date("01/01/2000 " + hora_ini);
+                var fim = new Date("01/01/2000 " + hora_fim);
+
+                var diferenca = fim - ini;
+
+                var horas = Math.floor(diferenca / 1000 / 60 / 60);
+                diferenca -= horas * 1000 * 60 * 60;
+                var minutos = Math.floor(diferenca / 1000 / 60);
+
+                var total_horas = pad(horas, 2) + ":" + pad(minutos, 2);
+
+                document.getElementById(id_hrs_trab).value = total_horas;
+
+            }
+
+        }
+
+        function gerenciar_horas() { 
+
+            //Chama a função que calcula a diferença entre a hora inicial e a hora final do serviço... 
+            processarTecnico('hora_ini1', 'hora_fim1', 'hrs_trab1');
+            processarTecnico('hora_ini2', 'hora_fim2', 'hrs_trab2');
+            processarTecnico('hora_ini3', 'hora_fim3', 'hrs_trab3');
+            processarTecnico('hora_ini4', 'hora_fim4', 'hrs_trab4');
+            processarTecnico('hora_ini5', 'hora_fim5', 'hrs_trab5');
+            processarTecnico('hora_ini6', 'hora_fim6', 'hrs_trab6');
+
+            var tempo_contrato = "<?php echo $tempo_contrato; ?>"; // Recebe o tempo de contrato do cliente...
+            var timerun = "<?php echo $timerun; ?>"; //Recebe a validação do contrato...
+
+            if (timerun) { //Variável que verifica se há contrato...
+                
+                // Calcular o total de horas trabalhadas...
+                var total_horas_trabalhadas = sumarizarHoras('hrs_trab1', 'hrs_trab2', 'hrs_trab3', 'hrs_trab4', 'hrs_trab5', 'hrs_trab6');
+
+                // Atualizar o campo 'tot1_hrs' com o total de horas trabalhadas...
+                document.getElementById('tot1_hrs').value = total_horas_trabalhadas;
+
+                // Calcular o total de horas debitadas...
+                total_horas_debitadas = 0; //Iniciada como zero para ser redefinida para cada clique do botão...
+
+                var total_horas_debitadas = sumarizarHoras2('contr_horas', 'tot1_hrs'); //Calculo do débito das horas.
+
+                document.getElementById('debt_horas').value = total_horas_debitadas; //Inserir ao campo do débito...
+
+                if (total_horas_trabalhadas > tempo_contrato) { //Se o tempo total de tabalho exceder o contrato...
+
+                    total_horas_debitadas = 0; //Nova redefinição da variável...
+
+                    //Exibe o alerta ao técnico...
+                    alert("O tempo de contrado do cliente expirou, qualquer serviço subsequente será contabilizado nas horas extras.")
+
+                    //Redefine o campo de horas totais trabalhadas...
+                    document.getElementById('tot1_hrs').value = total_horas_trabalhadas;
+
+                    //Chama a função para calcular as horas extras...
+                    var total_horas_extras = sumarizarHoras2('tot1_hrs', 'contr_horas');
+
+                    //Insere finalmente ao campo...
+                    document.getElementById('tot_extras').value = total_horas_extras;
+
+
+            } else { // Se não houver horas extras, defina o campo 'tot_extras' como 0...
+                
+                document.getElementById('tot_extras').value = "00:00";
+                
+            }
+
+        }
+
+        }
+
+        function pad(num, size) { //Funcao para ajutar os valores de horas...
+
+            var s = num + "";
+            while (s.length < size) s = "0" + s;
+
+            return s;
+
+        }
+
+        //As operações aritméticas com horas consistem em separá-las do caractere ":", realizar a conta e depois unir novamente...
+
+        function sumarizarHoras(id1, id2, id3, id4, id5, id6) { //Função para somar as horas...
+
+            var horas1 = document.getElementById(id1).value.split(':');
+            var horas2 = document.getElementById(id2).value.split(':');
+            var horas3 = document.getElementById(id3).value.split(':');
+            var horas4 = document.getElementById(id4).value.split(':');
+            var horas5 = document.getElementById(id5).value.split(':');
+            var horas6 = document.getElementById(id6).value.split(':');
+
+            var totalHoras, totalMinutos;
+
+            if (horas1[0] && horas1[1]) {
+
+                totalHoras = parseInt(horas1[0]);
+                totalMinutos = parseInt(horas1[1]);
+
+            } else {
+
+                totalHoras = 0;
+                totalMinutos = 0;
+
+            }
+
+            if (horas2[0] && horas2[1]) {
+
+                totalHoras += parseInt(horas2[0]);
+                totalMinutos += parseInt(horas2[1]);
+
+            }
+
+            if (horas3[0] && horas3[1]) {
+
+                totalHoras += parseInt(horas3[0]);
+                totalMinutos += parseInt(horas3[1]);
+
+            }
+
+            if (horas4[0] && horas4[1]) {
+
+                totalHoras += parseInt(horas4[0]);
+                totalMinutos += parseInt(horas4[1]);
+
+            }
+
+            if (horas5[0] && horas5[1]) {
+
+                totalHoras += parseInt(horas5[0]);
+                totalMinutos += parseInt(horas5[1]);
+
+            }
+
+            if (horas6[0] && horas6[1]) {
+
+                totalHoras += parseInt(horas6[0]);
+                totalMinutos += parseInt(horas6[1]);
+
+            }
+
+            // Se os minutos passarem de 60, adicionamos uma hora e ajustamos os minutos
+            if (totalMinutos >= 60) {
+
+                totalHoras += Math.floor(totalMinutos / 60);
+                totalMinutos %= 60;
+
+            }
+
+            // Retornar o total formatado
+            return pad(totalHoras, 2) + ':' + pad(totalMinutos, 2);
+
+        }
+
+        function sumarizarHoras2(id1, id2) { //Função para calcular horas extras...
+
+            var horas1 = document.getElementById(id1).value.split(':');
+            var horas2 = document.getElementById(id2).value.split(':');
+
+            var totalHoras, totalMinutos;
+
+            if (horas1[0] && horas1[1]) {
+
+                totalHoras = parseInt(horas1[0]);
+                totalMinutos = parseInt(horas1[1]);
+
+            } else {
+
+                totalHoras = 0;
+                totalMinutos = 0;
+
+            }
+
+            if (horas2[0] && horas2[1]) {
+
+                totalHoras -= parseInt(horas2[0]);
+                totalMinutos -= parseInt(horas2[1]);
+
+            }
+
+            // Se os minutos passarem de 60, adicionamos uma hora e ajustamos os minutos
+            if (totalMinutos >= 60) {
+
+                totalHoras += Math.floor(totalMinutos / 60);
+                totalMinutos %= 60;
+
+            }
+
+            // Retornar o total formatado
+            return pad(totalHoras, 2) + ':' + pad(totalMinutos, 2);
+
+        }
+
+    </script>
+
+    <script>
+
+        //Envio de formulários para inserir clientes...
+
+        var nick = '<?php echo $nick; ?>';
+        var cliente = '<?php echo $nick; ?>';
+
+        document.getElementById("bt_salvar").addEventListener("click", function() {
+
+        var forms = document.querySelectorAll("form"); 
+        var formData = new FormData(); 
+
+        forms.forEach(function(form) {
+
+            var inputs = form.querySelectorAll("input, select, textarea"); 
+
+            inputs.forEach(function(input) {
+
+                formData.append(input.name, input.value); 
+    
+            });
+
+        });
+
+        var serializedFormData = new URLSearchParams(formData).toString();
+
+        var url = "producao_insert.php?" + serializedFormData + "&nick=" + nick;
+
+        window.location.href = url;
+
+        });
+
+    </script>
+
+<script>
+
+    // Definindo as variáveis PHP como variáveis JavaScript
     var nick = '<?php echo $nick; ?>';
-    var id_fo = '<?php echo $id_fo; ?>';
-    var cliente = '<?php echo $cliente; ?>';
+    var cliente = '<?php echo $cliente_nome; ?>';
+    var id_fo = '<?php echo $id; ?>';
 
-    function redirect() {
-
-        window.location.href = 'producao.php?nick=' + nick + '&procura_fo=' + id_fo + '&dd_cliente=' + cliente;
+    // Função para redirecionar para 'catalogo_producao.php' com os parâmetros
+    function redirect_cat() {
+ 
+        window.location.href = 'catalogo_producao.php?nick=' + encodeURIComponent(nick) + '&id_fo=' + encodeURIComponent(id_fo) + '&cliente=' + encodeURIComponent(cliente);
 
     }
-        
-    </script>
+
+    function redirect() {
+        window.location.href = 'fo.php?nick=' + nick;
+    }
+    
+</script>
+
 </body>
 </html>
