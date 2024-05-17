@@ -14,8 +14,10 @@
     $nick = '';
 
     require_once 'classes/main_class.php';
+    require_once 'classes/fo_class.php';
     
     $Main = new main();
+    $Fo = new fo();
 
     $nick = $Main->recebeNick('nick');
 
@@ -52,25 +54,9 @@
                 
                 echo '<select name="dd_cliente" id="cliente">';
 
-                include 'conexao.php';
+                $Fo->display_tableRow('TAB_CLIENTE', 'NOME', 'NOME');
 
-                $sql = "SELECT NOME FROM TAB_CLIENTE";
-                $result = $conn->query($sql);
-
-                if ($result->num_rows > 0) {
-
-                    while ($row = $result->fetch_assoc()) {
-
-                        echo '<option value="' . $row['NOME'] . '">' . $row['NOME'] . '</option>';
-
-                    }
-
-                }
-                
                 echo '</select>';
-                
-
-                $conn->close();
 
             ?>
 
@@ -80,24 +66,9 @@
                 
                 echo '<select name="dd_tecnico" id="tecnico">';
 
-                include 'conexao.php';
-
-                $sql = "SELECT NICK FROM TAB_TECNICO";
-                $result = $conn->query($sql);
-
-                if ($result->num_rows > 0) {
-
-                    while ($row = $result->fetch_assoc()) {
-
-                        echo '<option value="' . $row['NICK'] . '">' . $row['NICK'] . '</option>';
-
-                    }
-
-                }
+                $Fo->display_tableRow('TAB_TECNICO', 'NICK', 'NICK');
                 
                 echo '</select>';
-
-                $conn->close();
 
             ?>
 
@@ -110,26 +81,11 @@
                 
                 echo '<select name="dd_estado" id="estado">';
 
-                include 'conexao.php';
-
-                $sql = "SELECT NOME FROM TAB_ESTADO";
-                $result = $conn->query($sql);
-
-                if ($result->num_rows > 0) {
-
-                    while ($row = $result->fetch_assoc()) {
-
-                        echo '<option value="' . $row['NOME'] . '">' . $row['NOME'] . '</option>';
-
-                    }
-
-                }
+                $Fo->display_tableRow('TAB_ESTADO', 'NOME', 'NOME');
                 
                 echo '</select>';
 
-                $conn->close();
-
-                ?>
+            ?>
 
         </form>
     </div>   
@@ -142,26 +98,11 @@
                 
                 echo '<select name="dd_tipo" id="tipo">';
 
-                include 'conexao.php';
-
-                $sql = "SELECT NOME FROM TAB_TIPO WHERE STATUS = 'Ativo'";
-                $result = $conn->query($sql);
-
-                if ($result->num_rows > 0) {
-
-                    while ($row = $result->fetch_assoc()) {
-
-                        echo '<option value="' . $row['NOME'] . '">' . $row['NOME'] . '</option>';
-
-                    }
-
-                }
+                $Fo->display_tableRow('TAB_TIPO', 'NOME', 'NOME');
                 
                 echo '</select>';
 
-                $conn->close();
-
-                ?>
+            ?>
 
             <label for="dd_marca">Marca Equip:</label>
             
@@ -169,26 +110,11 @@
                 
                 echo '<select name="dd_marca" id="marca">';
 
-                include 'conexao.php';
-
-                $sql = "SELECT NOME FROM TAB_MARCA WHERE STATUS = 'Ativo'";
-                $result = $conn->query($sql);
-
-                if ($result->num_rows > 0) {
-
-                    while ($row = $result->fetch_assoc()) {
-
-                        echo '<option value="' . $row['NOME'] . '">' . $row['NOME'] . '</option>';
-
-                    }
-
-                }
+                $Fo->display_tableRow('TAB_MARCA', 'NOME', 'NOME');
                 
                 echo '</select>';
 
-                $conn->close();
-
-                ?>
+            ?>
 
             <label for="dd_modelo">Modelo Equip:</label>
             
@@ -196,26 +122,11 @@
                 
                 echo '<select name="dd_modelo" id="modelo">';
 
-                include 'conexao.php';
-
-                $sql = "SELECT NOME FROM TAB_MODELO WHERE STATUS = 'Ativo'";
-                $result = $conn->query($sql);
-
-                if ($result->num_rows > 0) {
-
-                    while ($row = $result->fetch_assoc()) {
-
-                        echo '<option value="' . $row['NOME'] . '">' . $row['NOME'] . '</option>';
-
-                    }
-
-                }
+                $Fo->display_tableRow('TAB_MODELO', 'NOME', 'NOME');
                 
                 echo '</select>';
 
-                $conn->close();
-
-                ?>
+            ?>
 
         </form>
     </div>
@@ -271,44 +182,28 @@
 
 <?php 
 
-    // Ao clicar no botão procurar, enviamos os dados do formulário para esta mesma página por método GET...
-
     include 'conexao.php';
-
-    // Verifica o método e se algum número foi enviado...
 
     if ($_SERVER["REQUEST_METHOD"] === "GET" && isset($_GET['procura_fo']) && !empty($_GET['procura_fo'])) {
 
-        $id = $_GET['procura_fo']; // Variável para receber o número enviado...
+        $id = $_GET['procura_fo']; 
 
-        if ($id == "Não Encontrado") { //Se no input tiver escrito Não encontrado...
-
-            //Inserimos o valor de Não encontrado no input...
+        if ($id == "Não Encontrado") { 
 
             echo "<script>document.getElementById('procura_fo').value = 'Não Encontrado';</script>";
-
-            //Se for escrito qualquer coisa que não seja um número...
 
         } else if ($id != "Não Encontrado" && !is_numeric($id)) {
 
-            //Inserimos o valor de Não encontrado no input...
-
             echo "<script>document.getElementById('procura_fo').value = 'Não Encontrado';</script>";
 
-            //Se for enviado um valor numérico podemos iniciar a consulta...
-
         } else {
-
-            //Consulta se o número do cliente existe na tabela...
 
             $sql2 = "SELECT * FROM TAB_FO WHERE ID = '$id'";
             $result2 = $conn->query($sql2);
 
-            if ($result2->num_rows > 0) { //Se o número for encontrado...
+            if ($result2->num_rows > 0) { 
 
-                $dados = $result2->fetch_assoc(); //Insere a linha da consulta no vetor...
-
-                //Insere valores nos campos...
+                $dados = $result2->fetch_assoc(); 
 
                 echo "<script>document.getElementById('procura_fo').value = '$id';</script>";
                 echo "<script>document.getElementById('numero_serie').value = '" . $dados['N_SERIE'] . "';</script>";
