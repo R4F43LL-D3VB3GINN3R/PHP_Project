@@ -12,19 +12,15 @@
 
 <?php 
 
-$nick = '';
+    $nick = '';
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Verifica se o nick foi enviado por POST
-    if(isset($_POST['nick'])){
-        $nick = $_POST['nick'];
-    }
-} elseif ($_SERVER["REQUEST_METHOD"] == "GET") {
-    // Verifica se o nick foi enviado por GET
-    if(isset($_GET['nick'])){
-        $nick = $_GET['nick'];
-    }
-}
+    require_once 'classes/main_class.php';
+    require_once 'classes/dashboard_class.php';
+    
+    $Main = new main();
+    $Dashboard = new dashboard();
+
+    $nick = $Main->recebeNick('nick');
 
 ?>
 
@@ -37,51 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             <?php 
             
-                include 'conexao.php';
-
-                $sql = "SELECT 
-                fo.ID, 
-                c.NOME AS cliente_nome, 
-                t.NICK AS tecnico_nick, 
-                tipo.NOME AS tipo_nome, 
-                marca.NOME AS marca_nome, 
-                modelo.NOME AS modelo_nome,
-                estado.NOME AS estado_nome,
-                fo.N_SERIE,
-                fo.CRIACAO_DATA,
-                fo.TICKET
-                FROM TAB_FO fo
-                JOIN TAB_CLIENTE c ON fo.ID_CLIENTE = c.ID
-                JOIN TAB_TECNICO t ON fo.ID_TECNICO = t.ID
-                JOIN TAB_TIPO tipo ON fo.ID_TIPO = tipo.ID
-                JOIN TAB_MARCA marca ON fo.ID_MARCA = marca.ID
-                JOIN TAB_MODELO modelo ON fo.ID_MODELO = modelo.ID
-                JOIN TAB_ESTADO estado ON fo.ID_ESTADO = estado.ID
-                WHERE ID_ESTADO = 1";
-
-                $result = $conn->query($sql);
-
-                if ($result->num_rows > 0) {
-
-                    echo "<table border='1'>";
-                    echo "<tr>
-                    <th>Cliente</th>
-                    <th>Técnico</th>
-                    <th>Data/Hr</th>
-                    </tr>";
-
-                    while($row = $result->fetch_assoc()) {
-                        
-                        echo "<tr>";
-                        echo "<td><a href='fo.php?procura_fo={$row['ID']}&nick={$nick}'>{$row['cliente_nome']}</a></td>";
-                        echo "<td><a href='fo.php?procura_fo={$row['ID']}&nick={$nick}'>{$row['tecnico_nick']}</a></td>";
-                        echo "<td><a href='fo.php?procura_fo={$row['ID']}&nick={$nick}'>{$row['CRIACAO_DATA']}</a></td>";
-                        echo "</tr>";
-                    }
-
-                echo "</table>";
-
-                } 
+                $Dashboard->display_tableRow(1, $nick);
             
             ?>
 
@@ -89,264 +41,52 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <div class="body2">
         <h2>Orçamentar/Orçamentado</h2>    
 
-        <?php 
+            <?php 
+                
+                $Dashboard->display_tableRow2(2, 3, $nick);
             
-            include 'conexao.php';
-
-            $sql = "SELECT 
-            fo.ID, 
-            c.NOME AS cliente_nome, 
-            t.NICK AS tecnico_nick, 
-            tipo.NOME AS tipo_nome, 
-            marca.NOME AS marca_nome, 
-            modelo.NOME AS modelo_nome,
-            estado.NOME AS estado_nome,
-            fo.N_SERIE,
-            fo.CRIACAO_DATA,
-            fo.TICKET
-            FROM TAB_FO fo
-            JOIN TAB_CLIENTE c ON fo.ID_CLIENTE = c.ID
-            JOIN TAB_TECNICO t ON fo.ID_TECNICO = t.ID
-            JOIN TAB_TIPO tipo ON fo.ID_TIPO = tipo.ID
-            JOIN TAB_MARCA marca ON fo.ID_MARCA = marca.ID
-            JOIN TAB_MODELO modelo ON fo.ID_MODELO = modelo.ID
-            JOIN TAB_ESTADO estado ON fo.ID_ESTADO = estado.ID
-            WHERE ID_ESTADO = 2 or ID_ESTADO = 3";
-
-            $result = $conn->query($sql);
-
-            if ($result->num_rows > 0) {
-
-                echo "<table border='1'>";
-                echo "<tr>
-                <th>Cliente</th>
-                <th>Técnico</th>
-                <th>Data/Hr</th>
-                </tr>";
-
-                while($row = $result->fetch_assoc()) {
-                    
-                    echo "<tr>";
-                    echo "<td><a href='fo.php?procura_fo={$row['ID']}&nick={$nick}'>{$row['cliente_nome']}</a></td>";
-                    echo "<td><a href='fo.php?procura_fo={$row['ID']}&nick={$nick}'>{$row['tecnico_nick']}</a></td>";
-                    echo "<td><a href='fo.php?procura_fo={$row['ID']}&nick={$nick}'>{$row['CRIACAO_DATA']}</a></td>";
-                    echo "</tr>";
-                }
-
-            echo "</table>";
-
-            } 
-        
-        ?>
+            ?>
 
         </div>
         <div class="body3">
         <h2>Aguarda Mat/Requisição</h2>    
-        <?php 
+
+            <?php 
+                
+                $Dashboard->display_tableRow(4, $nick);
             
-            include 'conexao.php';
+            ?>
 
-            $sql = "SELECT 
-            fo.ID, 
-            c.NOME AS cliente_nome, 
-            t.NICK AS tecnico_nick, 
-            tipo.NOME AS tipo_nome, 
-            marca.NOME AS marca_nome, 
-            modelo.NOME AS modelo_nome,
-            estado.NOME AS estado_nome,
-            fo.N_SERIE,
-            fo.CRIACAO_DATA,
-            fo.TICKET
-            FROM TAB_FO fo
-            JOIN TAB_CLIENTE c ON fo.ID_CLIENTE = c.ID
-            JOIN TAB_TECNICO t ON fo.ID_TECNICO = t.ID
-            JOIN TAB_TIPO tipo ON fo.ID_TIPO = tipo.ID
-            JOIN TAB_MARCA marca ON fo.ID_MARCA = marca.ID
-            JOIN TAB_MODELO modelo ON fo.ID_MODELO = modelo.ID
-            JOIN TAB_ESTADO estado ON fo.ID_ESTADO = estado.ID
-            WHERE ID_ESTADO = 4";
-
-            $result = $conn->query($sql);
-
-            if ($result->num_rows > 0) {
-
-                echo "<table border='1'>";
-                echo "<tr>
-                <th>Cliente</th>
-                <th>Técnico</th>
-                <th>Data/Hr</th>
-                </tr>";
-
-                while($row = $result->fetch_assoc()) {
-                    
-                    echo "<tr>";
-                    echo "<td><a href='fo.php?procura_fo={$row['ID']}&nick={$nick}'>{$row['cliente_nome']}</a></td>";
-                    echo "<td><a href='fo.php?procura_fo={$row['ID']}&nick={$nick}'>{$row['tecnico_nick']}</a></td>";
-                    echo "<td><a href='fo.php?procura_fo={$row['ID']}&nick={$nick}'>{$row['CRIACAO_DATA']}</a></td>";
-                    echo "</tr>";
-                }
-
-            echo "</table>";
-
-            } 
-        
-        ?>
         </div>
         <div class="body4">
-        <h2>Pendente</h2>    
-        <?php 
+        <h2>Pendente</h2>   
+
+            <?php 
+                
+                $Dashboard->display_tableRow(5, $nick);
             
-            include 'conexao.php';
+            ?>
 
-            $sql = "SELECT 
-            fo.ID, 
-            c.NOME AS cliente_nome, 
-            t.NICK AS tecnico_nick, 
-            tipo.NOME AS tipo_nome, 
-            marca.NOME AS marca_nome, 
-            modelo.NOME AS modelo_nome,
-            estado.NOME AS estado_nome,
-            fo.N_SERIE,
-            fo.CRIACAO_DATA,
-            fo.TICKET
-            FROM TAB_FO fo
-            JOIN TAB_CLIENTE c ON fo.ID_CLIENTE = c.ID
-            JOIN TAB_TECNICO t ON fo.ID_TECNICO = t.ID
-            JOIN TAB_TIPO tipo ON fo.ID_TIPO = tipo.ID
-            JOIN TAB_MARCA marca ON fo.ID_MARCA = marca.ID
-            JOIN TAB_MODELO modelo ON fo.ID_MODELO = modelo.ID
-            JOIN TAB_ESTADO estado ON fo.ID_ESTADO = estado.ID
-            WHERE ID_ESTADO = 5";
-
-            $result = $conn->query($sql);
-
-            if ($result->num_rows > 0) {
-
-                echo "<table border='1'>";
-                echo "<tr>
-                <th>Cliente</th>
-                <th>Técnico</th>
-                <th>Data/Hr</th>
-                </tr>";
-
-                while($row = $result->fetch_assoc()) {
-                    
-                    echo "<tr>";
-                    echo "<td><a href='fo.php?procura_fo={$row['ID']}&nick={$nick}'>{$row['cliente_nome']}</a></td>";
-                    echo "<td><a href='fo.php?procura_fo={$row['ID']}&nick={$nick}'>{$row['tecnico_nick']}</a></td>";
-                    echo "<td><a href='fo.php?procura_fo={$row['ID']}&nick={$nick}'>{$row['CRIACAO_DATA']}</a></td>";
-                    echo "</tr>";
-                }
-
-            echo "</table>";
-
-            } 
-        
-        ?>
         </div>
         <div class="body5">
-        <h2>Reparado/Resolvido</h2>    
-        <?php 
+        <h2>Reparado/Resolvido</h2>  
+
+            <?php 
+                
+                $Dashboard->display_tableRow(6, $nick);
             
-            include 'conexao.php';
+            ?>
 
-            $sql = "SELECT 
-            fo.ID, 
-            c.NOME AS cliente_nome, 
-            t.NICK AS tecnico_nick, 
-            tipo.NOME AS tipo_nome, 
-            marca.NOME AS marca_nome, 
-            modelo.NOME AS modelo_nome,
-            estado.NOME AS estado_nome,
-            fo.N_SERIE,
-            fo.CRIACAO_DATA,
-            fo.TICKET
-            FROM TAB_FO fo
-            JOIN TAB_CLIENTE c ON fo.ID_CLIENTE = c.ID
-            JOIN TAB_TECNICO t ON fo.ID_TECNICO = t.ID
-            JOIN TAB_TIPO tipo ON fo.ID_TIPO = tipo.ID
-            JOIN TAB_MARCA marca ON fo.ID_MARCA = marca.ID
-            JOIN TAB_MODELO modelo ON fo.ID_MODELO = modelo.ID
-            JOIN TAB_ESTADO estado ON fo.ID_ESTADO = estado.ID
-            WHERE ID_ESTADO = 6";
-
-            $result = $conn->query($sql);
-
-            if ($result->num_rows > 0) {
-
-                echo "<table border='1'>";
-                echo "<tr>
-                <th>Cliente</th>
-                <th>Técnico</th>
-                <th>Data/Hr</th>
-                </tr>";
-
-                while($row = $result->fetch_assoc()) {
-                    
-                    echo "<tr>";
-                    echo "<td><a href='fo.php?procura_fo={$row['ID']}&nick={$nick}'>{$row['cliente_nome']}</a></td>";
-                    echo "<td><a href='fo.php?procura_fo={$row['ID']}&nick={$nick}'>{$row['tecnico_nick']}</a></td>";
-                    echo "<td><a href='fo.php?procura_fo={$row['ID']}&nick={$nick}'>{$row['CRIACAO_DATA']}</a></td>";
-                    echo "</tr>";
-                }
-
-            echo "</table>";
-
-            } 
-        
-        ?>
         </div>
         <div class="body6">
         <h2>Finalizado</h2>    
-        <?php 
+
+            <?php 
+                
+                $Dashboard->display_tableRow(7, $nick);
             
-            include 'conexao.php';
-
-            $sql = "SELECT 
-            fo.ID, 
-            c.NOME AS cliente_nome, 
-            t.NICK AS tecnico_nick, 
-            tipo.NOME AS tipo_nome, 
-            marca.NOME AS marca_nome, 
-            modelo.NOME AS modelo_nome,
-            estado.NOME AS estado_nome,
-            fo.N_SERIE,
-            fo.CRIACAO_DATA,
-            fo.TICKET
-            FROM TAB_FO fo
-            JOIN TAB_CLIENTE c ON fo.ID_CLIENTE = c.ID
-            JOIN TAB_TECNICO t ON fo.ID_TECNICO = t.ID
-            JOIN TAB_TIPO tipo ON fo.ID_TIPO = tipo.ID
-            JOIN TAB_MARCA marca ON fo.ID_MARCA = marca.ID
-            JOIN TAB_MODELO modelo ON fo.ID_MODELO = modelo.ID
-            JOIN TAB_ESTADO estado ON fo.ID_ESTADO = estado.ID
-            WHERE ID_ESTADO = 7";
-
-            $result = $conn->query($sql);
-
-            if ($result->num_rows > 0) {
-
-                echo "<table border='1'>";
-                echo "<tr>
-                <th>Cliente</th>
-                <th>Técnico</th>
-                <th>Data/Hr</th>
-                </tr>";
-
-                while($row = $result->fetch_assoc()) {
-                    
-                    echo "<tr>";
-                    echo "<td><a href='fo.php?procura_fo={$row['ID']}&nick={$nick}'>{$row['cliente_nome']}</a></td>";
-                    echo "<td><a href='fo.php?procura_fo={$row['ID']}&nick={$nick}'>{$row['tecnico_nick']}</a></td>";
-                    echo "<td><a href='fo.php?procura_fo={$row['ID']}&nick={$nick}'>{$row['CRIACAO_DATA']}</a></td>";
-                    echo "</tr>";
-                }
-
-            echo "</table>";
-
-            } 
-        
-        ?>
+            ?>
+            
         </div>
     </section>
     <script>
